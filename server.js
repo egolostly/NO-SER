@@ -25,13 +25,66 @@ app.use(cookieParser());
 app.use(express.json({ limit: '25mb' }));
 app.use(express.urlencoded({ extended: true, limit: '25mb' }));
 
-// Disable aggressive browser caching for development / live preview
+// Security Middleware & HTTP Hardening
 app.use((req, res, next) => {
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  res.setHeader('X-Frame-Options', 'SAMEORIGIN');
+  res.setHeader('X-XSS-Protection', '1; mode=block');
+  res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+  res.setHeader('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
   res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
   res.setHeader('Pragma', 'no-cache');
   res.setHeader('Expires', '0');
   next();
 });
+
+// Rate limiting and Brute-force protection
+const failedAuthAttempts = new Map(); // ip -> { count, lockedUntil }
+
+function checkAuthRateLimit(req, res, next) {
+  const ip = req.ip || req.connection.remoteAddress || 'unknown-ip';
+  const now = Date.now();
+  const record = failedAuthAttempts.get(ip);
+
+  if (record && record.lockedUntil && record.lockedUntil > now) {
+    const remainingSec = Math.ceil((record.lockedUntil - now) / 1000);
+    return res.status(429).json({
+      success: false,
+      message: `Çok fazla hatalı giriş denemesi yapıldı! Lütfen ${remainingSec} saniye sonra tekrar deneyin.`
+    });
+  }
+
+  next();
+}
+
+function recordFailedAuth(ip) {
+  const now = Date.now();
+  const record = failedAuthAttempts.get(ip) || { count: 0, lockedUntil: null };
+  record.count += 1;
+
+  if (record.count >= 5) {
+    record.lockedUntil = now + 15 * 60 * 1000; // 15 minutes lockout
+  }
+
+  failedAuthAttempts.set(ip, record);
+}
+
+function recordSuccessfulAuth(ip) {
+  failedAuthAttempts.delete(ip);
+}
+
+// PDF Magic Byte Validator (ensures uploaded file is genuine %PDF)
+function validatePdfMagicBytes(filePath) {
+  try {
+    const fd = fs.openSync(filePath, 'r');
+    const buffer = Buffer.alloc(4);
+    fs.readSync(fd, buffer, 0, 4, 0);
+    fs.closeSync(fd);
+    return buffer.toString('ascii') === '%PDF';
+  } catch (err) {
+    return false;
+  }
+}
 
 // Multer storage configuration for PDF uploads
 const storage = multer.diskStorage({
@@ -240,9 +293,12 @@ function maskEmail(email) {
 // ================= API ROUTES =================
 
 // Direct Passkey / Gatekeeper Login (Instant Entry with Master Passkey)
-app.post('/api/auth/gatekeeper', (req, res) => {
+app.post('/api/auth/gatekeeper', checkAuthRateLimit, (req, res) => {
   const { passkey } = req.body;
+  const ip = req.ip || req.connection.remoteAddress || 'unknown-ip';
+
   if (!passkey) {
+    recordFailedAuth(ip);
     return res.status(400).json({ success: false, message: 'Master güvenlik anahtarı girilmelidir.' });
   }
 
@@ -250,9 +306,11 @@ app.post('/api/auth/gatekeeper', (req, res) => {
   const targetPasskey = admin.masterPasskey || 'NOISER2026';
 
   if (passkey.trim() !== targetPasskey.trim()) {
+    recordFailedAuth(ip);
     return res.status(403).json({ success: false, message: 'Geçersiz Master Güvenlik Anahtarı!' });
   }
 
+  recordSuccessfulAuth(ip);
   const token = generateToken(admin.username || 'admin');
   res.cookie('noiser_admin_token', token, {
     httpOnly: false,
@@ -273,9 +331,12 @@ app.post('/api/auth/gatekeeper', (req, res) => {
 });
 
 // Admin Username / Password Login
-app.post('/api/auth/login', (req, res) => {
+app.post('/api/auth/login', checkAuthRateLimit, (req, res) => {
   const { username, password } = req.body;
+  const ip = req.ip || req.connection.remoteAddress || 'unknown-ip';
+
   if (!username || !password) {
+    recordFailedAuth(ip);
     return res.status(400).json({ success: false, message: 'Kullanıcı adı ve şifre gereklidir.' });
   }
 
@@ -286,9 +347,11 @@ app.post('/api/auth/login', (req, res) => {
   const isCredentialMatch = username === admin.username && verifyPassword(password, admin.passwordHash, admin.salt);
 
   if (!isPasskeyMatch && !isCredentialMatch) {
+    recordFailedAuth(ip);
     return res.status(401).json({ success: false, message: 'Geçersiz kullanıcı adı veya şifre / anahtar.' });
   }
 
+  recordSuccessfulAuth(ip);
   const token = generateToken(admin.username || 'admin');
   res.cookie('noiser_admin_token', token, {
     httpOnly: false,
@@ -506,7 +569,29 @@ app.post('/api/admin/licenses', authMiddleware, upload.single('pdfFile'), (req, 
       notes
     } = req.body;
 
+    // Validate uploaded file authenticity if provided
+    if (req.file) {
+      const isGenuinePdf = validatePdfMagicBytes(req.file.path);
+      if (!isGenuinePdf) {
+        fs.unlinkSync(req.file.path);
+        return res.status(400).json({
+          success: false,
+          message: 'Geçersiz PDF dosyası! Yüklenen dosya gerçek bir PDF formatı taşımıyor.'
+        });
+      }
+    }
+
     const rawCode = code && code.trim() ? code.trim().toUpperCase() : `NS-${new Date().getFullYear()}-${Math.floor(1000 + Math.random() * 9000)}`;
+    
+    // Strict Code Format Check
+    if (!/^[A-Z0-9\-_]{3,40}$/.test(rawCode)) {
+      if (req.file) fs.unlinkSync(req.file.path);
+      return res.status(400).json({
+        success: false,
+        message: 'Lisans kodu sadece harf, rakam ve tire içermelidir (Örn: NS-2026-8842).'
+      });
+    }
+
     const licenses = readLicenses();
     const exists = licenses.some(l => l.code.toUpperCase() === rawCode);
 
@@ -587,6 +672,17 @@ app.put('/api/admin/licenses/:id', authMiddleware, upload.single('pdfFile'), (re
       status,
       notes
     } = req.body;
+
+    if (req.file) {
+      const isGenuinePdf = validatePdfMagicBytes(req.file.path);
+      if (!isGenuinePdf) {
+        fs.unlinkSync(req.file.path);
+        return res.status(400).json({
+          success: false,
+          message: 'Geçersiz PDF dosyası! Yüklenen dosya gerçek bir PDF formatı taşımıyor.'
+        });
+      }
+    }
 
     const licenses = readLicenses();
     const index = licenses.findIndex(l => l.id === licenseId);

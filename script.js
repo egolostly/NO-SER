@@ -24,21 +24,19 @@ const translations = {
     "license.tag": "LİSANS DOĞRULAMA MERKEZİ",
     "license.title": "Satın Aldığınız Lisansı Doğrulayın",
     "license.desc": "Beat ve prodüksiyon haklarınızı anında teyit edin, yasal mülkiyet bilgilerinizi görüntüleyin ve imzalı resmi PDF sözleşmenizi indirin.",
+    "license.boxTitle": "Doğrulama ve Belge Sorgulama",
+    "license.boxDesc": "Size iletilen resmi lisans kodunu girerek doğrulamayı başlatın.",
+    "license.inputPlaceholder": "Lisans Kodunu Giriniz (Örn: NS-2026-8842)",
+    "license.verifyBtn": "Doğrula",
 
-    "verify.consoleTitle": "LİSANS NUMARANIZI GİRİN",
-    "verify.placeholder": "Lisans kodunuzu yazın (Örn: NS-2026-XXXX)",
-    "verify.btnText": "Doğrula",
-    "verify.loading": "Lisans kaydı doğrulanıyor...",
-    "verify.errorDefault": "Girdiğiniz lisans numarası sistemde bulunamadı. Lütfen kontrol ediniz.",
-
-    "cert.verifiedTag": "DOĞRULANMIŞ RESMİ LİSANS",
-    "cert.heading": "NO!SER Lisans Belgesi",
-    "cert.codeLabel": "LİSANS NUMARASI",
-    "cert.clientLabel": "LİSANS SAHİBİ (ALICI)",
-    "cert.emailLabel": "KAYITLI E-POSTA",
-    "cert.trackLabel": "LİSANSLANAN BEAT / ESER",
-    "cert.tierLabel": "LİSANS PAKETİ",
-    "cert.dateLabel": "DÜZENLENME TARİHİ",
+    "cert.officialTag": "RESMİ DİJİTAL SERTİFİKA",
+    "cert.registry": "NO!SER OFFICIAL LICENSE REGISTRY",
+    "cert.code": "LİSANS KODU",
+    "cert.owner": "LİSANS SAHİBİ (ALICI)",
+    "cert.type": "LİSANS TÜRÜ / KAPSAM",
+    "cert.date": "DÜZENLENME TARİHİ",
+    "cert.producer": "PRODÜKTÖR / HAK SAHİBİ",
+    "cert.security": "GÜVENLİK PROTOKOLÜ",
     "cert.copy": "Kopyala",
     "cert.copied": "Kopyalandı!",
     "cert.downloadBtn": "Lisans Belgesini İndir (PDF)",
@@ -54,9 +52,11 @@ const translations = {
     "contact.copyBtn": "E-postayı Kopyala",
     "contact.emailCopied": "Kopyalandı!",
     "contact.card3.text": "Tüm prodüksiyonlar, beat yayınları ve remiks arşivi.",
+    "contact.openInsta": "Instagram'ı Aç",
+    "contact.openSoundcloud": "SoundCloud'ı Aç",
 
-    "theme.btnBw": "S/B TEMA",
-    "theme.btnBrand": "RENKLİ TEMA",
+    "theme.dark": "Siyah",
+    "theme.light": "Beyaz",
     "footer.rights": "Tüm hakları saklıdır"
   },
   en: {
@@ -79,21 +79,19 @@ const translations = {
     "license.tag": "LICENSE VERIFICATION HUB",
     "license.title": "Verify Your Production License",
     "license.desc": "Instantly authenticate beat rights, inspect registered ownership, and download your signed official PDF agreement.",
+    "license.boxTitle": "Verification & Certificate Console",
+    "license.boxDesc": "Enter your official license code below to initiate verification.",
+    "license.inputPlaceholder": "Enter License Code (e.g. NS-2026-8842)",
+    "license.verifyBtn": "Verify",
 
-    "verify.consoleTitle": "ENTER LICENSE NUMBER",
-    "verify.placeholder": "Enter license code (e.g. NS-2026-XXXX)",
-    "verify.btnText": "Verify",
-    "verify.loading": "Verifying license record...",
-    "verify.errorDefault": "License code not found in our database. Please double check.",
-
-    "cert.verifiedTag": "OFFICIALLY VERIFIED LICENSE",
-    "cert.heading": "NO!SER License Certificate",
-    "cert.codeLabel": "LICENSE NUMBER",
-    "cert.clientLabel": "LICENSEE (CLIENT)",
-    "cert.emailLabel": "REGISTERED EMAIL",
-    "cert.trackLabel": "LICENSED BEAT / TRACK",
-    "cert.tierLabel": "LICENSE TIER",
-    "cert.dateLabel": "ISSUE DATE",
+    "cert.officialTag": "OFFICIAL DIGITAL CERTIFICATE",
+    "cert.registry": "NO!SER OFFICIAL LICENSE REGISTRY",
+    "cert.code": "LICENSE CODE",
+    "cert.owner": "LICENSEE (CLIENT)",
+    "cert.type": "LICENSE TIER",
+    "cert.date": "ISSUE DATE",
+    "cert.producer": "PRODUCER / RIGHTS OWNER",
+    "cert.security": "SECURITY PROTOCOL",
     "cert.copy": "Copy",
     "cert.copied": "Copied!",
     "cert.downloadBtn": "Download License (PDF)",
@@ -109,9 +107,11 @@ const translations = {
     "contact.copyBtn": "Copy Email",
     "contact.emailCopied": "Copied!",
     "contact.card3.text": "Full catalog of releases, instrumental beat tapes, and production archives.",
+    "contact.openInsta": "Open Instagram",
+    "contact.openSoundcloud": "Open SoundCloud",
 
-    "theme.btnBw": "B&W THEME",
-    "theme.btnBrand": "BRAND THEME",
+    "theme.dark": "Dark",
+    "theme.light": "Light",
     "footer.rights": "All rights reserved"
   }
 };
@@ -142,7 +142,6 @@ function setLanguage(language) {
     button.setAttribute("aria-pressed", String(isActive));
   });
 
-  updateThemeToggleText();
   localStorage.setItem("noiser-language", language);
 }
 
@@ -150,42 +149,38 @@ document.querySelectorAll(".lang-btn").forEach((button) => {
   button.addEventListener("click", () => setLanguage(button.dataset.lang));
 });
 
-// ================= THEME SWITCHER (SIYAH BEYAZ & MARKA TEMASI) =================
-const themeToggleBtn = document.getElementById("theme-toggle-btn");
-const themeToggleText = document.getElementById("theme-toggle-text");
+// ================= THEME SWITCHER (SIYAH TEMA & BEYAZ TEMA) =================
+const themeSwitchBtns = document.querySelectorAll("[data-theme-val]");
 
 function getActiveTheme() {
-  return localStorage.getItem("noiser-theme") || "brand";
-}
-
-function updateThemeToggleText() {
-  if (!themeToggleText) return;
-  const currentTheme = getActiveTheme();
-  if (currentTheme === "bw") {
-    themeToggleText.textContent = translations[currentLanguage]["theme.btnBrand"] || "RENKLİ TEMA";
-  } else {
-    themeToggleText.textContent = translations[currentLanguage]["theme.btnBw"] || "S/B TEMA";
-  }
+  return localStorage.getItem("noiser-theme") || "dark";
 }
 
 function applyTheme(theme) {
-  document.documentElement.setAttribute("data-theme", theme);
-  if (theme === "bw") {
-    document.body.classList.add("theme-bw");
+  const selectedTheme = (theme === "light") ? "light" : "dark";
+  document.documentElement.setAttribute("data-theme", selectedTheme);
+  if (selectedTheme === "light") {
+    document.body.classList.remove("theme-dark");
+    document.body.classList.add("theme-light");
   } else {
-    document.body.classList.remove("theme-bw");
+    document.body.classList.remove("theme-light");
+    document.body.classList.add("theme-dark");
   }
-  localStorage.setItem("noiser-theme", theme);
-  updateThemeToggleText();
-}
+  localStorage.setItem("noiser-theme", selectedTheme);
 
-if (themeToggleBtn) {
-  themeToggleBtn.addEventListener("click", () => {
-    const currentTheme = getActiveTheme();
-    const newTheme = currentTheme === "bw" ? "brand" : "bw";
-    applyTheme(newTheme);
+  // Update button active state
+  themeSwitchBtns.forEach(btn => {
+    const isActive = btn.dataset.themeVal === selectedTheme;
+    btn.classList.toggle("is-active", isActive);
+    btn.setAttribute("aria-pressed", String(isActive));
   });
 }
+
+themeSwitchBtns.forEach(btn => {
+  btn.addEventListener("click", () => {
+    applyTheme(btn.dataset.themeVal);
+  });
+});
 
 // Initialize Theme
 applyTheme(getActiveTheme());
@@ -336,18 +331,17 @@ function fallbackCopyText(text, callback) {
 }
 
 // ================= LICENSE VERIFICATION SYSTEM =================
-const licenseVerifyForm = document.getElementById("license-verify-form");
-const licenseVerifyInput = document.getElementById("license-verify-input");
-const verifyLoading = document.getElementById("verify-loading");
-const verifyError = document.getElementById("verify-error");
-const verifyResult = document.getElementById("verify-result");
+const verifyForm = document.getElementById("verify-form") || document.getElementById("license-verify-form");
+const licenseCodeInput = document.getElementById("license-code-input") || document.getElementById("license-verify-input");
+const verifyState = document.getElementById("verify-state");
+const certResult = document.getElementById("cert-result") || document.getElementById("verify-result");
 
-// Result Nodes
+// Result Elements
 const resCode = document.getElementById("res-code");
 const resCustomerName = document.getElementById("res-customer-name");
 const resCustomerEmail = document.getElementById("res-customer-email");
 const resTrackTitle = document.getElementById("res-track-title");
-const resTierPill = document.getElementById("res-tier-pill");
+const resLicenseType = document.getElementById("res-license-type") || document.getElementById("res-tier-pill");
 const resIssueDate = document.getElementById("res-issue-date");
 const resStatusBadge = document.getElementById("res-status-badge");
 const resDownloadBtn = document.getElementById("res-download-btn");
@@ -356,7 +350,7 @@ const resPreviewBtn = document.getElementById("res-preview-btn");
 const btnCopyCode = document.getElementById("btn-copy-code");
 const btnShareLink = document.getElementById("btn-share-link");
 
-// Modal Nodes
+// Modal Elements
 const sitePdfModal = document.getElementById("site-pdf-modal");
 const sitePdfIframe = document.getElementById("site-pdf-iframe");
 const sitePdfTitle = document.getElementById("site-pdf-title");
@@ -364,19 +358,41 @@ const sitePdfDownloadLink = document.getElementById("site-pdf-download-link");
 
 let currentVerifiedLicense = null;
 
+function showVerifyState(type, message) {
+  if (!verifyState) return;
+  verifyState.style.display = "flex";
+  
+  if (type === "loading") {
+    verifyState.className = "verify-state verify-state--loading";
+    verifyState.innerHTML = `
+      <div class="verify-spinner"></div>
+      <span>${message || (currentLanguage === "tr" ? "Lisans kaydı doğrulanıyor..." : "Verifying license record...")}</span>
+    `;
+  } else if (type === "error") {
+    verifyState.className = "verify-state verify-state--error";
+    verifyState.innerHTML = `
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      <span>${message}</span>
+    `;
+  }
+}
+
+function hideVerifyState() {
+  if (verifyState) verifyState.style.display = "none";
+}
+
 async function executeLicenseVerification(licenseCode) {
   if (!licenseCode || !licenseCode.trim()) return;
   const cleanCode = licenseCode.trim().toUpperCase();
 
-  if (verifyError) verifyError.style.display = "none";
-  if (verifyResult) verifyResult.style.display = "none";
-  if (verifyLoading) verifyLoading.style.display = "flex";
+  if (certResult) certResult.style.display = "none";
+  showVerifyState("loading");
 
   try {
     const res = await fetch(`/api/licenses/verify/${encodeURIComponent(cleanCode)}`);
     const data = await res.json();
 
-    if (verifyLoading) verifyLoading.style.display = "none";
+    hideVerifyState();
 
     if (data.success && data.license) {
       currentVerifiedLicense = data.license;
@@ -386,25 +402,25 @@ async function executeLicenseVerification(licenseCode) {
       if (resCustomerName) resCustomerName.textContent = lic.customerName || "-";
       if (resCustomerEmail) resCustomerEmail.textContent = lic.customerEmailMasked || lic.customerEmail || "-";
       if (resTrackTitle) resTrackTitle.textContent = lic.trackTitle || "Prod. by NO!SER";
-      if (resTierPill) resTierPill.textContent = lic.licenseType || "Official License";
+      if (resLicenseType) resLicenseType.textContent = lic.licenseType || "Official License";
       if (resIssueDate) resIssueDate.textContent = lic.issueDate || "-";
 
       if (resStatusBadge) {
         if (lic.status === "active") {
-          resStatusBadge.textContent = currentLanguage === "tr" ? "Aktif & Geçerli" : "Active & Valid";
-          resStatusBadge.style.background = "#ECFDF5";
-          resStatusBadge.style.color = "#047857";
-          resStatusBadge.style.borderColor = "#A7F3D0";
+          resStatusBadge.textContent = currentLanguage === "tr" ? "AKTİF & GEÇERLİ" : "ACTIVE & VALID";
+          resStatusBadge.className = "cert-valid-badge";
         } else if (lic.status === "expired") {
-          resStatusBadge.textContent = currentLanguage === "tr" ? "Süresi Doldu" : "Expired";
-          resStatusBadge.style.background = "#FEF2F2";
-          resStatusBadge.style.color = "#B91C1C";
-          resStatusBadge.style.borderColor = "#FCA5A5";
+          resStatusBadge.textContent = currentLanguage === "tr" ? "SÜRESİ DOLDU" : "EXPIRED";
+          resStatusBadge.className = "cert-valid-badge";
+          resStatusBadge.style.color = "#F87171";
+          resStatusBadge.style.borderColor = "rgba(239, 68, 68, 0.4)";
+          resStatusBadge.style.background = "rgba(239, 68, 68, 0.15)";
         } else {
-          resStatusBadge.textContent = currentLanguage === "tr" ? "Askıda" : "Suspended";
-          resStatusBadge.style.background = "#FFFBEB";
-          resStatusBadge.style.color = "#B45309";
-          resStatusBadge.style.borderColor = "#FDE68A";
+          resStatusBadge.textContent = currentLanguage === "tr" ? "ASKIDA" : "SUSPENDED";
+          resStatusBadge.className = "cert-valid-badge";
+          resStatusBadge.style.color = "#FBBF24";
+          resStatusBadge.style.borderColor = "rgba(245, 158, 11, 0.4)";
+          resStatusBadge.style.background = "rgba(245, 158, 11, 0.15)";
         }
       }
 
@@ -430,40 +446,29 @@ async function executeLicenseVerification(licenseCode) {
         }
       }
 
-      if (verifyResult) {
-        verifyResult.style.display = "block";
+      if (certResult) {
+        certResult.style.display = "block";
       }
     } else {
       currentVerifiedLicense = null;
-      if (verifyError) {
-        verifyError.style.display = "flex";
-        const errorMsgEl = document.getElementById("verify-error-msg");
-        if (errorMsgEl) {
-          errorMsgEl.textContent = currentLanguage === "tr" 
-            ? `'${cleanCode}' kodlu lisans veritabanında bulunamadı. Lütfen kontrol ediniz.` 
-            : `License code '${cleanCode}' was not found in our database. Please check again.`;
-        }
-      }
+      const errorMsg = data.message || (currentLanguage === "tr" 
+        ? `'${cleanCode}' kodlu lisans veritabanında bulunamadı. Lütfen kontrol ediniz.` 
+        : `License code '${cleanCode}' was not found in our database. Please check again.`);
+      showVerifyState("error", errorMsg);
     }
   } catch (err) {
-    if (verifyLoading) verifyLoading.style.display = "none";
-    if (verifyError) {
-      verifyError.style.display = "flex";
-      const errorMsgEl = document.getElementById("verify-error-msg");
-      if (errorMsgEl) {
-        errorMsgEl.textContent = currentLanguage === "tr" 
-          ? "Sunucuya bağlanılamadı. Lütfen tekrar deneyiniz." 
-          : "Could not connect to server. Please try again.";
-      }
-    }
+    const errorMsg = currentLanguage === "tr" 
+      ? "Sunucuya bağlanılamadı. Lütfen tekrar deneyiniz." 
+      : "Could not connect to server. Please try again.";
+    showVerifyState("error", errorMsg);
   }
 }
 
-if (licenseVerifyForm) {
-  licenseVerifyForm.addEventListener("submit", (e) => {
+if (verifyForm) {
+  verifyForm.addEventListener("submit", (e) => {
     e.preventDefault();
-    if (licenseVerifyInput) {
-      executeLicenseVerification(licenseVerifyInput.value);
+    if (licenseCodeInput) {
+      executeLicenseVerification(licenseCodeInput.value);
     }
   });
 }
@@ -614,7 +619,7 @@ if (secretAuthForm) {
         window.location.href = "/admin";
       } else {
         if (secretAuthError) {
-          secretAuthError.textContent = "Geçersiz Güvenlik Anahtarı!";
+          secretAuthError.textContent = data.message || "Geçersiz Güvenlik Anahtarı!";
           secretAuthError.style.display = "block";
         }
       }
@@ -639,7 +644,7 @@ function checkUrlForLicenseQuery() {
   }
 
   if (codeParam) {
-    if (licenseVerifyInput) licenseVerifyInput.value = codeParam;
+    if (licenseCodeInput) licenseCodeInput.value = codeParam;
     setTimeout(() => {
       scrollToSection("license");
       executeLicenseVerification(codeParam);
