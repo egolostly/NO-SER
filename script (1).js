@@ -665,112 +665,20 @@ function closeSitePdfModal() {
 
 window.closeSitePdfModal = closeSitePdfModal;
 
-// ================= SECRET ADMIN MODAL & HIDDEN TRIGGERS =================
-const secretAdminModal = document.getElementById("secret-admin-modal");
-const secretAuthForm = document.getElementById("secret-auth-form");
-const secretPasskeyInput = document.getElementById("secret-passkey-input");
-const secretAuthError = document.getElementById("secret-auth-error");
-const brandLogoBtn = document.getElementById("brand-logo-btn");
-
-function openSecretAdminModal() {
-  if (!secretAdminModal) {
-    window.location.href = "/admin";
-    return;
-  }
-  if (secretAuthError) secretAuthError.style.display = "none";
-  if (secretPasskeyInput) secretPasskeyInput.value = "";
-  secretAdminModal.classList.add("is-open");
-  setTimeout(() => {
-    if (secretPasskeyInput) secretPasskeyInput.focus();
-  }, 100);
-}
-
-function closeSecretAdminModal() {
-  if (!secretAdminModal) return;
-  secretAdminModal.classList.remove("is-open");
-}
-window.closeSecretAdminModal = closeSecretAdminModal;
-
-// Secret Gesture: 3 rapid clicks on the logo
-let logoClickCount = 0;
-let logoClickTimer = null;
-
-if (brandLogoBtn) {
-  brandLogoBtn.addEventListener("click", (e) => {
-    logoClickCount++;
-    if (logoClickCount === 1) {
-      logoClickTimer = setTimeout(() => {
-        logoClickCount = 0;
-        // Standard single click behavior: scroll to top
-        window.scrollTo({ top: 0, behavior: "smooth" });
-        history.replaceState(null, "", location.pathname + location.search);
-      }, 400);
-    } else if (logoClickCount >= 3) {
-      clearTimeout(logoClickTimer);
-      logoClickCount = 0;
-      e.preventDefault();
-      e.stopPropagation();
-      openSecretAdminModal();
-    }
-  });
-
-  // Long press trigger (1.5 seconds)
-  let longPressTimer = null;
-  brandLogoBtn.addEventListener("mousedown", () => {
-    longPressTimer = setTimeout(openSecretAdminModal, 1500);
-  });
-  brandLogoBtn.addEventListener("mouseup", () => clearTimeout(longPressTimer));
-  brandLogoBtn.addEventListener("mouseleave", () => clearTimeout(longPressTimer));
-  brandLogoBtn.addEventListener("touchstart", () => {
-    longPressTimer = setTimeout(openSecretAdminModal, 1500);
-  }, { passive: true });
-  brandLogoBtn.addEventListener("touchend", () => clearTimeout(longPressTimer));
-}
-
-// Keyboard Shortcut: Ctrl + Shift + A or Ctrl + Shift + N
+// Keyboard Accessibility: Escape key closes active PDF modal
 window.addEventListener("keydown", (e) => {
-  if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === "A" || e.key === "a" || e.key === "N" || e.key === "n")) {
-    e.preventDefault();
-    openSecretAdminModal();
-  }
   if (e.key === "Escape") {
     closeSitePdfModal();
-    closeSecretAdminModal();
   }
 });
 
-// Secret Form Submit
-if (secretAuthForm) {
-  secretAuthForm.addEventListener("submit", async (e) => {
+// Brand Logo standard scroll to top
+const brandLogoBtn = document.getElementById("brand-logo-btn");
+if (brandLogoBtn) {
+  brandLogoBtn.addEventListener("click", (e) => {
     e.preventDefault();
-    const passkey = (secretPasskeyInput && secretPasskeyInput.value.trim()) || "";
-    if (!passkey) return;
-
-    try {
-      const res = await fetch("/api/auth/gatekeeper", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ passkey })
-      });
-      const data = await res.json();
-
-      if (data.success && data.token) {
-        localStorage.setItem("noiser_admin_token", data.token);
-        sessionStorage.setItem("noiser_admin_token", data.token);
-        closeSecretAdminModal();
-        window.location.href = "/admin";
-      } else {
-        if (secretAuthError) {
-          secretAuthError.textContent = data.message || "Geçersiz Güvenlik Anahtarı!";
-          secretAuthError.style.display = "block";
-        }
-      }
-    } catch (err) {
-      if (secretAuthError) {
-        secretAuthError.textContent = "Sunucuya bağlanılamadı.";
-        secretAuthError.style.display = "block";
-      }
-    }
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    history.replaceState(null, "", location.pathname + location.search);
   });
 }
 

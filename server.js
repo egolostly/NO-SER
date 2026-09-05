@@ -985,5 +985,5 @@ app.use((req, res, next) => {
 // Start server
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`NO!SER Production Server running on http://0.0.0.0:${PORT}`);
-  console.log(`Stealth Admin Gateway Active [Access via Homepage Ctrl+Shift+A or ?key=PASSKEY]`);
+  console.log(`Stealth Security Active [Management Access via ?key=YOUR_PASSKEY]`);
 });

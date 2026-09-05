@@ -715,35 +715,6 @@
     </div>
   </div>
 
-  <!-- ================= SECURE GATEKEEPER DIALOG (AUTHENTICATION GATEWAY) ================= -->
-  <div id="secret-admin-modal" class="site-modal" aria-hidden="true">
-    <div class="site-modal__backdrop" onclick="closeSecretAdminModal()"></div>
-    <div class="site-modal__window secret-auth-dialog">
-      <div class="site-modal__header">
-        <div class="secret-header-wrap">
-          <span class="secret-shield-dot"></span>
-          <h3 class="site-modal__title">GÜVENLİ ERİŞİM MERKEZİ</h3>
-        </div>
-        <button type="button" class="site-modal__close-btn" onclick="closeSecretAdminModal()" aria-label="Kapat">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-        </button>
-      </div>
-      <div class="secret-auth-body">
-        <p class="secret-auth-prompt">Devam etmek için lütfen Güvenlik Anahtarınızı giriniz:</p>
-        <form id="secret-auth-form" autocomplete="off">
-          <div id="secret-auth-error" class="secret-auth-alert" style="display: none;"></div>
-          <div class="secret-input-wrap">
-            <input type="password" id="secret-passkey-input" placeholder="Güvenlik Anahtarını Giriniz" required autofocus />
-          </div>
-          <div class="secret-actions">
-            <button type="button" class="btn btn--navy-outline btn--sm" onclick="closeSecretAdminModal()">İptal</button>
-            <button type="submit" class="btn btn--gold btn--sm">Onayla &amp; Giriş Yap</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-
-  <script src="script.js?v=20260906v2"></script>
+  <script src="script.js?v=20260906v3"></script>
 </body>
 </html>
