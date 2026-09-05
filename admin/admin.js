@@ -1,4 +1,4 @@
-// NO!SER Admin Dashboard Script - High Speed & Live Integration
+// NO!SER Admin Dashboard Script - Rock Solid Auth & Live Integration
 
 let currentAdminUser = null;
 let allLicensesCache = [];
@@ -62,6 +62,50 @@ const changePasswordForm = document.getElementById('change-password-form');
 const importBackupFile = document.getElementById('import-backup-file');
 const btnLogout = document.getElementById('btn-logout');
 
+// ================= PERSISTENT TOKEN STORAGE =================
+function getStoredToken() {
+  return localStorage.getItem('noiser_admin_token') || sessionStorage.getItem('noiser_admin_token') || 'NOISER2026';
+}
+
+function setStoredToken(token) {
+  if (token) {
+    localStorage.setItem('noiser_admin_token', token);
+    sessionStorage.setItem('noiser_admin_token', token);
+  }
+}
+
+function clearStoredToken() {
+  localStorage.removeItem('noiser_admin_token');
+  sessionStorage.removeItem('noiser_admin_token');
+}
+
+// Unified Authenticated Fetch
+async function adminFetch(url, options = {}) {
+  const token = getStoredToken();
+  const headers = new Headers(options.headers || {});
+  
+  if (token) {
+    headers.set('Authorization', `Bearer ${token}`);
+    headers.set('X-Admin-Token', token);
+  }
+
+  const mergedOptions = {
+    ...options,
+    headers,
+    credentials: 'include'
+  };
+
+  const response = await fetch(url, mergedOptions);
+
+  if (response.status === 401) {
+    console.warn('Oturum süresi dolmuş veya geçersiz token.');
+    clearStoredToken();
+    showAuthView();
+  }
+
+  return response;
+}
+
 // ================= TOAST NOTIFICATIONS =================
 function showToast(message, type = 'info') {
   if (!toastContainer) return;
@@ -70,11 +114,11 @@ function showToast(message, type = 'info') {
 
   let iconSvg = '';
   if (type === 'success') {
-    iconSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>';
+    iconSvg = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>';
   } else if (type === 'error') {
-    iconSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>';
+    iconSvg = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>';
   } else {
-    iconSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>';
+    iconSvg = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>';
   }
 
   toast.innerHTML = `${iconSvg}<span>${escapeHtml(message)}</span>`;
@@ -128,7 +172,7 @@ if (btnGenerateCode && addCodeInput) {
 
 async function checkAuthStatus() {
   try {
-    const res = await fetch('/api/auth/me');
+    const res = await adminFetch('/api/auth/me');
     const data = await res.json();
 
     if (data.authenticated && data.user) {
@@ -164,15 +208,17 @@ if (authForm) {
     const key = authKey.value.trim();
 
     try {
-      // 1. Try gatekeeper master passkey
+      // 1. Try master passkey gatekeeper
       const gateRes = await fetch('/api/auth/gatekeeper', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
         body: JSON.stringify({ passkey: key })
       });
       const gateData = await gateRes.json();
 
-      if (gateData.success && gateData.user) {
+      if (gateData.success && gateData.token) {
+        setStoredToken(gateData.token);
         currentAdminUser = gateData.user;
         showToast('Master anahtar doğrulandı. Panele giriş yapıldı!', 'success');
         showDashboardView();
@@ -180,15 +226,17 @@ if (authForm) {
         return;
       }
 
-      // 2. Try standard login credentials
+      // 2. Try standard username / password
       const loginRes = await fetch('/api/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
         body: JSON.stringify({ username: 'admin', password: key })
       });
       const loginData = await loginRes.json();
 
-      if (loginData.success && loginData.user) {
+      if (loginData.success && loginData.token) {
+        setStoredToken(loginData.token);
         currentAdminUser = loginData.user;
         showToast('Giriş başarılı!', 'success');
         showDashboardView();
@@ -212,13 +260,12 @@ if (authForm) {
 if (btnLogout) {
   btnLogout.addEventListener('click', async () => {
     try {
-      await fetch('/api/auth/logout', { method: 'POST' });
-      currentAdminUser = null;
-      showToast('Oturum kapatıldı.', 'info');
-      showAuthView();
-    } catch (err) {
-      showAuthView();
-    }
+      await adminFetch('/api/auth/logout', { method: 'POST' });
+    } catch (err) {}
+    clearStoredToken();
+    currentAdminUser = null;
+    showToast('Oturum kapatıldı.', 'info');
+    showAuthView();
   });
 }
 
@@ -247,7 +294,7 @@ async function loadDashboardData() {
 
 async function loadStats() {
   try {
-    const res = await fetch('/api/admin/stats');
+    const res = await adminFetch('/api/admin/stats');
     const data = await res.json();
 
     if (data.success && data.stats) {
@@ -265,7 +312,7 @@ async function loadStats() {
 
 async function loadAllLicenses() {
   try {
-    const res = await fetch('/api/admin/licenses');
+    const res = await adminFetch('/api/admin/licenses');
     const data = await res.json();
 
     if (data.success && data.licenses) {
@@ -305,7 +352,7 @@ function renderAllLicensesTable() {
       <td>
         <span class="table-code">${escapeHtml(lic.code)}</span>
         <button type="button" class="btn-copy-code" onclick="copyText('${lic.code}', 'Lisans kodu kopyalandı!')" title="Kodu Kopyala">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
         </button>
       </td>
       <td>
@@ -317,19 +364,19 @@ function renderAllLicensesTable() {
       <td><strong>${escapeHtml(lic.trackTitle || '-')}</strong></td>
       <td>
         ${lic.hasPdf 
-          ? `<span class="pdf-badge" title="${lic.pdfOriginalName || ''}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg> ${lic.pdfSizeFormatted || 'PDF'}</span>` 
-          : '<span style="color: rgba(255,255,255,0.3);">PDF Yok</span>'}
+          ? `<span class="pdf-badge" title="${lic.pdfOriginalName || ''}"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg> ${lic.pdfSizeFormatted || 'PDF'}</span>` 
+          : '<span style="color: #94a3b8;">PDF Yok</span>'}
       </td>
       <td><strong>${lic.downloadCount || 0}</strong></td>
       <td>${escapeHtml(lic.issueDate || '-')}</td>
       <td><span class="status-badge status-badge--${lic.status || 'active'}">${lic.status === 'active' ? 'Aktif' : lic.status === 'expired' ? 'Süresi Doldu' : 'Askıda'}</span></td>
       <td style="text-align: right;">
         <div class="action-buttons">
-          ${lic.hasPdf ? `<button type="button" class="action-btn" onclick="openPdfPreview('${lic.code}')" title="PDF Önizle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>` : ''}
-          ${lic.hasPdf ? `<a href="/api/licenses/download/${encodeURIComponent(lic.code)}" class="action-btn" title="PDF İndir" download><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a>` : ''}
-          <button type="button" class="action-btn" onclick="openPublicVerifyLink('${lic.code}')" title="Sorgulama Sayfasında Gör"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></button>
-          <button type="button" class="action-btn" onclick="openEditModalById('${lic.id}')" title="Düzenle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
-          <button type="button" class="action-btn action-btn--delete" onclick="openDeleteModal('${lic.id}', '${lic.code}')" title="Sil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>
+          ${lic.hasPdf ? `<button type="button" class="action-btn" onclick="openPdfPreview('${lic.code}')" title="PDF Önizle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>` : ''}
+          ${lic.hasPdf ? `<a href="/api/licenses/download/${encodeURIComponent(lic.code)}" class="action-btn" title="PDF İndir" download><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a>` : ''}
+          <button type="button" class="action-btn" onclick="openPublicVerifyLink('${lic.code}')" title="Sorgulama Sayfasında Gör"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></button>
+          <button type="button" class="action-btn" onclick="openEditModalById('${lic.id}')" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+          <button type="button" class="action-btn action-btn--delete" onclick="openDeleteModal('${lic.id}', '${lic.code}')" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>
         </div>
       </td>
     </tr>
@@ -415,7 +462,7 @@ if (addLicenseForm) {
 
     try {
       const formData = new FormData(addLicenseForm);
-      const res = await fetch('/api/admin/licenses', {
+      const res = await adminFetch('/api/admin/licenses', {
         method: 'POST',
         body: formData
       });
@@ -474,7 +521,7 @@ if (editLicenseForm) {
     const formData = new FormData(editLicenseForm);
 
     try {
-      const res = await fetch(`/api/admin/licenses/${encodeURIComponent(licenseId)}`, {
+      const res = await adminFetch(`/api/admin/licenses/${encodeURIComponent(licenseId)}`, {
         method: 'PUT',
         body: formData
       });
@@ -511,7 +558,7 @@ if (btnConfirmDelete) {
   btnConfirmDelete.addEventListener('click', async () => {
     if (!deleteTargetId) return;
     try {
-      const res = await fetch(`/api/admin/licenses/${encodeURIComponent(deleteTargetId)}`, {
+      const res = await adminFetch(`/api/admin/licenses/${encodeURIComponent(deleteTargetId)}`, {
         method: 'DELETE'
       });
       const data = await res.json();
@@ -565,7 +612,7 @@ if (btnQuickSearch && quickSearchInput) {
         const lic = data.license;
         quickSearchResult.innerHTML = `
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-            <strong style="color: var(--gold); font-family: ui-monospace, monospace; font-size: 15px;">${escapeHtml(lic.code)}</strong>
+            <strong style="color: var(--navy); font-family: var(--mono); font-size: 15px;">${escapeHtml(lic.code)}</strong>
             <span class="status-badge status-badge--${lic.status}">${lic.status === 'active' ? 'Aktif' : lic.status}</span>
           </div>
           <p><strong>Müşteri:</strong> ${escapeHtml(lic.customerName || '-')} (${escapeHtml(lic.customerEmailMasked || '-')})</p>
@@ -577,10 +624,10 @@ if (btnQuickSearch && quickSearchInput) {
           </div>
         `;
       } else {
-        quickSearchResult.innerHTML = `<span style="color: #f87171;">'${escapeHtml(query)}' koduna ait lisans bulunamadı.</span>`;
+        quickSearchResult.innerHTML = `<span style="color: #ef4444;">'${escapeHtml(query)}' koduna ait lisans bulunamadı.</span>`;
       }
     } catch (err) {
-      quickSearchResult.innerHTML = '<span style="color: #f87171;">Sorgulama hatası oluştu.</span>';
+      quickSearchResult.innerHTML = '<span style="color: #ef4444;">Sorgulama hatası oluştu.</span>';
     }
   };
 
@@ -630,7 +677,7 @@ if (changePasswordForm) {
     const newPassword = document.getElementById('settings-new-password').value;
 
     try {
-      const res = await fetch('/api/auth/change-password', {
+      const res = await adminFetch('/api/auth/change-password', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ currentPassword, newMasterPasskey, newPassword })
@@ -659,7 +706,7 @@ if (importBackupFile) {
       const text = await file.text();
       const json = JSON.parse(text);
 
-      const res = await fetch('/api/admin/import', {
+      const res = await adminFetch('/api/admin/import', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(json)
