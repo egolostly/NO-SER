@@ -3,21 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="NO!SER — Official Music Producer & Sound Architect Portal. License verification, PDF contract repository, and production inquiries." />
-  <meta property="og:title" content="NO!SER — Music Producer & Sound Architect" />
-  <meta property="og:description" content="Official beat productions, license verification, and contact portal." />
-  <meta property="og:image" content="logo-mark.svg" />
-  <meta property="og:type" content="website" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="NO!SER — Music Producer" />
-  <meta name="twitter:description" content="Official beat productions, license verification, and contact portal." />
-  <meta name="twitter:image" content="logo-mark.svg" />
-  <title>NO!SER — Music Producer &amp; Beatmaker</title>
+  <meta name="description" content="NO!SER — Music Producer & Sound Designer. Official beats, license verification registry, and bespoke production." />
+  <title>NO!SER — Music Producer &amp; Sound Architect</title>
   <link rel="icon" type="image/svg+xml" href="logo-mark.svg" />
   <link rel="apple-touch-icon" href="logo-mark.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -25,109 +17,132 @@
   <!-- TOP SCROLL PROGRESS BAR -->
   <div id="scroll-progress-bar" class="scroll-progress-bar" aria-hidden="true"></div>
 
-  <!-- AMBIENT BACKGROUND GLOWS -->
-  <div class="ambient-mesh" aria-hidden="true">
-    <div class="ambient-glow ambient-glow--1"></div>
-    <div class="ambient-glow ambient-glow--2"></div>
-    <div class="ambient-grid"></div>
-  </div>
-
   <!-- SITE HEADER -->
   <header class="site-header" id="top">
-    <div class="site-header__inner">
-      <a class="brand" href="#top" aria-label="NO!SER Ana Sayfa">
+    <div class="site-header__container">
+      
+      <a class="brand" href="#top" aria-label="NO!SER Home">
         <img src="logo-mark.svg" alt="NO!SER Logo" class="brand__logo" draggable="false" />
-        <span class="brand__name">NO!SER</span>
+        <div class="brand__text-group">
+          <span class="brand__name">NO!SER</span>
+          <span class="brand__role">STUDIO ARCHIVE</span>
+        </div>
       </a>
+
+      <!-- Telemetry Strip (Visible on Desktop) -->
+      <div class="header-telemetry" aria-hidden="true">
+        <span class="telemetry-item"><span class="dot-live"></span> MASTER REGISTRY</span>
+        <span class="telemetry-item telemetry-item--dim">44.1kHz / 24-BIT</span>
+      </div>
 
       <button class="menu-button" type="button" aria-controls="site-nav" aria-expanded="false" aria-label="Menüyü aç">
         <span></span><span></span>
       </button>
 
       <nav class="site-nav" id="site-nav" aria-label="Ana Menü">
-        <a href="#license" class="site-nav__link" data-i18n="nav.license">Lisans</a>
+        <a href="#license" class="site-nav__link" data-i18n="nav.license">Lisans Doğrulama</a>
         <a href="#contact" class="site-nav__link" data-i18n="nav.contact">İletişim</a>
-        <a href="https://soundcloud.com/noiiser" target="_blank" rel="noopener" class="site-nav__btn">
+        <a href="https://soundcloud.com/noiiser" target="_blank" rel="noopener" class="site-nav__soundcloud">
           <span>SoundCloud</span>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="site-nav__btn-icon"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
         </a>
         
-        <div class="lang-selector" role="group" aria-label="Dil Seçimi">
+        <div class="lang-switch" role="group" aria-label="Language">
           <button type="button" data-lang="tr" class="lang-btn is-active">TR</button>
+          <span class="lang-divider">/</span>
           <button type="button" data-lang="en" class="lang-btn">EN</button>
         </div>
       </nav>
+
     </div>
   </header>
 
   <main>
-    <!-- ================= HERO SECTION ================= -->
+    <!-- ================= HERO SECTION (EDITORIAL PRODUCER STATEMENT) ================= -->
     <section class="hero" aria-labelledby="hero-title">
-      <div class="hero__layout">
+      <div class="hero__container">
         
-        <div class="hero__content">
-          <div class="hero__badge">
-            <span class="hero__badge-pulse"></span>
-            <span class="hero__badge-text" data-i18n="hero.badge">PROD. BY NO!SER · OFFICIAL HUB</span>
-          </div>
-
-          <h1 class="hero__title" id="hero-title">
-            <span class="hero__title-sub" data-i18n="hero.titleSub">MUSIC PRODUCER</span>
-            <span class="hero__title-main">BEATMAKER</span>
-          </h1>
-
-          <p class="hero__lead" data-i18n="hero.lead">
-            Özgün ses mimarisi, yüksek kaliteli prodüksiyonlar ve yasal güvenceli resmi lisanslama portalı.
-          </p>
-
-          <div class="hero__cta-group">
-            <a href="#license" class="btn btn--gold">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-              <span data-i18n="hero.ctaVerify">Lisans Doğrula</span>
-            </a>
-            <a href="#contact" class="btn btn--outline">
-              <span data-i18n="hero.ctaContact">İletişime Geç</span>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </a>
-          </div>
-
-          <!-- Mini Stats Strip -->
-          <div class="hero__stats">
-            <div class="hero__stat-item">
-              <span class="hero__stat-val">100%</span>
-              <span class="hero__stat-label" data-i18n="hero.stat1">Yasal Güvence</span>
-            </div>
-            <div class="hero__stat-item">
-              <span class="hero__stat-val">PDF</span>
-              <span class="hero__stat-label" data-i18n="hero.stat2">Resmi Sözleşme</span>
-            </div>
-            <div class="hero__stat-item">
-              <span class="hero__stat-val">24/7</span>
-              <span class="hero__stat-label" data-i18n="hero.stat3">Canlı Doğrulama</span>
-            </div>
-          </div>
+        <!-- Top Editorial Meta -->
+        <div class="hero__meta-bar">
+          <span class="hero__meta-tag" data-i18n="hero.tag">PROD. BY NO!SER · SOUND ARCHITECT</span>
+          <span class="hero__meta-coords">IST / TR · WORLDWIDE LICENSING</span>
         </div>
 
-        <!-- HERO INTERACTIVE VINYL -->
-        <div class="hero__visual" aria-hidden="true">
-          <div class="vinyl-rig">
-            <div class="vinyl-glow"></div>
-            <div class="vinyl-disc">
-              <div class="vinyl-grooves"></div>
-              <div class="vinyl-center">
-                <svg class="vinyl-text-ring" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                  <defs>
-                    <path id="vinylCircle" d="M 50,50 m -36,0 a 36,36 0 1,1 72,0 a 36,36 0 1,1 -72,0" />
-                  </defs>
-                  <text font-size="6" font-weight="800" letter-spacing="1.4" fill="rgba(15,80,140,0.9)">
-                    <textPath href="#vinylCircle" xlink:href="#vinylCircle" startOffset="0%">
-                      NO!SER · MUSIC PRODUCER · NO!SER · BEATMAKER ·
-                    </textPath>
-                  </text>
-                </svg>
-                <div class="vinyl-spindle"></div>
+        <div class="hero__main-grid">
+          
+          <div class="hero__statement">
+            <h1 class="hero__title" id="hero-title">
+              <span class="hero__title-row hero__title-row--1">MUSIC</span>
+              <span class="hero__title-row hero__title-row--2">PRODUCER</span>
+              <span class="hero__title-row hero__title-row--accent">BEATMAKER</span>
+            </h1>
+
+            <p class="hero__manifesto" data-i18n="hero.manifesto">
+              Özgün ses prodüksiyonları, analog dokular ve yasal koruma altındaki resmi lisans sertifikaları.
+            </p>
+
+            <div class="hero__actions">
+              <a href="#license" class="btn btn--primary">
+                <span data-i18n="hero.btnVerify">Lisans Kodunu Doğrula</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </a>
+              <a href="#contact" class="btn btn--secondary">
+                <span data-i18n="hero.btnContact">İletişime Geç</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Studio Turntable Rig -->
+          <div class="hero__rig-wrap" aria-hidden="true">
+            <div class="turntable-deck">
+              <div class="deck-chassis">
+                <div class="deck-screw deck-screw--tl"></div>
+                <div class="deck-screw deck-screw--tr"></div>
+                <div class="deck-screw deck-screw--bl"></div>
+                <div class="deck-screw deck-screw--br"></div>
+                
+                <div class="deck-label-strip">
+                  <span>NO!SER DIRECT DRIVE SYSTEM</span>
+                  <span>33⅓ RPM</span>
+                </div>
+
+                <!-- Vinyl Platter -->
+                <div class="vinyl-platter">
+                  <div class="vinyl-rings"></div>
+                  <div class="vinyl-core">
+                    <svg class="vinyl-text-svg" viewBox="0 0 100 100">
+                      <defs>
+                        <path id="vinylCorePath" d="M 50,50 m -35,0 a 35,35 0 1,1 70,0 a 35,35 0 1,1 -70,0" />
+                      </defs>
+                      <text font-size="5.8" font-weight="900" letter-spacing="1.2" fill="#0F508C">
+                        <textPath href="#vinylCorePath" xlink:href="#vinylCorePath" startOffset="0%">
+                          NO!SER · MUSIC PRODUCER · NO!SER · BEATMAKER ·
+                        </textPath>
+                      </text>
+                    </svg>
+                    <div class="vinyl-center-pin"></div>
+                  </div>
+                </div>
+
               </div>
             </div>
+          </div>
+
+        </div>
+
+        <!-- Studio Telemetry Banner -->
+        <div class="hero__telemetry-banner">
+          <div class="telemetry-box">
+            <span class="telemetry-box__label" data-i18n="telemetry.1.label">LİSANS DÜZEYİ</span>
+            <span class="telemetry-box__val" data-i18n="telemetry.1.val">TİCARİ &amp; SINIRSIZ</span>
+          </div>
+          <div class="telemetry-box">
+            <span class="telemetry-box__label" data-i18n="telemetry.2.label">BELGE FORMATI</span>
+            <span class="telemetry-box__val">RESMİ İMZALI PDF</span>
+          </div>
+          <div class="telemetry-box">
+            <span class="telemetry-box__label" data-i18n="telemetry.3.label">GÜVENLİK PROTOKOLÜ</span>
+            <span class="telemetry-box__val">SHA-256 DOĞRULAMA</span>
           </div>
         </div>
 
@@ -135,183 +150,150 @@
     </section>
 
     <!-- ================= LICENSE VERIFICATION SECTION ================= -->
-    <section class="section section--license" id="license" aria-labelledby="license-section-title">
+    <section class="section section--license" id="license" aria-labelledby="license-title">
       <div class="section__container">
 
-        <!-- Section Header -->
+        <!-- Section Title & Descriptor -->
         <div class="section__header reveal">
-          <div class="section-tag">
-            <span class="section-tag__num">01</span>
-            <span class="section-tag__label" data-i18n="license.tag">LİSANS DOĞRULAMA MERKEZİ</span>
+          <div class="section-badge">
+            <span class="section-badge__index">01</span>
+            <span class="section-badge__text" data-i18n="license.badge">DOĞRULAMA TERMİNALİ</span>
           </div>
-          <h2 class="section__title" id="license-section-title">
-            <span data-i18n="license.title">Satın Aldığınız Lisansı Doğrulayın</span>
+          <h2 class="section__title" id="license-title" data-i18n="license.title">
+            Lisans Belgesi Doğrulama &amp; PDF İndirme
           </h2>
           <p class="section__desc" data-i18n="license.desc">
-            Beat ve prodüksiyon haklarınızı anında teyit edin, mülkiyet bilgilerinizi görüntüleyin ve imzalı resmi PDF sözleşmenizi indirin.
+            Satın aldığınız lisans numarasını girerek yasal mülkiyet durumunu sorgulayın, sözleşme detaylarınızı inceleyin ve imzalı PDF belgenizi indirin.
           </p>
         </div>
 
-        <!-- 4 Security Pillars -->
-        <div class="pillars-grid reveal">
-          <div class="pillar-card">
-            <div class="pillar-card__icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        <!-- Master Verification Deck -->
+        <div class="verification-deck reveal">
+          
+          <div class="terminal-card">
+            
+            <div class="terminal-card__bar">
+              <div class="terminal-card__status">
+                <span class="status-blip"></span>
+                <span data-i18n="terminal.status">GÜVENLİ LİSANS SORGU KATMANI</span>
+              </div>
+              <span class="terminal-card__id">SYS://VERIFY.NOISER</span>
             </div>
-            <div class="pillar-card__body">
-              <h3 class="pillar-card__title" data-i18n="pillar.1.title">Anlık Doğrulama</h3>
-              <p class="pillar-card__desc" data-i18n="pillar.1.desc">Kodunuz sisteme girildiği anda veritabanından anında teyit edilir.</p>
-            </div>
-          </div>
 
-          <div class="pillar-card">
-            <div class="pillar-card__icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-            </div>
-            <div class="pillar-card__body">
-              <h3 class="pillar-card__title" data-i18n="pillar.2.title">Resmi PDF Sertifikası</h3>
-              <p class="pillar-card__desc" data-i18n="pillar.2.desc">İmzalı ve onaylı orijinal PDF lisans belgenizi anında indirin.</p>
-            </div>
-          </div>
-
-          <div class="pillar-card">
-            <div class="pillar-card__icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
-            </div>
-            <div class="pillar-card__body">
-              <h3 class="pillar-card__title" data-i18n="pillar.3.title">Yasal Bağlayıcı Haklar</h3>
-              <p class="pillar-card__desc" data-i18n="pillar.3.desc">Ticari yayın, dijital dağıtım ve telif haklarınızı koruma altına alır.</p>
-            </div>
-          </div>
-
-          <div class="pillar-card">
-            <div class="pillar-card__icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
-            </div>
-            <div class="pillar-card__body">
-              <h3 class="pillar-card__title" data-i18n="pillar.4.title">Kalıcı Güvenli Kayıt</h3>
-              <p class="pillar-card__desc" data-i18n="pillar.4.desc">Tüm lisans verileri şifreli ve kalıcı olarak arşivlenir.</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Verification Console -->
-        <div class="verify-console reveal">
-          <div class="verify-console__header">
-            <div class="verify-console__indicator"></div>
-            <span class="verify-console__title" data-i18n="verify.consoleTitle">LİSANS NUMARANIZI GİRİN</span>
-          </div>
-
-          <form id="license-verify-form" class="verify-console__form" autocomplete="off">
-            <div class="verify-input-group">
-              <div class="verify-input-box">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="verify-input-icon"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <!-- Private & Secure Search Input Form -->
+            <form id="license-verify-form" class="terminal-form" autocomplete="off">
+              <div class="terminal-input-wrap">
+                <div class="terminal-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                </div>
                 <input 
                   type="text" 
                   id="license-verify-input" 
-                  class="verify-input" 
-                  placeholder="Lisans kodunu yazın (Örn: NS-2026-XXXX)" 
+                  class="terminal-input" 
+                  placeholder="Lisans kodunuzu girin (Örn: NS-2026-XXXX)" 
                   data-i18n-placeholder="verify.placeholder"
                   autocomplete="off"
                   spellcheck="false"
                   required
                 />
+                <button type="submit" id="license-verify-btn" class="terminal-btn">
+                  <span data-i18n="verify.btn">Sorgula</span>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </button>
               </div>
+            </form>
 
-              <button type="submit" id="license-verify-btn" class="btn btn--gold verify-submit-btn">
-                <span data-i18n="verify.btnText">Doğrula</span>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-              </button>
+            <!-- Loading Alert -->
+            <div id="verify-loading" class="terminal-alert terminal-alert--loading" style="display: none;">
+              <span class="terminal-spinner"></span>
+              <span data-i18n="verify.loading">Lisans kaydı doğrulanıyor...</span>
             </div>
-          </form>
 
-          <!-- Loading State -->
-          <div id="verify-loading" class="alert-box alert-box--loading" style="display: none;">
-            <div class="spinner"></div>
-            <span data-i18n="verify.loading">Lisans kaydı doğrulanıyor...</span>
-          </div>
+            <!-- Error Alert -->
+            <div id="verify-error" class="terminal-alert terminal-alert--error" style="display: none;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+              <span id="verify-error-msg" data-i18n="verify.errorMsg">Girdiğiniz lisans kodu sistemde bulunamadı. Lütfen kontrol ediniz.</span>
+            </div>
 
-          <!-- Error State -->
-          <div id="verify-error" class="alert-box alert-box--error" style="display: none;">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
-            <span id="verify-error-msg" data-i18n="verify.errorDefault">Girdiğiniz lisans numarası sistemde bulunamadı. Lütfen kontrol ediniz.</span>
-          </div>
-
-          <!-- VERIFIED RESULT CERTIFICATE CARD -->
-          <div id="verify-result" class="cert-card" style="display: none;">
-            
-            <div class="cert-card__top">
-              <div class="cert-card__brand">
-                <img src="logo-mark.svg" alt="NO!SER Seal" class="cert-card__seal" />
-                <div>
-                  <span class="cert-card__badge" data-i18n="cert.verifiedTag">DOĞRULANMIŞ RESMİ LİSANS</span>
-                  <h3 class="cert-card__heading" data-i18n="cert.heading">NO!SER Lisans Belgesi</h3>
+            <!-- ================= AUTHENTIC CERTIFICATE SLIP ================= -->
+            <div id="verify-result" class="cert-slip" style="display: none;">
+              
+              <div class="cert-slip__header">
+                <div class="cert-slip__brand">
+                  <img src="logo-mark.svg" alt="NO!SER Stamp" class="cert-slip__logo" />
+                  <div class="cert-slip__titles">
+                    <span class="cert-slip__tag" data-i18n="cert.verified">RESMİ DOĞRULANMIŞ LİSANS SERTİFİKASI</span>
+                    <h3 class="cert-slip__name" data-i18n="cert.title">NO!SER Yapımcı Sözleşmesi</h3>
+                  </div>
                 </div>
+
+                <div class="cert-slip__badge" id="res-status-badge">Aktif &amp; Geçerli</div>
               </div>
 
-              <div class="cert-card__status" id="res-status-badge">Aktif &amp; Geçerli</div>
-            </div>
-
-            <!-- 6-Field Matrix -->
-            <div class="cert-grid">
-              <div class="cert-cell">
-                <span class="cert-cell__label" data-i18n="cert.codeLabel">LİSANS NUMARASI</span>
-                <div class="cert-code-wrapper">
-                  <span id="res-code" class="cert-code-val">NS-2026-XXXX</span>
-                  <button type="button" id="btn-copy-code" class="btn-copy-chip" title="Kodu Kopyala">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-                    <span data-i18n="cert.copy">Kopyala</span>
-                  </button>
+              <!-- Certificate Data Rows -->
+              <div class="cert-slip__matrix">
+                
+                <div class="cert-row">
+                  <span class="cert-row__label" data-i18n="cert.code">LİSANS NUMARASI</span>
+                  <div class="cert-row__value-code">
+                    <strong id="res-code" class="code-font">NS-2026-XXXX</strong>
+                    <button type="button" id="btn-copy-code" class="btn-copy-chip">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                      <span data-i18n="cert.copy">Kopyala</span>
+                    </button>
+                  </div>
                 </div>
+
+                <div class="cert-row">
+                  <span class="cert-row__label" data-i18n="cert.name">LİSANS SAHİBİ (ALICI)</span>
+                  <span id="res-customer-name" class="cert-row__val">-</span>
+                </div>
+
+                <div class="cert-row">
+                  <span class="cert-row__label" data-i18n="cert.email">KAYITLI E-POSTA</span>
+                  <span id="res-customer-email" class="cert-row__val code-font">-</span>
+                </div>
+
+                <div class="cert-row">
+                  <span class="cert-row__label" data-i18n="cert.track">LİSANSLANAN ESER / BEAT</span>
+                  <span id="res-track-title" class="cert-row__val cert-row__val--gold">-</span>
+                </div>
+
+                <div class="cert-row">
+                  <span class="cert-row__label" data-i18n="cert.tier">LİSANS PAKETİ</span>
+                  <span id="res-tier-pill" class="cert-package-tag">Official License</span>
+                </div>
+
+                <div class="cert-row">
+                  <span class="cert-row__label" data-i18n="cert.date">DÜZENLENME TARİHİ</span>
+                  <span id="res-issue-date" class="cert-row__val">-</span>
+                </div>
+
               </div>
 
-              <div class="cert-cell">
-                <span class="cert-cell__label" data-i18n="cert.clientLabel">LİSANS SAHİBİ (ALICI)</span>
-                <span id="res-customer-name" class="cert-cell__val">-</span>
+              <!-- Certificate Primary Actions -->
+              <div class="cert-slip__actions">
+                <a id="res-download-btn" href="#" class="btn-cert-primary" download>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                  <span data-i18n="cert.downloadBtn">Lisans Belgesini İndir (PDF)</span>
+                  <span id="res-pdf-size" class="cert-filesize-tag">PDF</span>
+                </a>
+
+                <button type="button" id="res-preview-btn" class="btn-cert-secondary">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                  <span data-i18n="cert.previewBtn">Belgeyi Önizle</span>
+                </button>
+
+                <button type="button" id="btn-share-link" class="btn-cert-secondary" title="Bağlantıyı Kopyala">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+                  <span data-i18n="cert.shareBtn">Linki Kopyala</span>
+                </button>
               </div>
 
-              <div class="cert-cell">
-                <span class="cert-cell__label" data-i18n="cert.emailLabel">KAYITLI E-POSTA</span>
-                <span id="res-customer-email" class="cert-cell__val">-</span>
+              <div class="cert-slip__footer">
+                <span class="cert-hash">CRYPTOGRAPHIC RECORD · SHA-256 SECURED CERTIFICATE</span>
               </div>
 
-              <div class="cert-cell">
-                <span class="cert-cell__label" data-i18n="cert.trackLabel">LİSANSLANAN BEAT / ESER</span>
-                <span id="res-track-title" class="cert-cell__val cert-cell__val--highlight">-</span>
-              </div>
-
-              <div class="cert-cell">
-                <span class="cert-cell__label" data-i18n="cert.tierLabel">LİSANS PAKETİ</span>
-                <span id="res-tier-pill" class="cert-tier-tag">Official License</span>
-              </div>
-
-              <div class="cert-cell">
-                <span class="cert-cell__label" data-i18n="cert.dateLabel">DÜZENLENME TARİHİ</span>
-                <span id="res-issue-date" class="cert-cell__val">-</span>
-              </div>
-            </div>
-
-            <!-- Action Controls -->
-            <div class="cert-actions">
-              <a id="res-download-btn" href="#" class="btn btn--gold btn--download" download>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                <span data-i18n="cert.downloadBtn">Lisans Belgesini İndir (PDF)</span>
-                <span id="res-pdf-size" class="cert-filesize">PDF</span>
-              </a>
-
-              <button type="button" id="res-preview-btn" class="btn btn--outline">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-                <span data-i18n="cert.previewBtn">Belgeyi Önizle</span>
-              </button>
-
-              <button type="button" id="btn-share-link" class="btn btn--outline">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
-                <span data-i18n="cert.shareBtn">Linki Kopyala</span>
-              </button>
-            </div>
-
-            <div class="cert-footer">
-              <span>SHA256 · PROD. BY NO!SER · CRYPTOGRAPHICALLY SECURED CONTRACT</span>
             </div>
 
           </div>
@@ -321,83 +303,78 @@
       </div>
     </section>
 
-    <!-- ================= CONTACT SECTION ================= -->
-    <section class="section section--contact" id="contact" aria-labelledby="contact-section-title">
+    <!-- ================= CONTACT SECTION (DIRECT STUDIO CHANNELS) ================= -->
+    <section class="section section--contact" id="contact" aria-labelledby="contact-title">
       <div class="section__container">
 
         <div class="section__header reveal">
-          <div class="section-tag">
-            <span class="section-tag__num">02</span>
-            <span class="section-tag__label" data-i18n="contact.tag">İLETİŞİM &amp; TALEP</span>
+          <div class="section-badge">
+            <span class="section-badge__index">02</span>
+            <span class="section-badge__text" data-i18n="contact.badge">DOĞRUDAN İLETİŞİM</span>
           </div>
-          <h2 class="section__title" id="contact-section-title">
-            <span data-i18n="contact.title">İş Birliği ve Proje Talepleri</span>
+          <h2 class="section__title" id="contact-title" data-i18n="contact.title">
+            İş Birliği &amp; Özel Prodüksiyon
           </h2>
           <p class="section__desc" data-i18n="contact.desc">
-            Özel beat talepleri, feature projeleri, ticari sync lisanslama ve stüdyo iş birlikleri için doğrudan ulaşabilirsiniz.
+            Özel beat talepleri, sanatçı projeleri, sinematik sync lisanslama ve stüdyo seansları için doğrudan ulaşabilirsiniz.
           </p>
         </div>
 
-        <div class="contact-grid">
+        <!-- 3 Master Channels -->
+        <div class="contact-channels">
 
-          <!-- 1. Instagram Card (@prodbynoiser) -->
-          <a class="contact-card reveal" href="https://instagram.com/prodbynoiser" target="_blank" rel="noopener">
-            <div class="contact-card__top">
-              <div class="contact-card__icon">
+          <!-- 1. Instagram (@prodbynoiser) -->
+          <a class="channel-card reveal" href="https://instagram.com/prodbynoiser" target="_blank" rel="noopener">
+            <div class="channel-card__header">
+              <span class="channel-card__idx">01</span>
+              <div class="channel-card__icon">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"/></svg>
               </div>
-              <span class="contact-card__num">01</span>
             </div>
-
-            <h3 class="contact-card__title">Instagram</h3>
-            <p class="contact-card__text" data-i18n="contact.card1.text">Stüdyo seansları, yeni çalışmalar, duyurular ve doğrudan mesaj.</p>
-
-            <div class="contact-card__footer">
-              <span class="contact-card__handle">@prodbynoiser</span>
-              <div class="contact-card__arrow">
+            <h3 class="channel-card__name">Instagram</h3>
+            <p class="channel-card__sub" data-i18n="contact.card1.sub">Stüdyo güncellemeleri, süreç paylaşımları ve doğrudan mesaj.</p>
+            <div class="channel-card__bottom">
+              <span class="channel-card__value">@prodbynoiser</span>
+              <span class="channel-arrow">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
-              </div>
+              </span>
             </div>
           </a>
 
-          <!-- 2. Email Card (WITH DEDICATED COPY BUTTON) -->
-          <div class="contact-card contact-card--interactive reveal">
-            <div class="contact-card__top">
-              <div class="contact-card__icon">
+          <!-- 2. Email (qnoiser@gmail.com with Dedicated Kopyala Button) -->
+          <div class="channel-card channel-card--interactive reveal">
+            <div class="channel-card__header">
+              <span class="channel-card__idx">02</span>
+              <div class="channel-card__icon">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
               </div>
-              <span class="contact-card__num">02</span>
             </div>
-
-            <h3 class="contact-card__title" data-i18n="contact.emailTitle">E-posta</h3>
-            <p class="contact-card__text" data-i18n="contact.card2.text">Lisanslama, sözleşmeler ve ticari prodüksiyon talepleri.</p>
-
-            <div class="contact-card__email-actions">
-              <a href="mailto:qnoiser@gmail.com" class="contact-card__email-link">qnoiser@gmail.com</a>
-              <button type="button" id="btn-copy-email" class="btn btn--gold btn--sm btn--copy-email" data-email="qnoiser@gmail.com">
+            <h3 class="channel-card__name" data-i18n="contact.email">E-posta</h3>
+            <p class="channel-card__sub" data-i18n="contact.card2.sub">Lisans anlaşmaları, sözleşme talepleri ve ticari projeler.</p>
+            <div class="channel-card__email-wrap">
+              <a href="mailto:qnoiser@gmail.com" class="channel-card__email-link">qnoiser@gmail.com</a>
+              <button type="button" id="btn-copy-email" class="btn-email-copy" data-email="qnoiser@gmail.com">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
                 <span id="copy-email-text" data-i18n="contact.copyBtn">E-postayı Kopyala</span>
               </button>
             </div>
           </div>
 
-          <!-- 3. SoundCloud Card -->
-          <a class="contact-card reveal" href="https://soundcloud.com/noiiser" target="_blank" rel="noopener">
-            <div class="contact-card__top">
-              <div class="contact-card__icon">
+          <!-- 3. SoundCloud (@noiiser) -->
+          <a class="channel-card reveal" href="https://soundcloud.com/noiiser" target="_blank" rel="noopener">
+            <div class="channel-card__header">
+              <span class="channel-card__idx">03</span>
+              <div class="channel-card__icon">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 10.6c-.35-2.55-2.5-4.5-5-4.5-1.55 0-2.95.75-3.85 1.9-.2-.05-.4-.05-.6-.05-2.35 0-4.3 1.9-4.3 4.3s1.95 4.3 4.3 4.3H17c1.85 0 3.35-1.5 3.35-3.3 0-1.55-1.1-2.85-2.6-3.15z"/></svg>
               </div>
-              <span class="contact-card__num">03</span>
             </div>
-
-            <h3 class="contact-card__title">SoundCloud</h3>
-            <p class="contact-card__text" data-i18n="contact.card3.text">Tüm prodüksiyonlar, beat yayınları ve remiks arşivi.</p>
-
-            <div class="contact-card__footer">
-              <span class="contact-card__handle">@noiiser</span>
-              <div class="contact-card__arrow">
+            <h3 class="channel-card__name">SoundCloud</h3>
+            <p class="channel-card__sub" data-i18n="contact.card3.sub">Tüm yayınlanmış beat katalogları ve prodüksiyon arşivi.</p>
+            <div class="channel-card__bottom">
+              <span class="channel-card__value">@noiiser</span>
+              <span class="channel-arrow">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
-              </div>
+              </span>
             </div>
           </a>
 
@@ -409,21 +386,21 @@
 
   <!-- ================= FOOTER ================= -->
   <footer class="site-footer">
-    <div class="site-footer__inner">
+    <div class="site-footer__container">
       
       <div class="site-footer__brand">
         <img src="logo-mark.svg" alt="NO!SER" class="site-footer__logo" />
-        <div class="site-footer__titles">
-          <span class="site-footer__name">NO!SER</span>
-          <span class="site-footer__role">MUSIC PRODUCER &amp; BEATMAKER</span>
+        <div class="site-footer__meta">
+          <span class="site-footer__title">NO!SER</span>
+          <span class="site-footer__subtitle">PROD. BY NO!SER · STUDIO ARCHIVE</span>
         </div>
       </div>
 
-      <p class="site-footer__copy">
+      <p class="site-footer__copyright">
         &copy; <span id="year"></span> NO!SER · <span data-i18n="footer.rights">Tüm hakları saklıdır</span>
       </p>
 
-      <!-- Socials in strict order: 1. Instagram, 2. Email, 3. SoundCloud -->
+      <!-- Socials in strict requested order: 1. Instagram, 2. Email, 3. SoundCloud -->
       <div class="site-footer__socials">
         <a href="https://instagram.com/prodbynoiser" target="_blank" rel="noopener" aria-label="Instagram">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"/></svg>
@@ -436,7 +413,7 @@
         </a>
       </div>
 
-      <a href="#top" class="site-footer__top" aria-label="Yukarı çık">
+      <a href="#top" class="site-footer__top">
         <span data-i18n="footer.top">Yukarı çık</span>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
       </a>
@@ -447,21 +424,21 @@
   <!-- ================= PDF PREVIEW MODAL ================= -->
   <div id="site-pdf-modal" class="site-modal" aria-hidden="true">
     <div class="site-modal__backdrop" onclick="closeSitePdfModal()"></div>
-    <div class="site-modal__dialog">
-      <div class="site-modal__header">
-        <div class="site-modal__info">
-          <span class="site-modal__tag">RESMİ PDF SÖZLEŞMESİ</span>
-          <h3 id="site-pdf-title" class="site-modal__heading">Lisans Belgesi Önizleme</h3>
+    <div class="site-modal__window">
+      <div class="site-modal__head">
+        <div class="site-modal__titles">
+          <span class="site-modal__tag">RESMİ SÖZLEŞME ÖNİZLEME</span>
+          <h3 id="site-pdf-title" class="site-modal__heading">Lisans Belgesi</h3>
         </div>
-        <div class="site-modal__controls">
-          <a id="site-pdf-download-link" href="#" class="btn btn--gold btn--sm" download>İndir (PDF)</a>
-          <button type="button" class="site-modal__close-btn" onclick="closeSitePdfModal()" aria-label="Kapat">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        <div class="site-modal__actions">
+          <a id="site-pdf-download-link" href="#" class="modal-download-btn" download>İndir (PDF)</a>
+          <button type="button" class="modal-close-btn" onclick="closeSitePdfModal()" aria-label="Kapat">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
           </button>
         </div>
       </div>
-      <div class="site-modal__frame-wrap">
-        <iframe id="site-pdf-iframe" src="" title="PDF Document Viewer"></iframe>
+      <div class="site-modal__viewport">
+        <iframe id="site-pdf-iframe" src="" title="PDF Viewer"></iframe>
       </div>
     </div>
   </div>
