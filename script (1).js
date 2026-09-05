@@ -1,4 +1,4 @@
-// NO!SER Official Production & License Verification Portal Script
+// NO!SER Official Production & License Verification Portal Script — Ultra-Premium Edition
 
 const menuButton = document.querySelector(".menu-button");
 const siteNav = document.querySelector(".site-nav");
@@ -6,6 +6,9 @@ const siteNav = document.querySelector(".site-nav");
 const translations = {
   tr: {
     "nav.license": "Lisans Doğrulama",
+    "nav.tiers": "Lisans Paketleri",
+    "nav.specs": "Stüdyo Mimarisi",
+    "nav.faq": "SSS",
     "nav.contact": "İletişim",
     "nav.verifyCta": "Lisans Doğrula",
 
@@ -43,6 +46,56 @@ const translations = {
     "cert.previewBtn": "Belgeyi Önizle",
     "cert.shareBtn": "Linki Kopyala",
 
+    "tiers.tag": "LİSANS MODELLERİ VE HAKLAR",
+    "tiers.title": "Şeffaf ve Yasal Güvenceli Lisans Paketleri",
+    "tiers.desc": "İhtiyacınıza uygun lisans modelini belirleyin; tüm lisanslar resmi PDF sözleşmesi ve anlık tescil kodu ile teslim edilir.",
+    "tiers.popBadge": "EN ÇOK TERCİH EDİLEN",
+    "tiers.contactBtn": "Talep Gönder",
+    "tiers.t1Title": "Standart WAV Lisansı",
+    "tiers.t1Desc": "Bağımsız sanatçılar, single yayınları ve temel dijital dağıtım için idealdir.",
+    "tiers.t1f1": "24-Bit Yüksek Kalite Master WAV + MP3",
+    "tiers.t1f2": "100.000 Spotify / Apple Music Stream Hakkı",
+    "tiers.t1f3": "1 Ticari Müzik Videosu Yayın İzni",
+    "tiers.t1f4": "Resmi PDF Lisans Sözleşmesi & Doğrulama Kodu",
+    "tiers.t2Title": "Premium Trackout Lisansı",
+    "tiers.t2Desc": "Ayrıştırılmış kanal kanalları (stems) ile profesyonel stüdyo miksajı ve geniş dağıtım.",
+    "tiers.t2f1": "Tüm Track Stems (Davul, Bas, Melodiler, FX)",
+    "tiers.t2f2": "500.000 Dijital Stream & Radyo Yayın Hakkı",
+    "tiers.t2f3": "Sınırsız Ticari Müzik Videosu",
+    "tiers.t2f4": "Öncelikli Sync & Reklam Lisanslama İzni",
+    "tiers.t3Title": "Exclusive (Tam Mülkiyet)",
+    "tiers.t3Desc": "Eserin tüm telif ve kullanım haklarını üzerinize alıp beat'i katalogdan tamamen kaldıran tam yetki.",
+    "tiers.t3f1": "%100 Münhasır Fikri ve Ticari Mülkiyet",
+    "tiers.t3f2": "Sınırsız Stream, TV, Radyo & Konser Geliri",
+    "tiers.t3f3": "Beat Katalogdan Kalıcı Olarak Kaldırılır",
+    "tiers.t3f4": "Islak / E-İmzalı Noter Geçerli Özel Sözleşme",
+
+    "specs.tag": "STÜDYO MİMARİSİ",
+    "specs.title": "Teknik ve Akustik Standartlar",
+    "specs.desc": "Uluslararası endüstri standartlarında miks, analog renklendirme ve her platform için optimize edilmiş mastering mimarisi.",
+    "specs.s1Title": "Analog Doygunluk",
+    "specs.s1Desc": "Neve ve SSL tarzı analog lambalı cihaz emülasyonları ile zengin harmonikler ve gövdeli baslar.",
+    "specs.s2Title": "24-Bit / 96kHz Master",
+    "specs.s2Desc": "Spotify, Apple Music ve Dolby Atmos standartlarına uygun True Peak ve dinamik aralık optimizasyonu.",
+    "specs.s3Title": "Telif & Content ID",
+    "specs.s3Desc": "YouTube, TikTok ve Instagram yayınlarında otomatik telif ihtarlarını önleyen beyaz liste altyapısı.",
+    "specs.s4Title": "Kriptografik Tescil",
+    "specs.s4Desc": "SHA-256 tabanlı benzersiz lisans kimliği ve anında teyit edilebilir resmi PDF sözleşme arşivi.",
+
+    "faq.tag": "SIKÇA SORULAN SORULAR",
+    "faq.title": "Aklınıza Takılan Her Şey",
+    "faq.desc": "Lisans doğrulama, dağıtım hakları ve stüdyo iş birliği süreçlerine dair detaylı yanıtlar.",
+    "faq.q1": "Lisans doğrulama sistemi nasıl çalışır ve PDF sözleşme nasıl indirilir?",
+    "faq.a1": "Satın alım sonrasında tarafınıza iletilen benzersiz lisans kodunu (Örn: NS-2026-8842) sayfanın yukarısındaki arama kutusuna yazarak saniyeler içinde doğrulatabilir, lisans kapsamını görebilir ve resmi PDF sözleşmenizi doğrudan indirebilirsiniz.",
+    "faq.q2": "Satın aldığım beat ile Spotify, Apple Music ve YouTube'da para kazanabilir miyim?",
+    "faq.a2": "Evet. Aldığınız lisans paketinin akış sınırları dahilinde (Standart: 100k, Premium: 500k, Exclusive: Sınırsız) tüm dijital mağazalardan ve müzik videolarınızdan ticari gelir elde edebilirsiniz. Lisans belgeniz tüm dağıtımcılarda geçerlidir.",
+    "faq.q3": "Exclusive (Özel) Lisans ile Kiralama (Lease) arasındaki fark nedir?",
+    "faq.a3": "Kiralama modellerinde beat belirli stream limitleriyle birden fazla sanatçıya lisanslanabilir. Exclusive lisans satın aldığınızda ise beat hemen satıştan kaldırılır; eserin tam mülkiyeti ve sınırsız ticari hakları sadece size ait olur.",
+    "faq.q4": "Özel beat siparişi, miks/mastering veya feat iş birliği nasıl başlatılır?",
+    "faq.a4": "Aşağıdaki İletişim bölümünden Instagram (@prodbynoiser) veya doğrudan E-posta (qnoiser@gmail.com) üzerinden referans şarkılarınız ve proje detaylarınızla birlikte talep gönderebilirsiniz.",
+    "faq.q5": "Dijital dağıtıcıma (DistroKid, TuneCore vs.) lisans belgesini nasıl ibraz ederim?",
+    "faq.a5": "Sistemimizden indirdiğiniz imzalı resmi PDF sözleşmeyi ve lisans doğrulama linkinizi dağıtımcınızın telif teyit formuna eklemeniz yeterlidir. Dağıtıcı yetkilileri sitemiz üzerinden kodu anında teyit edebilir.",
+
     "contact.tag": "İLETİŞİM & TALEP",
     "contact.title": "İş Birliği ve Proje Talepleri",
     "contact.desc": "Özel beat talepleri, feature projeleri, ticari sync lisanslama ve stüdyo iş birlikleri için doğrudan ulaşabilirsiniz.",
@@ -61,6 +114,9 @@ const translations = {
   },
   en: {
     "nav.license": "License Verification",
+    "nav.tiers": "License Tiers",
+    "nav.specs": "Studio Specs",
+    "nav.faq": "FAQ",
     "nav.contact": "Contact",
     "nav.verifyCta": "Verify License",
 
@@ -97,6 +153,56 @@ const translations = {
     "cert.downloadBtn": "Download License (PDF)",
     "cert.previewBtn": "Preview Document",
     "cert.shareBtn": "Copy Link",
+
+    "tiers.tag": "LICENSING TIERS & RIGHTS",
+    "tiers.title": "Transparent & Legally Protected Licensing",
+    "tiers.desc": "Choose the optimal tier for your release; all licenses come with an official PDF contract and instant verification code.",
+    "tiers.popBadge": "MOST POPULAR",
+    "tiers.contactBtn": "Inquire Now",
+    "tiers.t1Title": "Standard WAV Lease",
+    "tiers.t1Desc": "Ideal for independent artists, single releases, and foundational streaming distribution.",
+    "tiers.t1f1": "24-Bit Lossless Master WAV + MP3",
+    "tiers.t1f2": "100,000 Spotify / Apple Music Streams",
+    "tiers.t1f3": "1 Commercial Music Video",
+    "tiers.t1f4": "Official PDF Agreement & Verification Code",
+    "tiers.t2Title": "Premium Trackout Lease",
+    "tiers.t2Desc": "Includes individual multitrack stems for studio-grade mixing and wider commercial distribution.",
+    "tiers.t2f1": "Full Multitrack Stems (Drums, Bass, Melodies, FX)",
+    "tiers.t2f2": "500,000 Digital Streams & Radio Airplay",
+    "tiers.t2f3": "Unlimited Commercial Music Videos",
+    "tiers.t2f4": "Priority Sync & Commercial Clearance",
+    "tiers.t3Title": "Exclusive Rights (Full Buyout)",
+    "tiers.t3Desc": "Complete intellectual & commercial ownership; the beat is permanently removed from the public catalog.",
+    "tiers.t3f1": "100% Exclusive Intellectual & Commercial Rights",
+    "tiers.t3f2": "Unlimited Streaming, Radio, TV & Live Performance Revenue",
+    "tiers.t3f3": "Beat is Permanently Removed from Catalog",
+    "tiers.t3f4": "Signed Notarized Official Exclusive Agreement",
+
+    "specs.tag": "STUDIO ARCHITECTURE",
+    "specs.title": "Acoustic & Technical Standards",
+    "specs.desc": "Industry-standard precision mixing, analog color saturation, and platform-optimized true peak mastering.",
+    "specs.s1Title": "Analog Saturation",
+    "specs.s1Desc": "Custom Neve and SSL style tube outboard emulation for rich harmonic character and deep low-end.",
+    "specs.s2Title": "24-Bit / 96kHz Master",
+    "specs.s2Desc": "Optimized true peak, dynamic range, and LUFS target profiles for Spotify, Apple Music, and Dolby Atmos.",
+    "specs.s3Title": "Content ID Protection",
+    "specs.s3Desc": "Automated whitelist clearance preventing false copyright strikes on YouTube, TikTok, and Instagram.",
+    "specs.s4Title": "Cryptographic Registry",
+    "specs.s4Desc": "SHA-256 digital certificate registration and instantaneous database verification ledger.",
+
+    "faq.tag": "FREQUENTLY ASKED QUESTIONS",
+    "faq.title": "Everything You Need to Know",
+    "faq.desc": "Detailed answers regarding verification, distribution permissions, and collaboration workflows.",
+    "faq.q1": "How does the verification system work and how do I get my PDF contract?",
+    "faq.a1": "Simply enter your unique license code (e.g., NS-2026-8842) in the search box above to verify rights instantly and download your signed official PDF agreement directly.",
+    "faq.q2": "Can I monetize my song on Spotify, Apple Music, and YouTube?",
+    "faq.a2": "Yes. Within the streaming limits of your purchased tier (Standard: 100k, Premium: 500k, Exclusive: Unlimited), you can collect 100% of your royalties on all platforms.",
+    "faq.q3": "What is the difference between an Exclusive Buyout and a Lease?",
+    "faq.a3": "A Lease grants non-exclusive rights within stream limits. An Exclusive buyout transfers full commercial ownership to you and permanently removes the beat from sale.",
+    "faq.q4": "How do I initiate a custom beat order, mixing project, or feature collaboration?",
+    "faq.a4": "Reach out via Instagram (@prodbynoiser) or Email (qnoiser@gmail.com) with your reference tracks and project scope.",
+    "faq.q5": "How do I present my license agreement to digital distributors (DistroKid, TuneCore)?",
+    "faq.a5": "Provide the downloaded signed PDF agreement and your live verification link in your distributor's copyright review form.",
 
     "contact.tag": "INQUIRIES & CONTACT",
     "contact.title": "Collaboration & Project Inquiries",
@@ -263,6 +369,42 @@ function updateScrollState() {
 
 window.addEventListener("scroll", updateScrollState, { passive: true });
 updateScrollState();
+
+// ================= FAQ ACCORDION INTERACTION =================
+document.querySelectorAll(".faq-question").forEach((btn) => {
+  btn.addEventListener("click", () => {
+    const item = btn.closest(".faq-item");
+    const isOpen = item.classList.contains("is-open");
+
+    // Close other items
+    document.querySelectorAll(".faq-item").forEach((other) => {
+      if (other !== item) other.classList.remove("is-open");
+    });
+
+    item.classList.toggle("is-open", !isOpen);
+  });
+});
+
+// ================= DYNAMIC VU METER SIMULATION =================
+function animateVuMeters() {
+  const segments = document.querySelectorAll(".vu-segment");
+  if (!segments.length) return;
+
+  setInterval(() => {
+    const activeCount = Math.floor(Math.random() * 4) + 3; // 3 to 7
+    segments.forEach((seg, idx) => {
+      if (idx < activeCount) {
+        seg.style.opacity = "1";
+        seg.style.transform = "scaleY(" + (0.7 + Math.random() * 0.6) + ")";
+      } else {
+        seg.style.opacity = "0.2";
+        seg.style.transform = "scaleY(0.5)";
+      }
+    });
+  }, 180);
+}
+
+animateVuMeters();
 
 // Reveal animations on scroll
 if ("IntersectionObserver" in window) {

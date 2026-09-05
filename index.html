@@ -6,14 +6,14 @@
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
-  <meta name="description" content="NO!SER — Müzik Prodüktörü & Ses Tasarımı. Resmi lisans doğrulama ve sözleşme portalı." />
+  <meta name="description" content="NO!SER — Müzik Prodüktörü & Ses Tasarımı. Resmi lisans doğrulama, telif güvencesi ve sözleşme portalı." />
   <title>NO!SER — Müzik Prodüktörü &amp; Lisans Portalı</title>
   <link rel="icon" type="image/svg+xml" href="logo-mark.svg" />
   <link rel="apple-touch-icon" href="logo-mark.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css?v=20260906v1" />
+  <link rel="stylesheet" href="style.css?v=20260906v2" />
 </head>
 <body>
 
@@ -36,6 +36,9 @@
       <!-- Navigation Links & Theme / Language Controls -->
       <nav class="site-nav" id="site-nav" aria-label="Ana Menü">
         <a href="#license" class="site-nav__link" data-i18n="nav.license">Lisans Doğrulama</a>
+        <a href="#tiers" class="site-nav__link" data-i18n="nav.tiers">Lisans Paketleri</a>
+        <a href="#specs" class="site-nav__link" data-i18n="nav.specs">Stüdyo Mimarisi</a>
+        <a href="#faq" class="site-nav__link" data-i18n="nav.faq">SSS</a>
         <a href="#contact" class="site-nav__link" data-i18n="nav.contact">İletişim</a>
         
         <!-- Siyah Tema / Beyaz Tema Switcher -->
@@ -141,7 +144,7 @@
             </div>
           </div>
 
-          <!-- Right: Official Producer Insignia Card -->
+          <!-- Right: Official Producer Insignia Card with Simulated Audio Meter -->
           <div class="hero__card-wrap">
             <div class="producer-emblem-card">
               <div class="producer-emblem-card__top">
@@ -155,6 +158,17 @@
                 <img src="logo-mark.svg" alt="NO!SER Mark" class="producer-emblem-logo" width="68" height="68" />
                 <h2 class="producer-emblem-title">NO!SER</h2>
                 <span class="producer-emblem-tag">OFFICIAL MUSIC PRODUCER HUB</span>
+                
+                <!-- Animated Studio Level Meter Indicator -->
+                <div class="studio-meter-bar" aria-hidden="true">
+                  <span class="vu-segment active-green"></span>
+                  <span class="vu-segment active-green"></span>
+                  <span class="vu-segment active-green"></span>
+                  <span class="vu-segment active-green"></span>
+                  <span class="vu-segment active-gold"></span>
+                  <span class="vu-segment active-gold"></span>
+                  <span class="vu-segment active-red"></span>
+                </div>
               </div>
 
               <div class="producer-emblem-card__specs">
@@ -242,9 +256,7 @@
             </form>
 
             <!-- Status Indicator / Feedback Area -->
-            <div id="verify-state" class="verify-state" style="display: none;">
-              <!-- Dynamic JS injection: Loading spinner or Error alert -->
-            </div>
+            <div id="verify-state" class="verify-state" style="display: none;"></div>
 
             <!-- Verification Result / Certificate Display Card -->
             <div id="cert-result" class="cert-card" style="display: none;">
@@ -255,7 +267,7 @@
                   <span id="res-status-badge" class="cert-valid-badge">AKTİF &amp; DOĞRULANDI</span>
                 </div>
                 <div class="cert-card__header">
-                  <img src="logo-mark.svg" alt="NO!SER Emblem" class="cert-card__logo" width="44" height="44" />
+                  <img src="logo-mark.svg" alt="NO!SER Emblem" class="cert-card__logo" width="48" height="48" />
                   <div>
                     <h4 id="res-track-title" class="cert-card__heading">Eser / Beat Başlığı</h4>
                     <span class="cert-card__sub" data-i18n="cert.registry">NO!SER OFFICIAL LICENSE REGISTRY</span>
@@ -325,6 +337,239 @@
 
             </div>
 
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================= LICENSE TIERS & RIGHTS SECTION ================= -->
+    <section class="section section--tiers" id="tiers" aria-labelledby="tiers-heading">
+      <div class="section__container">
+
+        <div class="section-head reveal">
+          <span class="section-tag" data-i18n="tiers.tag">LİSANS MODELLERİ VE HAKLAR</span>
+          <h2 class="section-heading" id="tiers-heading" data-i18n="tiers.title">
+            Şeffaf ve Yasal Güvenceli Lisans Paketleri
+          </h2>
+          <p class="section-lead" data-i18n="tiers.desc">
+            İhtiyacınıza uygun lisans modelini belirleyin; tüm lisanslar resmi PDF sözleşmesi ve anlık tescil kodu ile teslim edilir.
+          </p>
+        </div>
+
+        <div class="tiers-grid">
+
+          <!-- 1. Standart WAV Lease -->
+          <div class="tier-card reveal">
+            <div class="tier-card__head">
+              <h3 class="tier-card__name" data-i18n="tiers.t1Title">Standart WAV Lisansı</h3>
+              <p class="tier-card__desc" data-i18n="tiers.t1Desc">Bağımsız sanatçılar, single yayınları ve temel dijital dağıtım için idealdir.</p>
+            </div>
+            <ul class="tier-card__features">
+              <li class="tier-feature-item">
+                <svg class="tier-feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                <span data-i18n="tiers.t1f1">24-Bit Yüksek Kalite Master WAV + MP3</span>
+              </li>
+              <li class="tier-feature-item">
+                <svg class="tier-feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                <span data-i18n="tiers.t1f2">100.000 Spotify / Apple Music Stream Hakkı</span>
+              </li>
+              <li class="tier-feature-item">
+                <svg class="tier-feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                <span data-i18n="tiers.t1f3">1 Ticari Müzik Videosu Yayın İzni</span>
+              </li>
+              <li class="tier-feature-item">
+                <svg class="tier-feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                <span data-i18n="tiers.t1f4">Resmi PDF Lisans Sözleşmesi &amp; Doğrulama Kodu</span>
+              </li>
+            </ul>
+            <div class="tier-card__bottom">
+              <a href="#contact" class="btn btn--navy-outline btn-tier-action" data-i18n="tiers.contactBtn">Talep Gönder</a>
+            </div>
+          </div>
+
+          <!-- 2. Premium Trackout Lease (Featured) -->
+          <div class="tier-card tier-card--featured reveal">
+            <span class="tier-badge" data-i18n="tiers.popBadge">EN ÇOK TERCİH EDİLEN</span>
+            <div class="tier-card__head">
+              <h3 class="tier-card__name" data-i18n="tiers.t2Title">Premium Trackout Lisansı</h3>
+              <p class="tier-card__desc" data-i18n="tiers.t2Desc">Ayrıştırılmış kanal kanalları (stems) ile profesyonel stüdyo miksajı ve geniş dağıtım.</p>
+            </div>
+            <ul class="tier-card__features">
+              <li class="tier-feature-item">
+                <svg class="tier-feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                <span data-i18n="tiers.t2f1">Tüm Track Stems (Davul, Bas, Melodiler, FX)</span>
+              </li>
+              <li class="tier-feature-item">
+                <svg class="tier-feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                <span data-i18n="tiers.t2f2">500.000 Dijital Stream &amp; Radyo Yayın Hakkı</span>
+              </li>
+              <li class="tier-feature-item">
+                <svg class="tier-feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                <span data-i18n="tiers.t2f3">Sınırsız Ticari Müzik Videosu</span>
+              </li>
+              <li class="tier-feature-item">
+                <svg class="tier-feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                <span data-i18n="tiers.t2f4">Öncelikli Sync &amp; Reklam Lisanslama İzni</span>
+              </li>
+            </ul>
+            <div class="tier-card__bottom">
+              <a href="#contact" class="btn btn--gold btn-tier-action" data-i18n="tiers.contactBtn">Talep Gönder</a>
+            </div>
+          </div>
+
+          <!-- 3. Exclusive Rights Buyout -->
+          <div class="tier-card reveal">
+            <div class="tier-card__head">
+              <h3 class="tier-card__name" data-i18n="tiers.t3Title">Exclusive (Tam Mülkiyet)</h3>
+              <p class="tier-card__desc" data-i18n="tiers.t3Desc">Eserin tüm telif ve kullanım haklarını üzerinize alıp beat'i katalogdan tamamen kaldıran tam yetki.</p>
+            </div>
+            <ul class="tier-card__features">
+              <li class="tier-feature-item">
+                <svg class="tier-feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                <span data-i18n="tiers.t3f1">%100 Münhasır Fikri ve Ticari Mülkiyet</span>
+              </li>
+              <li class="tier-feature-item">
+                <svg class="tier-feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                <span data-i18n="tiers.t3f2">Sınırsız Stream, TV, Radyo &amp; Konser Geliri</span>
+              </li>
+              <li class="tier-feature-item">
+                <svg class="tier-feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                <span data-i18n="tiers.t3f3">Beat Katalogdan Kalıcı Olarak Kaldırılır</span>
+              </li>
+              <li class="tier-feature-item">
+                <svg class="tier-feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                <span data-i18n="tiers.t3f4">Islak / E-İmzalı Noter Geçerli Özel Sözleşme</span>
+              </li>
+            </ul>
+            <div class="tier-card__bottom">
+              <a href="#contact" class="btn btn--navy-outline btn-tier-action" data-i18n="tiers.contactBtn">Talep Gönder</a>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================= STUDIO SPECS & AUDIO ARCHITECTURE ================= -->
+    <section class="section section--specs" id="specs" aria-labelledby="specs-heading">
+      <div class="section__container">
+
+        <div class="section-head reveal">
+          <span class="section-tag" data-i18n="specs.tag">STÜDYO MİMARİSİ</span>
+          <h2 class="section-heading" id="specs-heading" data-i18n="specs.title">
+            Teknik ve Akustik Standartlar
+          </h2>
+          <p class="section-lead" data-i18n="specs.desc">
+            Uluslararası endüstri standartlarında miks, analog renklendirme ve her platform için optimize edilmiş mastering mimarisi.
+          </p>
+        </div>
+
+        <div class="specs-grid">
+
+          <div class="spec-card reveal">
+            <div class="spec-card__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            </div>
+            <h3 class="spec-card__title" data-i18n="specs.s1Title">Analog Doygunluk</h3>
+            <p class="spec-card__desc" data-i18n="specs.s1Desc">Neve ve SSL tarzı analog lambalı cihaz emülasyonları ile zengin harmonikler ve gövdeli baslar.</p>
+          </div>
+
+          <div class="spec-card reveal">
+            <div class="spec-card__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <h3 class="spec-card__title" data-i18n="specs.s2Title">24-Bit / 96kHz Master</h3>
+            <p class="spec-card__desc" data-i18n="specs.s2Desc">Spotify, Apple Music ve Dolby Atmos standartlarına uygun True Peak ve dinamik aralık optimizasyonu.</p>
+          </div>
+
+          <div class="spec-card reveal">
+            <div class="spec-card__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><circle cx="12" cy="11" r="3"/></svg>
+            </div>
+            <h3 class="spec-card__title" data-i18n="specs.s3Title">Telif &amp; Content ID</h3>
+            <p class="spec-card__desc" data-i18n="specs.s3Desc">YouTube, TikTok ve Instagram yayınlarında otomatik telif ihtarlarını önleyen beyaz liste altyapısı.</p>
+          </div>
+
+          <div class="spec-card reveal">
+            <div class="spec-card__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            </div>
+            <h3 class="spec-card__title" data-i18n="specs.s4Title">Kriptografik Tescil</h3>
+            <p class="spec-card__desc" data-i18n="specs.s4Desc">SHA-256 tabanlı benzersiz lisans kimliği ve anında teyit edilebilir resmi PDF sözleşme arşivi.</p>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================= FAQ (FREQUENTLY ASKED QUESTIONS) ================= -->
+    <section class="section section--faq" id="faq" aria-labelledby="faq-heading">
+      <div class="section__container">
+
+        <div class="section-head reveal">
+          <span class="section-tag" data-i18n="faq.tag">SIKÇA SORULAN SORULAR</span>
+          <h2 class="section-heading" id="faq-heading" data-i18n="faq.title">
+            Aklınıza Takılan Her Şey
+          </h2>
+          <p class="section-lead" data-i18n="faq.desc">
+            Lisans doğrulama, dağıtım hakları ve stüdyo iş birliği süreçlerine dair detaylı yanıtlar.
+          </p>
+        </div>
+
+        <div class="faq-deck reveal">
+
+          <div class="faq-item">
+            <button type="button" class="faq-question">
+              <span data-i18n="faq.q1">Lisans doğrulama sistemi nasıl çalışır ve PDF sözleşme nasıl indirilir?</span>
+              <svg class="faq-icon-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p data-i18n="faq.a1">Satın alım sonrasında tarafınıza iletilen benzersiz lisans kodunu (Örn: NS-2026-8842) sayfanın yukarısındaki arama kutusuna yazarak saniyeler içinde doğrulatabilir, lisans kapsamını görebilir ve resmi PDF sözleşmenizi doğrudan indirebilirsiniz.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button type="button" class="faq-question">
+              <span data-i18n="faq.q2">Satın aldığım beat ile Spotify, Apple Music ve YouTube'da para kazanabilir miyim?</span>
+              <svg class="faq-icon-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p data-i18n="faq.a2">Evet. Aldığınız lisans paketinin akış sınırları dahilinde (Standart: 100k, Premium: 500k, Exclusive: Sınırsız) tüm dijital mağazalardan ve müzik videolarınızdan ticari gelir elde edebilirsiniz. Lisans belgeniz tüm dağıtımcılarda geçerlidir.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button type="button" class="faq-question">
+              <span data-i18n="faq.q3">Exclusive (Özel) Lisans ile Kiralama (Lease) arasındaki fark nedir?</span>
+              <svg class="faq-icon-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p data-i18n="faq.a3">Kiralama modellerinde beat belirli stream limitleriyle birden fazla sanatçıya lisanslanabilir. Exclusive lisans satın aldığınızda ise beat hemen satıştan kaldırılır; eserin tam mülkiyeti ve sınırsız ticari hakları sadece size ait olur.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button type="button" class="faq-question">
+              <span data-i18n="faq.q4">Özel beat siparişi, miks/mastering veya feat iş birliği nasıl başlatılır?</span>
+              <svg class="faq-icon-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p data-i18n="faq.a4">Aşağıdaki İletişim bölümünden Instagram (@prodbynoiser) veya doğrudan E-posta (qnoiser@gmail.com) üzerinden referans şarkılarınız ve proje detaylarınızla birlikte talep gönderebilirsiniz.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button type="button" class="faq-question">
+              <span data-i18n="faq.q5">Dijital dağıtıcıma (DistroKid, TuneCore vs.) lisans belgesini nasıl ibraz ederim?</span>
+              <svg class="faq-icon-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p data-i18n="faq.a5">Sistemimizden indirdiğiniz imzalı resmi PDF sözleşmeyi ve lisans doğrulama linkinizi dağıtımcınızın telif teyit formuna eklemeniz yeterlidir. Dağıtıcı yetkilileri sitemiz üzerinden kodu anında teyit edebilir.</p>
+            </div>
           </div>
 
         </div>
@@ -419,7 +664,7 @@
     <div class="site-footer__container">
       
       <div class="site-footer__brand">
-        <img src="logo-mark.svg" alt="NO!SER" class="site-footer__logo" width="36" height="36" />
+        <img src="logo-mark.svg" alt="NO!SER" class="site-footer__logo" width="38" height="38" />
         <div>
           <span class="site-footer__title">NO!SER</span>
           <span class="site-footer__sub">MÜZİK PRODÜKTÖRÜ &amp; LİSANS PORTALI</span>
@@ -432,7 +677,7 @@
         </p>
       </div>
 
-      <!-- Social Icons in Strict Order: Instagram, Email, SoundCloud -->
+      <!-- Social Icons in Strict Order: 1. Instagram, 2. Email, 3. SoundCloud -->
       <div class="site-footer__socials">
         <a href="https://instagram.com/prodbynoiser" target="_blank" rel="noopener" aria-label="Instagram">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"/></svg>
@@ -499,6 +744,6 @@
     </div>
   </div>
 
-  <script src="script.js?v=20260906v1"></script>
+  <script src="script.js?v=20260906v2"></script>
 </body>
 </html>
