@@ -64,7 +64,7 @@ const btnLogout = document.getElementById('btn-logout');
 
 // ================= PERSISTENT TOKEN STORAGE =================
 function getStoredToken() {
-  return localStorage.getItem('noiser_admin_token') || sessionStorage.getItem('noiser_admin_token') || 'NOISER2026';
+  return localStorage.getItem('noiser_admin_token') || sessionStorage.getItem('noiser_admin_token') || '';
 }
 
 function setStoredToken(token) {

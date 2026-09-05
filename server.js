@@ -867,13 +867,103 @@ app.post('/api/admin/import', authMiddleware, (req, res) => {
   }
 });
 
-// Serve static admin files under disguised and secret routes
-app.use('/admin', express.static(path.join(__dirname, 'admin')));
-app.use('/portal', express.static(path.join(__dirname, 'admin')));
-app.use('/secret-vault', express.static(path.join(__dirname, 'admin')));
+// Anti-Scanner Honeypot: Automated exploit scanners hitting common vulnerability paths get banned immediately
+const HONEYPOT_PATHS = [
+  '/wp-admin', '/wp-login.php', '/phpmyadmin', '/pma', '/administrator',
+  '/admin.php', '/login.php', '/cpanel', '/.env', '/config.php', '/web.config',
+  '/.git/config', '/xmlrpc.php', '/setup.php'
+];
+
+app.use((req, res, next) => {
+  const reqPath = req.path.toLowerCase();
+  if (HONEYPOT_PATHS.some(hp => reqPath === hp || reqPath.startsWith(hp + '/'))) {
+    const clientIp = req.ip || req.connection.remoteAddress || 'unknown-ip';
+    console.warn(`[SECURITY HONEYPOT] Bot scanner banned from IP: ${clientIp} for requesting: ${req.path}`);
+    recordFailedAuth(clientIp);
+    recordFailedAuth(clientIp);
+    recordFailedAuth(clientIp);
+    recordFailedAuth(clientIp);
+    recordFailedAuth(clientIp); // Immediate IP lockout
+    return res.status(404).send(getGeneric404Html());
+  }
+  next();
+});
+
+function getGeneric404Html() {
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 Not Found</title>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #080A0F; color: #8E9BB0; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; text-align: center; }
+    .wrap { max-width: 460px; padding: 24px; }
+    h1 { font-size: 56px; color: #F4F7FC; margin: 0 0 12px; font-weight: 800; }
+    p { font-size: 15px; margin: 0 0 24px; line-height: 1.5; }
+    a { color: #D4AF37; text-decoration: none; font-weight: 700; border: 1px solid rgba(212, 175, 55, 0.4); padding: 8px 18px; border-radius: 6px; }
+    a:hover { background: #D4AF37; color: #080A0F; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>404</h1>
+    <p>The requested URL was not found on this server.</p>
+    <a href="/">Return to Home</a>
+  </div>
+</body>
+</html>`;
+}
+
+// Stealth Admin Gatekeeper Middleware (Disguises Admin Panel behind 404 to unauthenticated requests)
+function stealthAdminMiddleware(req, res, next) {
+  // Check 1: Key provided in query parameter (e.g. ?key=YOUR_PASSKEY or ?vault=YOUR_PASSKEY)
+  const queryKey = req.query.key || req.query.passkey || req.query.secret || req.query.access || req.query.vault || req.query.token;
+  if (queryKey && isValidAdminToken(queryKey)) {
+    const admin = getAdminConfig();
+    const deterministicToken = crypto.createHmac('sha256', ADMIN_SECRET).update(`${admin.username || 'admin'}-noiser-session`).digest('hex');
+    activeSessions.set(deterministicToken, {
+      username: admin.username,
+      expiresAt: Date.now() + 7 * 24 * 60 * 60 * 1000
+    });
+    res.cookie('noiser_admin_token', deterministicToken, {
+      httpOnly: false,
+      secure: false,
+      sameSite: 'lax',
+      maxAge: 7 * 24 * 60 * 60 * 1000
+    });
+    return next();
+  }
+
+  // Check 2: Header Authorization / Custom Header
+  const authHeader = req.headers.authorization;
+  const customHeader = req.headers['x-admin-token'] || req.headers['x-master-passkey'];
+  const cookieToken = req.cookies && req.cookies.noiser_admin_token;
+  let token = null;
+
+  if (authHeader && authHeader.startsWith('Bearer ')) {
+    token = authHeader.substring(7);
+  } else if (customHeader) {
+    token = customHeader;
+  } else if (cookieToken) {
+    token = cookieToken;
+  }
+
+  if (token && isValidAdminToken(token)) {
+    return next();
+  }
+
+  // Unauthorized: Return generic 404 Not Found so public visitors and automated scanners believe no admin portal exists!
+  return res.status(404).send(getGeneric404Html());
+}
+
+// Serve static admin files under stealth protected routes
+app.use('/admin', stealthAdminMiddleware, express.static(path.join(__dirname, 'admin')));
+app.use('/_vault_', stealthAdminMiddleware, express.static(path.join(__dirname, 'admin')));
+app.use('/_ns_core_', stealthAdminMiddleware, express.static(path.join(__dirname, 'admin')));
 
 // Admin route fallback for secret routes
-app.get(/^\/(admin|portal|secret-vault)/, (req, res) => {
+app.get(/^\/(admin|_vault_|_ns_core_)/, stealthAdminMiddleware, (req, res) => {
   res.sendFile(path.join(__dirname, 'admin', 'index.html'));
 });
 
@@ -889,11 +979,11 @@ app.use((req, res, next) => {
     }
     return res.sendFile(path.join(__dirname, 'index (2).html'));
   }
-  res.status(404).json({ success: false, message: 'Not Found' });
+  res.status(404).send(getGeneric404Html());
 });
 
 // Start server
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`NO!SER Production Server running on http://0.0.0.0:${PORT}`);
-  console.log(`Admin Panel: http://0.0.0.0:${PORT}/admin (Master Passkey: NOISER2026)`);
+  console.log(`Stealth Admin Gateway Active [Access via Homepage Ctrl+Shift+A or ?key=PASSKEY]`);
 });
