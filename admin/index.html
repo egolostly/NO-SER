@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NO!SER · Yönetim ve Güvenlik Portalı</title>
+  <link rel="icon" type="image/svg+xml" href="/logo-mark.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/admin/admin.css" />
+</head>
+<body>
+
+  <!-- TOAST NOTIFICATIONS -->
+  <div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+  <!-- AUTHENTICATION VIEW -->
+  <div id="auth-view" class="auth-wrapper">
+    <div class="auth-card">
+      <div class="auth-brand">
+        <img src="/logo-mark.svg" alt="NO!SER" class="auth-logo" />
+        <h1 class="auth-title">NO!SER ADMIN</h1>
+        <p class="auth-subtitle">Lisans ve Güvenlik Portalı</p>
+      </div>
+
+      <div class="auth-notice">
+        <p>Master Güvenlik Anahtarı veya Yönetici Giriş Bilgileri ile anında panele erişebilirsiniz.</p>
+      </div>
+
+      <form id="auth-form" class="auth-form" autocomplete="off">
+        <div id="auth-error" class="auth-alert" style="display: none;"></div>
+
+        <div class="form-group">
+          <label for="auth-key">Master Anahtar veya Kullanıcı Adı / Şifre</label>
+          <div class="input-with-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            <input type="password" id="auth-key" required placeholder="Master Passkey (Örn: NOISER2026)" autocomplete="current-password" autofocus />
+          </div>
+        </div>
+
+        <button type="submit" id="auth-submit-btn" class="btn btn--gold btn--block">
+          <span>Yönetim Paneline Giriş Yap</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+
+        <div class="auth-hint">
+          <span>Varsayılan Master Anahtar: <strong>NOISER2026</strong></span>
+        </div>
+      </form>
+
+      <div class="auth-footer">
+        <a href="/">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+          <span>Ana Siteye Dön</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN ADMIN DASHBOARD -->
+  <div id="dashboard-view" class="dashboard-view" style="display: none;">
+    
+    <!-- HEADER -->
+    <header class="admin-header">
+      <div class="admin-header__brand">
+        <a href="/admin" class="admin-logo-link">
+          <img src="/logo-mark.svg" alt="NO!SER" class="admin-header__logo" />
+          <div class="admin-header__title-wrap">
+            <span class="admin-header__title">NO!SER</span>
+            <span class="admin-header__badge">ADMIN</span>
+          </div>
+        </a>
+      </div>
+
+      <nav class="admin-nav" role="tablist">
+        <button type="button" class="admin-nav__btn is-active" data-tab="add-license" role="tab">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+          <span>Yeni Lisans Ekle</span>
+        </button>
+        <button type="button" class="admin-nav__btn" data-tab="licenses-list" role="tab">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          <span>Lisans Yönetimi</span>
+          <span id="badge-total-count" class="tab-badge">0</span>
+        </button>
+        <button type="button" class="admin-nav__btn" data-tab="overview" role="tab">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          <span>İstatistikler</span>
+        </button>
+        <button type="button" class="admin-nav__btn" data-tab="settings" role="tab">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          <span>Güvenlik & Ayarlar</span>
+        </button>
+      </nav>
+
+      <div class="admin-header__actions">
+        <a href="/" target="_blank" class="btn btn--outline btn--sm" title="Siteyi Yeni Sekmede Aç">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          <span>Siteyi Gör</span>
+        </a>
+        <button type="button" id="btn-logout" class="btn btn--danger btn--sm" title="Oturumu Kapat">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+          <span>Çıkış</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- MAIN CONTENT AREA -->
+    <main class="admin-main">
+
+      <!-- TAB: YENİ LİSANS EKLE (ADD LICENSE - FAST & ADVANCED) -->
+      <section id="tab-add-license" class="admin-tab is-active">
+        <div class="panel-card panel-card--form">
+          <div class="panel-card__header">
+            <h2 class="panel-card__title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+              <span>Hızlı Lisans ve PDF Tanımlama</span>
+            </h2>
+            <span class="panel-card__status-live">Canlı Entegrasyon Aktif</span>
+          </div>
+          <div class="panel-card__body">
+            
+            <div class="info-callout">
+              <p><strong>Otomatik Canlı Entegrasyon:</strong> Burada lisans numarasını yazıp PDF belgesini yüklediğiniz anda kayıt anında veritabanına işlenir ve ana sitede sorgulanabilir hale gelir.</p>
+            </div>
+
+            <form id="add-license-form" class="admin-form" enctype="multipart/form-data">
+              
+              <!-- 1. Primary Required: Code & PDF -->
+              <div class="form-group">
+                <div class="label-with-action">
+                  <label for="add-code">Lisans Numarası / Kodu <span class="required">*</span></label>
+                  <button type="button" id="btn-generate-code" class="btn-text-link">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/></svg>
+                    <span>Otomatik Kod Üret</span>
+                  </button>
+                </div>
+                <input type="text" id="add-code" name="code" required placeholder="Örn: NS-2026-8842" class="form-input code-input" />
+              </div>
+
+              <!-- PDF Upload Dropzone -->
+              <div class="form-group">
+                <label>Lisans Belgesi (PDF Dosyası) <span class="required">*</span></label>
+                <div id="pdf-dropzone" class="pdf-dropzone">
+                  <input type="file" id="add-pdf-file" name="pdfFile" accept=".pdf,application/pdf" class="pdf-file-input" required />
+                  <div class="pdf-dropzone__content">
+                    <svg class="pdf-dropzone__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="12" y2="12"/><line x1="15" y1="15" x2="12" y2="12"/></svg>
+                    <p class="pdf-dropzone__title">PDF dosyasını buraya sürükleyin veya <strong>dosya seçin</strong></p>
+                    <p class="pdf-dropzone__hint">Maksimum dosya boyutu: 50 MB</p>
+                  </div>
+                  <div id="dropzone-file-info" class="dropzone-file-info" style="display: none;">
+                    <div class="file-info-icon">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                    </div>
+                    <div class="file-info-details">
+                      <strong id="dropzone-filename">belge.pdf</strong>
+                      <span id="dropzone-filesize">0 KB</span>
+                    </div>
+                    <button type="button" id="btn-remove-selected-file" class="btn-icon-danger" title="Dosyayı Kaldır">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Optional Details Accordion -->
+              <details class="advanced-details-box">
+                <summary class="advanced-details-summary">
+                  <span>Ek Bilgiler (Müşteri Adı, Parça, Paket Türü vb. - İsteğe Bağlı)</span>
+                </summary>
+                
+                <div class="advanced-details-content">
+                  <div class="form-row form-row--2">
+                    <div class="form-group">
+                      <label for="add-customer-name">Müşteri Adı Soyadı</label>
+                      <input type="text" id="add-customer-name" name="customerName" placeholder="Örn: Ahmet Yılmaz" class="form-input" />
+                    </div>
+                    <div class="form-group">
+                      <label for="add-customer-email">Müşteri E-posta</label>
+                      <input type="email" id="add-customer-email" name="customerEmail" placeholder="Örn: musteri@example.com" class="form-input" />
+                    </div>
+                  </div>
+
+                  <div class="form-row form-row--2">
+                    <div class="form-group">
+                      <label for="add-track-title">Beat / Parça Adı</label>
+                      <input type="text" id="add-track-title" name="trackTitle" placeholder="Örn: VERTICA (Prod. by NO!SER)" class="form-input" />
+                    </div>
+                    <div class="form-group">
+                      <label for="add-license-type">Lisans Paketi</label>
+                      <select id="add-license-type" name="licenseType" class="form-select">
+                        <option value="Official License" selected>Official License</option>
+                        <option value="Exclusive Agreement">Exclusive Agreement</option>
+                        <option value="Unlimited Lease">Unlimited Lease</option>
+                        <option value="Premium Lease">Premium Lease</option>
+                        <option value="Basic Lease">Basic Lease</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="form-row form-row--2">
+                    <div class="form-group">
+                      <label for="add-issue-date">Düzenlenme Tarihi</label>
+                      <input type="date" id="add-issue-date" name="issueDate" class="form-input" />
+                    </div>
+                    <div class="form-group">
+                      <label for="add-notes">Yönetici Notu</label>
+                      <input type="text" id="add-notes" name="notes" placeholder="Örn: Sipariş #10294" class="form-input" />
+                    </div>
+                  </div>
+                </div>
+              </details>
+
+              <!-- Submit button -->
+              <div class="form-actions">
+                <button type="button" class="btn btn--outline" onclick="resetAddForm()">Temizle</button>
+                <button type="submit" id="btn-submit-add-license" class="btn btn--gold">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                  <span>Lisansı Kaydet & Yayına Al</span>
+                </button>
+              </div>
+
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB: LİSANS YÖNETİMİ (ALL LICENSES TABLE) -->
+      <section id="tab-licenses-list" class="admin-tab">
+        <div class="panel-card panel-card--full">
+          
+          <div class="panel-card__header panel-card__header--stackable">
+            <div>
+              <h2 class="panel-card__title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                <span>Tüm Lisans Kayıtları</span>
+              </h2>
+              <p class="panel-card__desc">Sistemdeki lisansları listeleyin, PDF dosyalarını indirin veya düzenleyin.</p>
+            </div>
+
+            <div class="table-controls">
+              <div class="table-search">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                <input type="text" id="license-filter-search" placeholder="Kod veya müşteri ara..." />
+              </div>
+
+              <button type="button" id="btn-refresh-licenses" class="btn btn--outline btn--icon" title="Yenile">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="panel-card__body panel-card__body--no-padding">
+            <div class="table-responsive">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th>Lisans Kodu</th>
+                    <th>Müşteri Bilgisi</th>
+                    <th>Eser / Beat</th>
+                    <th>PDF Belgesi</th>
+                    <th>İndirme</th>
+                    <th>Tarih</th>
+                    <th>Durum</th>
+                    <th style="text-align: right;">İşlemler</th>
+                  </tr>
+                </thead>
+                <tbody id="all-licenses-tbody">
+                  <tr>
+                    <td colspan="8" class="table-empty">Lisanslar yükleniyor...</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- TAB: İSTATİSTİKLER & GENEL BAKIŞ -->
+      <section id="tab-overview" class="admin-tab">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-card__icon stat-card__icon--gold">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            </div>
+            <div class="stat-card__content">
+              <span class="stat-card__label">Toplam Kayıtlı Lisans</span>
+              <span id="stat-total-licenses" class="stat-card__value">0</span>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-card__icon stat-card__icon--green">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            </div>
+            <div class="stat-card__content">
+              <span class="stat-card__label">Aktif Lisanslar</span>
+              <span id="stat-active-licenses" class="stat-card__value">0</span>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-card__icon stat-card__icon--blue">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            </div>
+            <div class="stat-card__content">
+              <span class="stat-card__label">PDF İndirmeleri</span>
+              <span id="stat-total-downloads" class="stat-card__value">0</span>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-card__icon stat-card__icon--purple">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+            </div>
+            <div class="stat-card__content">
+              <span class="stat-card__label">PDF Depolama</span>
+              <span id="stat-storage-used" class="stat-card__value">0 KB</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Test Search -->
+        <div class="panel-card">
+          <div class="panel-card__header">
+            <h2 class="panel-card__title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              <span>Hızlı Lisans Test Et & Sorgula</span>
+            </h2>
+          </div>
+          <div class="panel-card__body">
+            <div class="quick-lookup-box">
+              <input type="text" id="quick-search-input" placeholder="Lisans kodunu girin..." />
+              <button type="button" id="btn-quick-search" class="btn btn--gold">Test Et</button>
+            </div>
+            <div id="quick-search-result" class="quick-search-result" style="display: none;"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB: GÜVENLİK & AYARLAR -->
+      <section id="tab-settings" class="admin-tab">
+        <div class="settings-grid">
+          
+          <div class="panel-card">
+            <div class="panel-card__header">
+              <h2 class="panel-card__title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                <span>Güvenlik & Giriş Ayarları</span>
+              </h2>
+            </div>
+            <div class="panel-card__body">
+              <form id="change-password-form" class="settings-form" autocomplete="off">
+                <div class="form-group">
+                  <label for="settings-current-password">Mevcut Şifre veya Master Anahtar <span class="required">*</span></label>
+                  <input type="password" id="settings-current-password" required placeholder="Mevcut şifreniz" class="form-input" />
+                </div>
+
+                <div class="form-group">
+                  <label for="settings-new-master-passkey">Yeni Master Güvenlik Anahtarı (Passkey)</label>
+                  <input type="text" id="settings-new-master-passkey" placeholder="Örn: NOISER2026" class="form-input" />
+                </div>
+
+                <div class="form-group">
+                  <label for="settings-new-password">Yeni Yönetici Şifresi (Opsiyonel)</label>
+                  <input type="password" id="settings-new-password" placeholder="En az 6 karakter" class="form-input" />
+                </div>
+
+                <button type="submit" class="btn btn--gold">Güvenlik Bilgilerini Güncelle</button>
+              </form>
+            </div>
+          </div>
+
+          <div class="panel-card">
+            <div class="panel-card__header">
+              <h2 class="panel-card__title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                <span>Veritabanı Yedekleme</span>
+              </h2>
+            </div>
+            <div class="panel-card__body">
+              <p class="panel-card__desc">Tüm lisans verilerinizi tek tıkla JSON olarak yedekleyin veya geri yükleyin.</p>
+              
+              <div class="backup-actions">
+                <a href="/api/admin/export" class="btn btn--outline btn--block" download>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                  <span>JSON Veri Yedeği İndir</span>
+                </a>
+
+                <div class="restore-box">
+                  <label for="import-backup-file" class="btn btn--secondary btn--block">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                    <span>Yedekten Geri Yükle (.json)</span>
+                  </label>
+                  <input type="file" id="import-backup-file" accept=".json" style="display: none;" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- EDIT LICENSE MODAL -->
+  <div id="edit-modal" class="modal" aria-hidden="true">
+    <div class="modal__overlay" onclick="closeEditModal()"></div>
+    <div class="modal__dialog">
+      <div class="modal__header">
+        <h3 class="modal__title">Lisansı Düzenle</h3>
+        <button type="button" class="modal__close" onclick="closeEditModal()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <form id="edit-license-form" class="modal__body" enctype="multipart/form-data">
+        <input type="hidden" id="edit-id" name="id" />
+
+        <div class="form-group">
+          <label for="edit-code">Lisans Numarası / Kodu <span class="required">*</span></label>
+          <input type="text" id="edit-code" name="code" required class="form-input code-input" />
+        </div>
+
+        <div class="form-row form-row--2">
+          <div class="form-group">
+            <label for="edit-customer-name">Müşteri Adı</label>
+            <input type="text" id="edit-customer-name" name="customerName" class="form-input" />
+          </div>
+          <div class="form-group">
+            <label for="edit-customer-email">Müşteri E-posta</label>
+            <input type="email" id="edit-customer-email" name="customerEmail" class="form-input" />
+          </div>
+        </div>
+
+        <div class="form-row form-row--2">
+          <div class="form-group">
+            <label for="edit-track-title">Beat / Parça Adı</label>
+            <input type="text" id="edit-track-title" name="trackTitle" class="form-input" />
+          </div>
+          <div class="form-group">
+            <label for="edit-status">Durum</label>
+            <select id="edit-status" name="status" class="form-select">
+              <option value="active">Aktif</option>
+              <option value="expired">Süresi Doldu</option>
+              <option value="suspended">Askıya Alındı</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>PDF Dosyasını Değiştir (İsteğe Bağlı)</label>
+          <input type="file" id="edit-pdf-file" name="pdfFile" accept=".pdf,application/pdf" class="form-input" />
+          <span id="edit-current-pdf-info" class="form-help">Mevcut dosya korunur.</span>
+        </div>
+
+        <div class="modal__footer">
+          <button type="button" class="btn btn--outline" onclick="closeEditModal()">İptal</button>
+          <button type="submit" class="btn btn--gold">Değişiklikleri Kaydet</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- PDF PREVIEW MODAL -->
+  <div id="preview-modal" class="modal" aria-hidden="true">
+    <div class="modal__overlay" onclick="closePreviewModal()"></div>
+    <div class="modal__dialog modal__dialog--lg">
+      <div class="modal__header">
+        <h3 id="preview-modal-title" class="modal__title">PDF Önizleme</h3>
+        <div class="modal__header-actions">
+          <a id="preview-modal-download-btn" href="#" class="btn btn--gold btn--xs" download>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            <span>İndir</span>
+          </a>
+          <button type="button" class="modal__close" onclick="closePreviewModal()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="modal__body modal__body--pdf">
+        <iframe id="preview-modal-iframe" src="" title="PDF Preview"></iframe>
+      </div>
+    </div>
+  </div>
+
+  <!-- DELETE CONFIRMATION MODAL -->
+  <div id="delete-modal" class="modal" aria-hidden="true">
+    <div class="modal__overlay" onclick="closeDeleteModal()"></div>
+    <div class="modal__dialog modal__dialog--sm">
+      <div class="modal__header">
+        <h3 class="modal__title" style="color: #ff6b6b;">Lisansı Sil</h3>
+        <button type="button" class="modal__close" onclick="closeDeleteModal()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="modal__body">
+        <p><strong><span id="delete-code-display">NS-XXXX</span></strong> kodlu lisansı ve sunucudaki PDF dosyasını silmek istediğinize emin misiniz?</p>
+        <p class="delete-warning">Bu işlem geri alınamaz.</p>
+      </div>
+      <div class="modal__footer">
+        <button type="button" class="btn btn--outline" onclick="closeDeleteModal()">Vazgeç</button>
+        <button type="button" id="btn-confirm-delete" class="btn btn--danger">Evet, Sil</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="/admin/admin.js"></script>
+</body>
+</html>

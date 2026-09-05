@@ -1,0 +1,8 @@
+{
+  "username": "admin",
+  "passwordHash": "214c7758ee00fe8078269601d06490d276711ae9110f94522f7e301932770640d84195135186103c1ca30c923878c16d152076ef4062ec8a30902854d31bf45b",
+  "salt": "6a3119b647a64696b1092c8e81dc8f1b",
+  "name": "NO!SER Admin",
+  "createdAt": "2026-09-05T15:07:18.231Z",
+  "masterPasskey": "NOISER2026"
+}
