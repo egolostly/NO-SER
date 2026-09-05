@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="NO!SER — Prod. by NO!SER." />
+  <meta property="og:title" content="NO!SER" />
+  <meta property="og:description" content="Prod. by NO!SER." />
+  <meta property="og:image" content="https://noiser.netlify.app/logo-mark.png" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://noiser.netlify.app" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="NO!SER" />
+  <meta name="twitter:description" content="Prod. by NO!SER." />
+  <meta name="twitter:image" content="https://noiser.netlify.app/logo-mark.png" />
+  <title>NO!SER</title>
+  <link rel="icon" type="image/png" href="logo-mark.png?v=2" />
+  <link rel="apple-touch-icon" href="logo-mark.png?v=2" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="site-header" id="top">
+    <a class="brand" href="#top" aria-label="NO!SER home"><img src="logo-mark.png" alt="NO!SER" draggable="false" oncontextmenu="return false" /></a>
+    <button class="menu-button" type="button" aria-controls="site-nav" aria-expanded="false" aria-label="Open menu"><span></span><span></span></button>
+    <nav class="site-nav" id="site-nav" aria-label="Ana menü">
+      <a href="#tracks" data-i18n="nav.tracks">Tracks</a><a href="#license" data-i18n="nav.license">License</a><a href="#contact" data-i18n="nav.contact">Contact</a><a class="nav-listen" href="https://soundcloud.com/noiiser" target="_blank" rel="noopener">SoundCloud</a>
+      <div class="language-switch" role="group" aria-label="Language"><button type="button" data-lang="en" class="is-active">EN</button><button type="button" data-lang="tr">TR</button></div>
+    </nav>
+  </header>
+  <main>
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero__content">
+        <div class="hero__branding">
+          <img class="hero__logo" src="logo-footer.png" alt="NO!SER" draggable="false" oncontextmenu="return false" />
+          <div class="hero__stamp" data-i18n="hero.label">MUSIC PRODUCER</div>
+        </div>
+        <p class="hero__title" id="hero-title"><span data-i18n="hero.title">Music Producer</span><br /><em data-i18n="hero.role">Beatmaker</em></p>
+        <p class="hero__copy" data-i18n="hero.copy">Prod. by NO!SER</p>
+        <a class="button" href="#tracks"><span data-i18n="hero.cta">Listen to tracks</span> <span aria-hidden="true">↓</span></a>
+      </div>
+      <div class="hero__visual" aria-hidden="true">
+        <div class="hero__vinyl">
+          <div class="hero__vinyl-label">
+            <svg class="hero__vinyl-label-ring" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+              <defs>
+                <path id="labelCircle" d="M 50,50 m -37,0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0" />
+              </defs>
+              <text font-size="6.2" font-weight="700" letter-spacing="1.2" fill="rgba(18,66,130,.75)">
+                <textPath href="#labelCircle" xlink:href="#labelCircle" startOffset="0%">NO!SER • NO!SER • NO!SER • NO!SER • NO!SER • NO!SER •</textPath>
+              </text>
+            </svg>
+            <span class="hero__vinyl-hole"></span>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="tracks" id="tracks" aria-labelledby="tracks-title">
+      <div class="tracks__head">
+        <div class="section-label"><span data-i18n="tracks.label">SELECTED TRACKS</span> <span>03</span></div>
+        <h2 id="tracks-title" data-i18n="tracks.title">Tracks.</h2>
+        <p class="tracks__lead" data-i18n="tracks.lead">Stream the latest releases — prod. by NO!SER.</p>
+      </div>
+      <div class="track-list">
+        <article class="track reveal">
+          <div class="track__head">
+            <span class="track__number">01</span>
+          </div>
+          <div class="track__info">
+            <p class="track__artist">NO!SER</p>
+            <h3>VERTICA</h3>
+            <span data-i18n="tracks.original">Original release</span>
+          </div>
+          <div class="track__player" data-player>
+            <audio data-audio preload="metadata" src="audio/vertica.mp3"></audio>
+            <button class="player__toggle" type="button" data-play aria-label="Play VERTICA" data-play-label="Play VERTICA" data-pause-label="Pause VERTICA">
+              <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+              <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+            </button>
+            <div class="player__main">
+              <div class="player__readout">
+                <span class="player__eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+                <span class="player__label">NO!SER — VERTICA</span>
+              </div>
+              <div class="player__scrub" data-scrub tabindex="0" role="slider" aria-label="Seek" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                <div class="player__track">
+                  <div class="player__fill" data-fill></div>
+                  <div class="player__handle" data-handle></div>
+                </div>
+              </div>
+              <div class="player__time">
+                <span data-current>0:00</span>
+                <span data-duration>0:00</span>
+              </div>
+            </div>
+          </div>
+        </article>
+        <article class="track reveal">
+          <div class="track__head">
+            <span class="track__number">02</span>
+          </div>
+          <div class="track__info">
+            <p class="track__artist">NO!SER</p>
+            <h3>AMERICAN DREAM</h3>
+            <span data-i18n="tracks.original">Original release</span>
+          </div>
+          <div class="track__player" data-player>
+            <audio data-audio preload="metadata" src="audio/american-dream.mp3"></audio>
+            <button class="player__toggle" type="button" data-play aria-label="Play AMERICAN DREAM" data-play-label="Play AMERICAN DREAM" data-pause-label="Pause AMERICAN DREAM">
+              <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+              <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+            </button>
+            <div class="player__main">
+              <div class="player__readout">
+                <span class="player__eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+                <span class="player__label">NO!SER — AMERICAN DREAM</span>
+              </div>
+              <div class="player__scrub" data-scrub tabindex="0" role="slider" aria-label="Seek" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                <div class="player__track">
+                  <div class="player__fill" data-fill></div>
+                  <div class="player__handle" data-handle></div>
+                </div>
+              </div>
+              <div class="player__time">
+                <span data-current>0:00</span>
+                <span data-duration>0:00</span>
+              </div>
+            </div>
+          </div>
+        </article>
+        <article class="track reveal">
+          <div class="track__head">
+            <span class="track__number">03</span>
+          </div>
+          <div class="track__info">
+            <p class="track__artist">NO!SER</p>
+            <h3>DELOREAN</h3>
+            <span data-i18n="tracks.original">Original release</span>
+          </div>
+          <div class="track__player" data-player>
+            <audio data-audio preload="metadata" src="audio/delorean.mp3"></audio>
+            <button class="player__toggle" type="button" data-play aria-label="Play DELOREAN" data-play-label="Play DELOREAN" data-pause-label="Pause DELOREAN">
+              <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+              <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+            </button>
+            <div class="player__main">
+              <div class="player__readout">
+                <span class="player__eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+                <span class="player__label">NO!SER — DELOREAN</span>
+              </div>
+              <div class="player__scrub" data-scrub tabindex="0" role="slider" aria-label="Seek" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                <div class="player__track">
+                  <div class="player__fill" data-fill></div>
+                  <div class="player__handle" data-handle></div>
+                </div>
+              </div>
+              <div class="player__time">
+                <span data-current>0:00</span>
+                <span data-duration>0:00</span>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ================= LICENSE / PRICING ================= -->
+    <section class="pricing" id="license" aria-labelledby="pricing-title">
+      <div class="pricing__inner">
+        <div class="pricing__header reveal">
+          <p class="section-label"><span data-i18n="pricing.label">LICENSING</span> <span>04</span></p>
+          <h2 id="pricing-title">
+            <span data-i18n="pricing.title1">License</span><br />
+            <em data-i18n="pricing.title2">your sound.</em>
+          </h2>
+          <p class="pricing__lead" data-i18n="pricing.lead">Every beat is available under a legally binding license, delivered instantly with a signed, hash-authenticated certificate. Choose the tier that fits your release.</p>
+        </div>
+
+        <div class="pricing__included reveal">
+          <div class="pricing__included-item">
+            <span class="pricing__included-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z"/></svg>
+            </span>
+            <span data-i18n="pricing.included.delivery">Instant Delivery</span>
+          </div>
+          <div class="pricing__included-item">
+            <span class="pricing__included-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg>
+            </span>
+            <span data-i18n="pricing.included.legal">Legally Binding Contract</span>
+          </div>
+          <div class="pricing__included-item">
+            <span class="pricing__included-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 5v6c0 5 3.5 8.5 8 11 4.5-2.5 8-6 8-11V5l-8-3z"/></svg>
+            </span>
+            <span data-i18n="pricing.included.verified">Verified &amp; Hash-Authenticated</span>
+          </div>
+          <div class="pricing__included-item">
+            <span class="pricing__included-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 4 6 4 9s-1.5 6.3-4 9c-2.5-2.7-4-6-4-9s1.5-6.3 4-9z"/></svg>
+            </span>
+            <span data-i18n="pricing.included.worldwide">Worldwide Rights</span>
+          </div>
+        </div>
+
+        <div class="pricing__grid">
+          <!-- Basic Lease -->
+          <article class="license-card reveal">
+            <div class="license-card__head">
+              <span class="license-card__index">01</span>
+              <h3 class="license-card__name" data-i18n="pricing.card1.name">Basic Lease</h3>
+            </div>
+            <div class="license-card__price">
+              <span class="license-card__amount" data-price-usd="$14.99 – $19.99" data-price-try="₺499 – ₺649">$14.99 – $19.99</span>
+            </div>
+            <p class="license-card__desc" data-i18n="pricing.card1.desc">Perfect for testing the waters — demos, mixtapes and independent releases.</p>
+            <div class="license-card__format">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+              <span data-i18n="pricing.card1.format">MP3 File (320kbps)</span>
+            </div>
+            <ul class="license-card__features">
+              <li data-i18n="pricing.card1.feat1">Unlimited streams &amp; downloads</li>
+              <li data-i18n="pricing.card1.feat2">Worldwide distribution rights</li>
+              <li data-i18n="pricing.card1.feat3">Use on all major platforms</li>
+              <li data-i18n="pricing.card1.feat4">Non-exclusive license</li>
+            </ul>
+            <a href="#contact" class="license-card__cta"><span data-i18n="pricing.card1.cta">Get this license</span></a>
+          </article>
+
+          <!-- Premium Lease -->
+          <article class="license-card license-card--popular reveal">
+            <span class="license-card__badge" data-i18n="pricing.badge.popular">Most Popular</span>
+            <div class="license-card__head">
+              <span class="license-card__index">02</span>
+              <h3 class="license-card__name" data-i18n="pricing.card2.name">Premium Lease</h3>
+            </div>
+            <div class="license-card__price">
+              <span class="license-card__amount" data-price-usd="$24.99 – $29.99" data-price-try="₺849 – ₺999">$24.99 – $29.99</span>
+            </div>
+            <p class="license-card__desc" data-i18n="pricing.card2.desc">Studio-grade audio for serious releases, radio play and sync placements.</p>
+            <div class="license-card__format">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+              <span data-i18n="pricing.card2.format">MP3 (320kbps) + WAV</span>
+            </div>
+            <ul class="license-card__features">
+              <li data-i18n="pricing.card2.feat1">Everything in Basic Lease</li>
+              <li data-i18n="pricing.card2.feat2">Uncompressed WAV file</li>
+              <li data-i18n="pricing.card2.feat3">Broadcast &amp; radio-ready quality</li>
+              <li data-i18n="pricing.card2.feat4">Ideal for commercial releases</li>
+            </ul>
+            <a href="#contact" class="license-card__cta"><span data-i18n="pricing.card2.cta">Get this license</span></a>
+          </article>
+
+          <!-- Unlimited Lease -->
+          <article class="license-card reveal">
+            <div class="license-card__head">
+              <span class="license-card__index">03</span>
+              <h3 class="license-card__name" data-i18n="pricing.card3.name">Unlimited Lease</h3>
+            </div>
+            <div class="license-card__price">
+              <span class="license-card__amount" data-price-usd="$49.99 – $59.99" data-price-try="₺1.699 – ₺1.999">$49.99 – $59.99</span>
+            </div>
+            <p class="license-card__desc" data-i18n="pricing.card3.desc">Complete creative control with full trackout stems for professional mixing and mastering.</p>
+            <div class="license-card__format">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+              <span data-i18n="pricing.card3.format">MP3 + WAV + Full Trackout Stems</span>
+            </div>
+            <ul class="license-card__features">
+              <li data-i18n="pricing.card3.feat1">Everything in Premium Lease</li>
+              <li data-i18n="pricing.card3.feat2">Full trackout stems included</li>
+              <li data-i18n="pricing.card3.feat3">Total mix &amp; master flexibility</li>
+              <li data-i18n="pricing.card3.feat4">Preferred by professional studios</li>
+            </ul>
+            <a href="#contact" class="license-card__cta"><span data-i18n="pricing.card3.cta">Get this license</span></a>
+          </article>
+
+          <!-- Exclusive -->
+          <article class="license-card license-card--exclusive reveal">
+            <span class="license-card__badge license-card__badge--exclusive" data-i18n="pricing.badge.exclusive">Full Ownership</span>
+            <div class="license-card__head">
+              <span class="license-card__index">04</span>
+              <h3 class="license-card__name" data-i18n="pricing.card4.name">Exclusive</h3>
+            </div>
+            <div class="license-card__price">
+              <span class="license-card__amount license-card__amount--contact" data-i18n="pricing.card4.price">Contact for pricing</span>
+            </div>
+            <p class="license-card__desc" data-i18n="pricing.card4.desc">The beat is yours — and only yours. Full copyright and master ownership transfer.</p>
+            <div class="license-card__format">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+              <span data-i18n="pricing.card4.format">MP3 + WAV + Stems + Session Files</span>
+            </div>
+            <ul class="license-card__features">
+              <li data-i18n="pricing.card4.feat1">100% ownership &amp; copyright transfer</li>
+              <li data-i18n="pricing.card4.feat2">Full publishing rights transfer</li>
+              <li data-i18n="pricing.card4.feat3">Beat permanently removed from sale</li>
+              <li data-i18n="pricing.card4.feat4">One buyer — no other licenses issued</li>
+            </ul>
+            <a href="#contact" class="license-card__cta license-card__cta--exclusive"><span data-i18n="pricing.card4.cta">Contact for exclusive rights</span></a>
+          </article>
+        </div>
+
+        <p class="pricing__footnote" data-i18n="pricing.footnote">All licenses are delivered with a signed agreement, a unique verification hash and a QR-authenticated certificate confirming their validity.</p>
+      </div>
+    </section>
+
+    <!-- ================= CONTACT (REDESIGNED) ================= -->
+    <section class="contact" id="contact" aria-labelledby="contact-title">
+      <div class="contact__inner">
+
+        <div class="contact__header contact-reveal">
+          <p class="section-label"><span data-i18n="contact.label">CONTACT</span> <span>05</span></p>
+          <h2 id="contact-title">
+            <span data-i18n="contact.title1">For</span><br />
+            <em data-i18n="contact.title2">collaboration.</em>
+          </h2>
+          <p class="contact__lead" data-i18n="contact.lead">Beats, features and full productions — reach out through whichever channel fits the work. Replies land within 48 hours.</p>
+        </div>
+
+        <div class="contact__grid">
+
+          <a class="contact-card contact-reveal" href="https://instagram.com/no1serr" target="_blank" rel="noopener" aria-label="Instagram — no1serr">
+            <span class="contact-card__index">01</span>
+            <span class="contact-card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" focusable="false">
+                <rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2"/>
+                <circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/>
+                <circle cx="17.3" cy="6.7" r="1.1" fill="currentColor"/>
+              </svg>
+            </span>
+            <h3 class="contact-card__title">Instagram</h3>
+            <p class="contact-card__desc" data-i18n="contact.card1.desc">Behind-the-scenes sessions, previews and daily process.</p>
+            <span class="contact-card__footer">
+              <span class="contact-card__value">@no1serr</span>
+              <span class="link-arrow contact-card__arrow" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M9 7h8v8"/></svg>
+              </span>
+            </span>
+          </a>
+
+          <a class="contact-card contact-reveal" href="mailto:qnoiser@gmail.com" aria-label="Email — qnoiser@gmail.com">
+            <span class="contact-card__index">02</span>
+            <span class="contact-card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" focusable="false">
+                <rect x="3" y="5" width="18" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="2"/>
+                <path d="M4 7l8 6 8-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            <h3 class="contact-card__title" data-i18n="contact.email">Email</h3>
+            <p class="contact-card__desc" data-i18n="contact.card2.desc">For bookings, licensing and project inquiries.</p>
+            <span class="contact-card__footer">
+              <span class="contact-card__value">qnoiser@gmail.com</span>
+              <span class="link-arrow contact-card__arrow" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M9 7h8v8"/></svg>
+              </span>
+            </span>
+          </a>
+
+          <a class="contact-card contact-reveal" href="https://soundcloud.com/noiiser" target="_blank" rel="noopener" aria-label="SoundCloud — noiiser">
+            <span class="contact-card__index">03</span>
+            <span class="contact-card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" focusable="false">
+                <path d="M17 10.6c-.35-2.55-2.5-4.5-5-4.5-1.55 0-2.95.75-3.85 1.9-.2-.05-.4-.05-.6-.05-2.35 0-4.3 1.9-4.3 4.3s1.95 4.3 4.3 4.3H17c1.85 0 3.35-1.5 3.35-3.3 0-1.55-1.1-2.85-2.6-3.15z" fill="currentColor"/>
+              </svg>
+            </span>
+            <h3 class="contact-card__title">SoundCloud</h3>
+            <p class="contact-card__desc" data-i18n="contact.card3.desc">Full catalogue of releases and production credits.</p>
+            <span class="contact-card__footer">
+              <span class="contact-card__value">@noiiser</span>
+              <span class="link-arrow contact-card__arrow" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M9 7h8v8"/></svg>
+              </span>
+            </span>
+          </a>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ================= FOOTER (REDESIGNED) ================= -->
+  <footer>
+    <div class="footer__logo">
+      <img src="logo-mark.png" alt="NO!SER" draggable="false" oncontextmenu="return false" />
+      <span class="footer__wordmark">NO!SER</span>
+    </div>
+
+    <p class="footer__copyright">© <span id="year"></span> NO!SER · <span data-i18n="footer.rights">All rights reserved</span></p>
+
+    <div class="footer__social">
+      <a href="https://soundcloud.com/noiiser" target="_blank" rel="noopener" aria-label="SoundCloud">
+        <svg viewBox="0 0 24 24" focusable="false"><path d="M17 10.6c-.35-2.55-2.5-4.5-5-4.5-1.55 0-2.95.75-3.85 1.9-.2-.05-.4-.05-.6-.05-2.35 0-4.3 1.9-4.3 4.3s1.95 4.3 4.3 4.3H17c1.85 0 3.35-1.5 3.35-3.3 0-1.55-1.1-2.85-2.6-3.15z" fill="currentColor"/></svg>
+      </a>
+      <a href="https://instagram.com/no1serr" target="_blank" rel="noopener" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" focusable="false"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.3" cy="6.7" r="1.1" fill="currentColor"/></svg>
+      </a>
+      <a href="mailto:qnoiser@gmail.com" aria-label="Email">
+        <svg viewBox="0 0 24 24" focusable="false"><rect x="3" y="5" width="18" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M4 7l8 6 8-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+
+    <a href="#top" class="footer__top">
+      <span data-i18n="footer.topLabel">Back to top</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+    </a>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
