@@ -1,96 +1,29 @@
-// NO!SER Main Architecture & Interaction Script
+// NO!SER Official Production & License Verification Portal Script
 
 const menuButton = document.querySelector(".menu-button");
 const siteNav = document.querySelector(".site-nav");
 
 const translations = {
-  en: {
-    "nav.license": "License",
-    "nav.contact": "Contact",
-
-    "hero.badge": "PROD. BY NO!SER · OFFICIAL HUB",
-    "hero.titleSub": "MUSIC PRODUCER",
-    "hero.lead": "Bespoke sonic architecture, hard-hitting records, and cryptographically verified licensing.",
-    "hero.ctaVerify": "Verify License",
-    "hero.ctaContact": "Get in Touch",
-    "hero.stat1": "Legal Security",
-    "hero.stat2": "Official PDF",
-    "hero.stat3": "Live Verification",
-
-    "license.tag": "VERIFICATION HUB",
-    "license.title": "Verify Your Production License",
-    "license.desc": "Instantly authenticate ownership, inspect registered rights, and download your signed official PDF agreement.",
-
-    "pillar.1.title": "Instant Verification",
-    "pillar.1.desc": "Your unique certificate code is matched against our live server database with zero delay.",
-    "pillar.2.title": "Official PDF Contract",
-    "pillar.2.desc": "Download and inspect legally binding, signed PDF licensing agreements directly.",
-    "pillar.3.title": "Legally Binding Rights",
-    "pillar.3.desc": "Covers digital streaming, sync placements, mechanical rights, and commercial distribution.",
-    "pillar.4.title": "Permanent Secure Record",
-    "pillar.4.desc": "Tamper-proof record protection ensuring your beat ownership remains undisputed.",
-
-    "verify.consoleTitle": "ENTER LICENSE CODE",
-    "verify.placeholder": "Enter license code (e.g. NS-2026-XXXX)",
-    "verify.btnText": "Verify",
-    "verify.loading": "Verifying license record...",
-    "verify.errorDefault": "The license code entered was not found in our database. Please double check.",
-
-    "cert.verifiedTag": "OFFICIALLY VERIFIED LICENSE",
-    "cert.heading": "NO!SER Official License Certificate",
-    "cert.codeLabel": "LICENSE NUMBER",
-    "cert.clientLabel": "LICENSEE (CLIENT)",
-    "cert.emailLabel": "REGISTERED EMAIL",
-    "cert.trackLabel": "LICENSED BEAT / TRACK",
-    "cert.tierLabel": "LICENSE TIER",
-    "cert.dateLabel": "ISSUE DATE",
-    "cert.copy": "Copy",
-    "cert.copied": "Copied!",
-    "cert.downloadBtn": "Download License (PDF)",
-    "cert.previewBtn": "Preview Document",
-    "cert.shareBtn": "Copy Link",
-
-    "contact.tag": "INQUIRIES & CONTACT",
-    "contact.title": "Let's Create Something Iconic",
-    "contact.desc": "Bespoke beats, custom arrangements, commercial sync licensing, and artist collaborations.",
-    "contact.card1.text": "Studio sessions, beat previews, announcements, and direct inquiries.",
-    "contact.emailTitle": "Email",
-    "contact.card2.text": "Licensing agreements, custom projects, bookings, and business inquiries.",
-    "contact.copyBtn": "Copy Email",
-    "contact.emailCopied": "Copied!",
-    "contact.card3.text": "Full catalog of releases, instrumental beat tapes, and production archives.",
-
-    "footer.rights": "All rights reserved",
-    "footer.top": "Back to top"
-  },
   tr: {
-    "nav.license": "Lisans",
+    "nav.license": "Lisans Doğrulama",
     "nav.contact": "İletişim",
+    "nav.verifyCta": "Lisans Doğrula",
 
     "hero.badge": "PROD. BY NO!SER · RESMİ PORTAL",
     "hero.titleSub": "MÜZİK PRODÜKTÖRÜ",
-    "hero.lead": "Özgün ses mimarisi, yüksek kaliteli prodüksiyonlar ve yasal güvenceli resmi lisanslama portalı.",
-    "hero.ctaVerify": "Lisans Doğrula",
+    "hero.lead": "Özgün ses mimarisi, yüksek kaliteli beat prodüksiyonları ve yasal güvenceli resmi lisanslama portalı.",
+    "hero.ctaVerify": "Lisans Kodunu Doğrula",
     "hero.ctaContact": "İletişime Geç",
     "hero.stat1": "Yasal Güvence",
-    "hero.stat2": "Resmi Sözleşme",
+    "hero.stat2": "Resmi PDF Sözleşme",
     "hero.stat3": "Canlı Doğrulama",
 
     "license.tag": "LİSANS DOĞRULAMA MERKEZİ",
     "license.title": "Satın Aldığınız Lisansı Doğrulayın",
-    "license.desc": "Beat ve prodüksiyon haklarınızı anında teyit edin, mülkiyet bilgilerinizi görüntüleyin ve imzalı resmi PDF sözleşmenizi indirin.",
-
-    "pillar.1.title": "Anlık Doğrulama",
-    "pillar.1.desc": "Kodunuz sisteme girildiği anda veritabanından anında teyit edilir.",
-    "pillar.2.title": "Resmi PDF Sertifikası",
-    "pillar.2.desc": "İmzalı ve onaylı orijinal PDF lisans belgenizi anında indirin.",
-    "pillar.3.title": "Yasal Bağlayıcı Haklar",
-    "pillar.3.desc": "Ticari yayın, dijital dağıtım ve telif haklarınızı koruma altına alır.",
-    "pillar.4.title": "Kalıcı Güvenli Kayıt",
-    "pillar.4.desc": "Tüm lisans verileri şifreli ve kalıcı olarak arşivlenir.",
+    "license.desc": "Beat ve prodüksiyon haklarınızı anında teyit edin, yasal mülkiyet bilgilerinizi görüntüleyin ve imzalı resmi PDF sözleşmenizi indirin.",
 
     "verify.consoleTitle": "LİSANS NUMARANIZI GİRİN",
-    "verify.placeholder": "Lisans kodunu yazın (Örn: NS-2026-XXXX)",
+    "verify.placeholder": "Lisans kodunuzu yazın (Örn: NS-2026-XXXX)",
     "verify.btnText": "Doğrula",
     "verify.loading": "Lisans kaydı doğrulanıyor...",
     "verify.errorDefault": "Girdiğiniz lisans numarası sistemde bulunamadı. Lütfen kontrol ediniz.",
@@ -119,8 +52,57 @@ const translations = {
     "contact.emailCopied": "Kopyalandı!",
     "contact.card3.text": "Tüm prodüksiyonlar, beat yayınları ve remiks arşivi.",
 
-    "footer.rights": "Tüm hakları saklıdır",
-    "footer.top": "Yukarı çık"
+    "footer.rights": "Tüm hakları saklıdır"
+  },
+  en: {
+    "nav.license": "License Verification",
+    "nav.contact": "Contact",
+    "nav.verifyCta": "Verify License",
+
+    "hero.badge": "PROD. BY NO!SER · OFFICIAL PORTAL",
+    "hero.titleSub": "MUSIC PRODUCER",
+    "hero.lead": "Bespoke sonic architecture, hard-hitting beat productions, and cryptographically verified licensing.",
+    "hero.ctaVerify": "Verify License Code",
+    "hero.ctaContact": "Get in Touch",
+    "hero.stat1": "Legal Security",
+    "hero.stat2": "Official PDF Contract",
+    "hero.stat3": "Live Verification",
+
+    "license.tag": "LICENSE VERIFICATION HUB",
+    "license.title": "Verify Your Production License",
+    "license.desc": "Instantly authenticate beat rights, inspect registered ownership, and download your signed official PDF agreement.",
+
+    "verify.consoleTitle": "ENTER LICENSE NUMBER",
+    "verify.placeholder": "Enter license code (e.g. NS-2026-XXXX)",
+    "verify.btnText": "Verify",
+    "verify.loading": "Verifying license record...",
+    "verify.errorDefault": "License code not found in our database. Please double check.",
+
+    "cert.verifiedTag": "OFFICIALLY VERIFIED LICENSE",
+    "cert.heading": "NO!SER License Certificate",
+    "cert.codeLabel": "LICENSE NUMBER",
+    "cert.clientLabel": "LICENSEE (CLIENT)",
+    "cert.emailLabel": "REGISTERED EMAIL",
+    "cert.trackLabel": "LICENSED BEAT / TRACK",
+    "cert.tierLabel": "LICENSE TIER",
+    "cert.dateLabel": "ISSUE DATE",
+    "cert.copy": "Copy",
+    "cert.copied": "Copied!",
+    "cert.downloadBtn": "Download License (PDF)",
+    "cert.previewBtn": "Preview Document",
+    "cert.shareBtn": "Copy Link",
+
+    "contact.tag": "INQUIRIES & CONTACT",
+    "contact.title": "Collaboration & Project Inquiries",
+    "contact.desc": "Bespoke beat inquiries, feature arrangements, commercial sync licensing, and studio collaborations.",
+    "contact.card1.text": "Studio sessions, beat previews, announcements, and direct inquiries.",
+    "contact.emailTitle": "Email",
+    "contact.card2.text": "Licensing agreements, custom projects, bookings, and business inquiries.",
+    "contact.copyBtn": "Copy Email",
+    "contact.emailCopied": "Copied!",
+    "contact.card3.text": "Full catalog of releases, instrumental beat tapes, and production archives.",
+
+    "footer.rights": "All rights reserved"
   }
 };
 
@@ -129,44 +111,56 @@ let currentLanguage = "tr";
 function setLanguage(language) {
   currentLanguage = language;
   document.documentElement.lang = language;
+  
   document.querySelectorAll("[data-i18n]").forEach((element) => {
     const key = element.dataset.i18n;
     if (translations[language] && translations[language][key] !== undefined) {
       element.textContent = translations[language][key];
     }
   });
+
   document.querySelectorAll("[data-i18n-placeholder]").forEach((element) => {
     const key = element.dataset.i18nPlaceholder;
     if (translations[language] && translations[language][key] !== undefined) {
       element.placeholder = translations[language][key];
     }
   });
+
   document.querySelectorAll(".lang-btn").forEach((button) => {
     const isActive = button.dataset.lang === language;
     button.classList.toggle("is-active", isActive);
     button.setAttribute("aria-pressed", String(isActive));
   });
+
   localStorage.setItem("noiser-language", language);
 }
 
+document.querySelectorAll(".lang-btn").forEach((button) => {
+  button.addEventListener("click", () => setLanguage(button.dataset.lang));
+});
+
+// Initialize Language
+const savedLang = localStorage.getItem("noiser-language") || (navigator.language.startsWith("tr") ? "tr" : "en");
+setLanguage(savedLang);
+
+// Smooth in-page scrolling
 function scrollToSection(id, behavior = "smooth") {
   const target = document.getElementById(id);
   if (!target) return;
   target.scrollIntoView({ behavior, block: "start" });
 }
 
-function handleInPageLink(event) {
-  const link = event.currentTarget;
-  const href = link.getAttribute("href");
-  if (!href || !href.startsWith("#") || href.length < 2) return;
-  event.preventDefault();
-  scrollToSection(href.slice(1));
-  history.replaceState(null, "", location.pathname + location.search);
-}
+document.querySelectorAll('a[href^="#"]:not([href="#"])').forEach((link) => {
+  link.addEventListener("click", (event) => {
+    const href = link.getAttribute("href");
+    if (!href || !href.startsWith("#") || href.length < 2) return;
+    event.preventDefault();
+    scrollToSection(href.slice(1));
+    history.replaceState(null, "", location.pathname + location.search);
+  });
+});
 
-document.querySelectorAll('a[href^="#"]:not([href="#"])').forEach((link) => link.addEventListener("click", handleInPageLink));
-
-// Brand logo click
+// Brand Logo Click Scroll to Top
 const brandLogo = document.querySelector(".brand");
 if (brandLogo) {
   brandLogo.addEventListener("click", (event) => {
@@ -176,26 +170,24 @@ if (brandLogo) {
   });
 }
 
-// Mobile menu
+// Mobile Menu
 if (menuButton && siteNav) {
   menuButton.addEventListener("click", () => {
-    const open = siteNav.classList.toggle("is-open");
-    menuButton.classList.toggle("is-open", open);
-    menuButton.setAttribute("aria-expanded", String(open));
+    const isOpen = siteNav.classList.toggle("is-open");
+    menuButton.classList.toggle("is-open", isOpen);
+    menuButton.setAttribute("aria-expanded", String(isOpen));
   });
 
-  siteNav.querySelectorAll("a").forEach((link) => link.addEventListener("click", () => {
-    siteNav.classList.remove("is-open");
-    menuButton.classList.remove("is-open");
-    menuButton.setAttribute("aria-expanded", "false");
-  }));
+  siteNav.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", () => {
+      siteNav.classList.remove("is-open");
+      menuButton.classList.remove("is-open");
+      menuButton.setAttribute("aria-expanded", "false");
+    });
+  });
 }
 
-document.querySelectorAll(".lang-btn").forEach((button) => {
-  button.addEventListener("click", () => setLanguage(button.dataset.lang));
-});
-setLanguage(localStorage.getItem("noiser-language") || (navigator.language.startsWith("tr") ? "tr" : "en"));
-
+// Set Current Year in Footer
 const yearEl = document.getElementById("year");
 if (yearEl) yearEl.textContent = new Date().getFullYear();
 
@@ -209,20 +201,23 @@ function updateScrollState() {
   const scrollTop = window.scrollY || document.documentElement.scrollTop;
   const docHeight = document.documentElement.scrollHeight - window.innerHeight;
   const scrollPercent = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+  
   if (scrollProgressBar) {
     scrollProgressBar.style.width = `${Math.min(100, Math.max(0, scrollPercent))}%`;
   }
   if (siteHeader) {
-    siteHeader.classList.toggle("is-scrolled", scrollTop > 24);
+    siteHeader.classList.toggle("is-scrolled", scrollTop > 20);
   }
 
-  // Active nav link tracking
+  // Track active section link
   if (sectionIds.length) {
     const offset = window.innerHeight * 0.35;
     let currentId = sectionIds[0];
     sectionIds.forEach((id) => {
       const section = document.getElementById(id);
-      if (section && section.getBoundingClientRect().top <= offset) currentId = id;
+      if (section && section.getBoundingClientRect().top <= offset) {
+        currentId = id;
+      }
     });
     sectionNavLinks.forEach((link) => {
       link.classList.toggle("is-active", link.getAttribute("href") === `#${currentId}`);
@@ -233,7 +228,7 @@ function updateScrollState() {
 window.addEventListener("scroll", updateScrollState, { passive: true });
 updateScrollState();
 
-// Reveal animations on viewport intersection
+// Reveal animations on scroll
 if ("IntersectionObserver" in window) {
   const revealObserver = new IntersectionObserver(
     (entries, observer) => {
@@ -243,97 +238,15 @@ if ("IntersectionObserver" in window) {
         observer.unobserve(entry.target);
       });
     },
-    { threshold: 0.12, rootMargin: "0px 0px -6% 0px" }
+    { threshold: 0.1, rootMargin: "0px 0px -4% 0px" }
   );
 
   document.querySelectorAll(".reveal").forEach((element, index) => {
-    element.style.transitionDelay = `${(index % 3) * 0.08}s`;
+    element.style.transitionDelay = `${(index % 3) * 0.06}s`;
     revealObserver.observe(element);
   });
 } else {
   document.querySelectorAll(".reveal").forEach((element) => element.classList.add("is-visible"));
-}
-
-// ================= INTERACTIVE LUXURY VINYL TURNTABLE =================
-const vinylEl = document.querySelector(".vinyl-disc");
-if (vinylEl) {
-  const DEFAULT_SPIN = 35;
-  const MAX_SPIN = 240;
-  let rotation = 0;
-  let spinSpeed = DEFAULT_SPIN;
-  let isDragging = false;
-  let lastAngle = 0;
-  let lastTime = null;
-
-  function angleFromEvent(evt) {
-    const rect = vinylEl.getBoundingClientRect();
-    const cx = rect.left + rect.width / 2;
-    const cy = rect.top + rect.height / 2;
-    const point = evt.touches ? evt.touches[0] : evt;
-    return Math.atan2(point.clientY - cy, point.clientX - cx) * (180 / Math.PI);
-  }
-
-  function onPointerDown(evt) {
-    isDragging = true;
-    lastAngle = angleFromEvent(evt);
-    vinylEl.classList.add("is-dragging");
-    evt.preventDefault();
-  }
-
-  function onPointerMove(evt) {
-    if (!isDragging) return;
-    const angle = angleFromEvent(evt);
-    let delta = angle - lastAngle;
-    if (delta > 180) delta -= 360;
-    if (delta < -180) delta += 360;
-    rotation += delta;
-    lastAngle = angle;
-    vinylEl.style.transform = `rotate(${rotation}deg)`;
-    evt.preventDefault();
-  }
-
-  function onPointerUp() {
-    if (!isDragging) return;
-    isDragging = false;
-    vinylEl.classList.remove("is-dragging");
-  }
-
-  function tick(time) {
-    if (lastTime === null) lastTime = time;
-    const dt = Math.min((time - lastTime) / 1000, 0.05);
-    lastTime = time;
-    if (!isDragging) {
-      rotation += spinSpeed * dt;
-      vinylEl.style.transform = `rotate(${rotation}deg)`;
-      spinSpeed += (DEFAULT_SPIN - spinSpeed) * Math.min(dt * 0.8, 1);
-    }
-    requestAnimationFrame(tick);
-  }
-
-  vinylEl.addEventListener("mousedown", onPointerDown);
-  vinylEl.addEventListener("touchstart", onPointerDown, { passive: false });
-  window.addEventListener("mousemove", (evt) => {
-    if (!isDragging) return;
-    const angle = angleFromEvent(evt);
-    let delta = angle - lastAngle;
-    if (delta > 180) delta -= 360;
-    if (delta < -180) delta += 360;
-    spinSpeed = Math.max(Math.min(delta * 60, MAX_SPIN), -MAX_SPIN);
-    onPointerMove(evt);
-  });
-  window.addEventListener("touchmove", (evt) => {
-    if (!isDragging) return;
-    const angle = angleFromEvent(evt);
-    let delta = angle - lastAngle;
-    if (delta > 180) delta -= 360;
-    if (delta < -180) delta += 360;
-    spinSpeed = Math.max(Math.min(delta * 60, MAX_SPIN), -MAX_SPIN);
-    onPointerMove(evt);
-  }, { passive: false });
-  window.addEventListener("mouseup", onPointerUp);
-  window.addEventListener("touchend", onPointerUp);
-
-  requestAnimationFrame(tick);
 }
 
 // ================= EMAIL CLIPBOARD COPY =================
@@ -350,10 +263,14 @@ if (btnCopyEmail && copyEmailText) {
 
     const feedback = () => {
       copyEmailText.textContent = copiedLabel;
-      btnCopyEmail.classList.add("is-copied");
+      btnCopyEmail.style.borderColor = "var(--navy)";
+      btnCopyEmail.style.background = "var(--navy)";
+      btnCopyEmail.style.color = "#FFFFFF";
       setTimeout(() => {
         copyEmailText.textContent = originalText;
-        btnCopyEmail.classList.remove("is-copied");
+        btnCopyEmail.style.borderColor = "";
+        btnCopyEmail.style.background = "";
+        btnCopyEmail.style.color = "";
       }, 2000);
     };
 
@@ -434,10 +351,19 @@ async function executeLicenseVerification(licenseCode) {
       if (resStatusBadge) {
         if (lic.status === "active") {
           resStatusBadge.textContent = currentLanguage === "tr" ? "Aktif & Geçerli" : "Active & Valid";
+          resStatusBadge.style.background = "#ECFDF5";
+          resStatusBadge.style.color = "#047857";
+          resStatusBadge.style.borderColor = "#A7F3D0";
         } else if (lic.status === "expired") {
           resStatusBadge.textContent = currentLanguage === "tr" ? "Süresi Doldu" : "Expired";
+          resStatusBadge.style.background = "#FEF2F2";
+          resStatusBadge.style.color = "#B91C1C";
+          resStatusBadge.style.borderColor = "#FCA5A5";
         } else {
           resStatusBadge.textContent = currentLanguage === "tr" ? "Askıda" : "Suspended";
+          resStatusBadge.style.background = "#FFFBEB";
+          resStatusBadge.style.color = "#B45309";
+          resStatusBadge.style.borderColor = "#FDE68A";
         }
       }
 
@@ -579,7 +505,7 @@ function checkUrlForLicenseQuery() {
     setTimeout(() => {
       scrollToSection("license");
       executeLicenseVerification(codeParam);
-    }, 400);
+    }, 300);
   }
 }
 
