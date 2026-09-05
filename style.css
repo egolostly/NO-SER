@@ -73,9 +73,20 @@ body {
   flex-direction: column;
 }
 
-img, svg {
+img {
   display: block;
   max-width: 100%;
+}
+
+/* Defensive SVG sizing to prevent any overflow or expansion */
+svg {
+  display: inline-block;
+  vertical-align: middle;
+  width: 1.25rem;
+  height: 1.25rem;
+  max-width: 100%;
+  max-height: 100%;
+  flex-shrink: 0;
 }
 
 a {
@@ -107,10 +118,10 @@ button, input, select, textarea {
   position: sticky;
   top: 0;
   z-index: 500;
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(255, 255, 255, 0.96);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: 1.5px solid var(--border-color);
   transition: all 0.25s ease;
 }
 
@@ -137,8 +148,8 @@ button, input, select, textarea {
 }
 
 .brand__logo {
-  width: 42px;
-  height: 42px;
+  width: 40px;
+  height: 40px;
   border-radius: var(--radius-sm);
   flex-shrink: 0;
   box-shadow: 0 2px 8px rgba(15, 80, 140, 0.15);
@@ -180,7 +191,7 @@ button, input, select, textarea {
 
 .site-nav__link {
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--text-muted);
   position: relative;
   padding: 6px 2px;
@@ -254,12 +265,16 @@ button, input, select, textarea {
   border-radius: var(--radius-full);
   border: 1px solid var(--navy);
   transition: all 0.2s ease;
+  flex-shrink: 0;
 }
 
 .nav-cta-btn svg {
-  width: 14px;
-  height: 14px;
+  width: 15px;
+  height: 15px;
+  max-width: 15px;
+  max-height: 15px;
   color: var(--gold);
+  flex-shrink: 0;
 }
 
 .nav-cta-btn:hover {
@@ -274,8 +289,8 @@ button, input, select, textarea {
   display: none;
   flex-direction: column;
   justify-content: space-between;
-  width: 32px;
-  height: 22px;
+  width: 30px;
+  height: 20px;
   background: transparent;
   border: none;
   cursor: pointer;
@@ -314,6 +329,8 @@ button, input, select, textarea {
 .btn svg {
   width: 18px;
   height: 18px;
+  max-width: 18px;
+  max-height: 18px;
   flex-shrink: 0;
 }
 
@@ -420,6 +437,7 @@ button, input, select, textarea {
   border-radius: 50%;
   display: inline-block;
   box-shadow: 0 0 0 3px rgba(194, 152, 16, 0.25);
+  flex-shrink: 0;
 }
 
 .hero__title {
@@ -492,6 +510,8 @@ button, input, select, textarea {
 .highlight-item__icon svg {
   width: 18px;
   height: 18px;
+  max-width: 18px;
+  max-height: 18px;
 }
 
 .highlight-item__text {
@@ -567,6 +587,7 @@ button, input, select, textarea {
   height: 6px;
   background: var(--gold);
   border-radius: 50%;
+  flex-shrink: 0;
 }
 
 .card-region {
@@ -583,8 +604,8 @@ button, input, select, textarea {
 }
 
 .producer-emblem-logo {
-  width: 72px;
-  height: 72px;
+  width: 68px;
+  height: 68px;
   margin: 0 auto 16px;
   border-radius: var(--radius-sm);
   box-shadow: 0 4px 16px rgba(15, 80, 140, 0.18);
@@ -655,6 +676,8 @@ button, input, select, textarea {
 .card-action-link svg {
   width: 16px;
   height: 16px;
+  max-width: 16px;
+  max-height: 16px;
   color: var(--gold-dark);
   transition: transform 0.2s ease;
 }
@@ -758,6 +781,8 @@ button, input, select, textarea {
 .verify-card__icon svg {
   width: 22px;
   height: 22px;
+  max-width: 22px;
+  max-height: 22px;
 }
 
 .verify-card__title {
@@ -800,11 +825,14 @@ button, input, select, textarea {
   justify-content: center;
   padding: 0 16px;
   color: var(--text-light);
+  flex-shrink: 0;
 }
 
 .verify-input-icon svg {
   width: 20px;
   height: 20px;
+  max-width: 20px;
+  max-height: 20px;
 }
 
 .verify-input {
@@ -816,6 +844,7 @@ button, input, select, textarea {
   font-weight: 700;
   letter-spacing: 0.04em;
   color: var(--navy);
+  min-width: 0;
 }
 
 .verify-input:focus {
@@ -859,6 +888,7 @@ button, input, select, textarea {
   border-top-color: var(--navy);
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
+  flex-shrink: 0;
 }
 
 @keyframes spin {
@@ -874,6 +904,8 @@ button, input, select, textarea {
 .verify-state--error svg {
   width: 20px;
   height: 20px;
+  max-width: 20px;
+  max-height: 20px;
   flex-shrink: 0;
 }
 
@@ -937,6 +969,7 @@ button, input, select, textarea {
   height: 44px;
   border-radius: var(--radius-sm);
   box-shadow: 0 2px 8px rgba(15, 80, 140, 0.15);
+  flex-shrink: 0;
 }
 
 .cert-card__heading {
@@ -1018,11 +1051,14 @@ button, input, select, textarea {
   border-radius: 4px;
   cursor: pointer;
   transition: all 0.15s ease;
+  flex-shrink: 0;
 }
 
 .btn-copy-tag svg {
   width: 12px;
   height: 12px;
+  max-width: 12px;
+  max-height: 12px;
 }
 
 .btn-copy-tag:hover {
@@ -1110,6 +1146,8 @@ button, input, select, textarea {
 .contact-card__icon svg {
   width: 24px;
   height: 24px;
+  max-width: 24px;
+  max-height: 24px;
 }
 
 .contact-card__icon--gold {
@@ -1172,11 +1210,14 @@ button, input, select, textarea {
   justify-content: center;
   color: var(--navy);
   transition: all 0.2s ease;
+  flex-shrink: 0;
 }
 
 .contact-arrow svg {
   width: 14px;
   height: 14px;
+  max-width: 14px;
+  max-height: 14px;
 }
 
 .contact-card:hover .contact-arrow {
@@ -1224,6 +1265,9 @@ button, input, select, textarea {
 .btn-copy-email-chip svg {
   width: 14px;
   height: 14px;
+  max-width: 14px;
+  max-height: 14px;
+  flex-shrink: 0;
 }
 
 .btn-copy-email-chip:hover {
@@ -1262,6 +1306,7 @@ button, input, select, textarea {
   height: 36px;
   border-radius: var(--radius-sm);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  flex-shrink: 0;
 }
 
 .site-footer__title {
@@ -1324,11 +1369,14 @@ button, input, select, textarea {
   justify-content: center;
   color: #FFFFFF;
   transition: all 0.2s ease;
+  flex-shrink: 0;
 }
 
 .site-footer__socials a svg {
   width: 16px;
   height: 16px;
+  max-width: 16px;
+  max-height: 16px;
 }
 
 .site-footer__socials a:hover {
@@ -1423,11 +1471,14 @@ button, input, select, textarea {
   justify-content: center;
   border-radius: 4px;
   transition: all 0.15s ease;
+  flex-shrink: 0;
 }
 
 .site-modal__close-btn svg {
-  width: 22px;
-  height: 22px;
+  width: 18px;
+  height: 18px;
+  max-width: 18px;
+  max-height: 18px;
 }
 
 .site-modal__close-btn:hover {
@@ -1485,7 +1536,7 @@ button, input, select, textarea {
   }
   .site-nav {
     position: fixed;
-    top: 70px;
+    top: 68px;
     left: 0;
     right: 0;
     background: #FFFFFF;

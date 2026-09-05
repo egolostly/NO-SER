@@ -3,6 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
   <meta name="description" content="NO!SER — Müzik Prodüktörü & Ses Tasarımı. Resmi lisans doğrulama ve sözleşme portalı." />
   <title>NO!SER — Müzik Prodüktörü &amp; Lisans Portalı</title>
   <link rel="icon" type="image/svg+xml" href="logo-mark.svg" />
@@ -10,11 +13,11 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css?v=20260905v3" />
 </head>
 <body>
 
-  <!-- SCROLL PROGRESS INDICATOR -->
+  <!-- SCROLL PROGRESS BAR -->
   <div id="scroll-progress-bar" class="scroll-progress-bar" aria-hidden="true"></div>
 
   <!-- SITE HEADER -->
@@ -22,15 +25,15 @@
     <div class="site-header__container">
       
       <a class="brand" href="#top" aria-label="NO!SER Ana Sayfa">
-        <img src="logo-mark.svg" alt="NO!SER Logo" class="brand__logo" />
+        <img src="logo-mark.svg" alt="NO!SER Logo" class="brand__logo" width="40" height="40" />
         <div class="brand__text">
           <span class="brand__name">NO!SER</span>
           <span class="brand__subtitle">PRODÜKTÖR</span>
         </div>
       </a>
 
-      <!-- Navigation & Actions -->
-      <nav class="site-nav" id="site-nav" aria-label="Ana Gezinti">
+      <!-- Navigation Links -->
+      <nav class="site-nav" id="site-nav" aria-label="Ana Menü">
         <a href="#license" class="site-nav__link" data-i18n="nav.license">Lisans Doğrulama</a>
         <a href="#contact" class="site-nav__link" data-i18n="nav.contact">İletişim</a>
         
@@ -41,12 +44,12 @@
         </div>
 
         <a href="#license" class="nav-cta-btn">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
           <span data-i18n="nav.verifyCta">Lisans Doğrula</span>
         </a>
       </nav>
 
-      <!-- Mobile Menu Toggle Button -->
+      <!-- Mobile Hamburger Button -->
       <button class="menu-button" type="button" aria-controls="site-nav" aria-expanded="false" aria-label="Menüyü aç">
         <span class="menu-bar"></span>
         <span class="menu-bar"></span>
@@ -81,11 +84,11 @@
 
             <div class="hero__actions">
               <a href="#license" class="btn btn--gold">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
                 <span data-i18n="hero.ctaVerify">Lisans Kodunu Doğrula</span>
               </a>
               <a href="#contact" class="btn btn--navy-outline">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
                 <span data-i18n="hero.ctaContact">İletişime Geç</span>
               </a>
             </div>
@@ -94,7 +97,7 @@
             <div class="hero__highlights">
               <div class="highlight-item">
                 <div class="highlight-item__icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
                 </div>
                 <div class="highlight-item__text">
                   <strong data-i18n="hero.stat1">Yasal Güvence</strong>
@@ -104,7 +107,7 @@
 
               <div class="highlight-item">
                 <div class="highlight-item__icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
                 </div>
                 <div class="highlight-item__text">
                   <strong data-i18n="hero.stat2">Resmi PDF Sözleşme</strong>
@@ -114,7 +117,7 @@
 
               <div class="highlight-item">
                 <div class="highlight-item__icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
                 </div>
                 <div class="highlight-item__text">
                   <strong data-i18n="hero.stat3">Canlı Doğrulama</strong>
@@ -135,7 +138,7 @@
               </div>
 
               <div class="producer-emblem-card__brand">
-                <img src="logo-mark.svg" alt="NO!SER Mark" class="producer-emblem-logo" />
+                <img src="logo-mark.svg" alt="NO!SER Mark" class="producer-emblem-logo" width="68" height="68" />
                 <h2 class="producer-emblem-title">NO!SER</h2>
                 <span class="producer-emblem-tag">OFFICIAL MUSIC PRODUCER HUB</span>
               </div>
@@ -158,7 +161,7 @@
               <div class="producer-emblem-card__footer">
                 <a href="#license" class="card-action-link">
                   <span>Lisans Sorgulama Konsolu</span>
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                 </a>
               </div>
             </div>
@@ -192,7 +195,7 @@
             <div class="verify-card__header">
               <div class="verify-card__title-wrap">
                 <div class="verify-card__icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
                 </div>
                 <div>
                   <h3 class="verify-card__title" data-i18n="verify.consoleTitle">LİSANS NUMARANIZI GİRİN</h3>
@@ -205,7 +208,7 @@
             <form id="license-verify-form" class="verify-form" autocomplete="off">
               <div class="verify-input-group">
                 <div class="verify-input-icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
                 </div>
                 <input 
                   type="text" 
@@ -219,7 +222,7 @@
                 />
                 <button type="submit" id="license-verify-btn" class="btn btn--gold verify-submit-btn">
                   <span data-i18n="verify.btnText">Doğrula</span>
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                 </button>
               </div>
             </form>
@@ -232,7 +235,7 @@
 
             <!-- Error State -->
             <div id="verify-error" class="verify-state verify-state--error" style="display: none;">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
               <span id="verify-error-msg" data-i18n="verify.errorDefault">Girdiğiniz lisans numarası sistemde bulunamadı. Lütfen kontrol ediniz.</span>
             </div>
 
@@ -246,7 +249,7 @@
                 </div>
                 
                 <div class="cert-card__header">
-                  <img src="logo-mark.svg" alt="NO!SER" class="cert-card__logo" />
+                  <img src="logo-mark.svg" alt="NO!SER" class="cert-card__logo" width="44" height="44" />
                   <div>
                     <h4 class="cert-card__heading" data-i18n="cert.heading">NO!SER Lisans Belgesi</h4>
                     <span class="cert-card__sub">RESMİ SÖZLEŞME METRİKLERİ</span>
@@ -262,7 +265,7 @@
                   <div class="cert-matrix__code-val">
                     <strong id="res-code" class="mono-text">NS-2026-XXXX</strong>
                     <button type="button" id="btn-copy-code" class="btn-copy-tag">
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
                       <span data-i18n="cert.copy">Kopyala</span>
                     </button>
                   </div>
@@ -298,18 +301,18 @@
               <!-- Action Buttons -->
               <div class="cert-card__actions">
                 <a id="res-download-btn" href="#" class="btn btn--gold btn--download" download>
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
                   <span data-i18n="cert.downloadBtn">Lisans Belgesini İndir (PDF)</span>
                   <span id="res-pdf-size" class="pdf-tag">PDF</span>
                 </a>
 
                 <button type="button" id="res-preview-btn" class="btn btn--navy">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
                   <span data-i18n="cert.previewBtn">Belgeyi Önizle</span>
                 </button>
 
                 <button type="button" id="btn-share-link" class="btn btn--navy-outline">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
                   <span data-i18n="cert.shareBtn">Linki Kopyala</span>
                 </button>
               </div>
@@ -345,7 +348,7 @@
           <a class="contact-card reveal" href="https://instagram.com/prodbynoiser" target="_blank" rel="noopener">
             <div class="contact-card__head">
               <div class="contact-card__icon contact-card__icon--gold">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"/></svg>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"/></svg>
               </div>
               <span class="contact-card__num">01</span>
             </div>
@@ -354,7 +357,7 @@
             <div class="contact-card__bottom">
               <strong class="contact-card__val">@prodbynoiser</strong>
               <span class="contact-arrow">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
               </span>
             </div>
           </a>
@@ -363,7 +366,7 @@
           <div class="contact-card contact-card--interactive reveal">
             <div class="contact-card__head">
               <div class="contact-card__icon contact-card__icon--navy">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
               </div>
               <span class="contact-card__num">02</span>
             </div>
@@ -372,7 +375,7 @@
             <div class="contact-card__email-box">
               <a href="mailto:qnoiser@gmail.com" class="contact-card__email-addr">qnoiser@gmail.com</a>
               <button type="button" id="btn-copy-email" class="btn-copy-email-chip" data-email="qnoiser@gmail.com">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
                 <span id="copy-email-text" data-i18n="contact.copyBtn">E-postayı Kopyala</span>
               </button>
             </div>
@@ -382,7 +385,7 @@
           <a class="contact-card reveal" href="https://soundcloud.com/noiiser" target="_blank" rel="noopener">
             <div class="contact-card__head">
               <div class="contact-card__icon contact-card__icon--gold">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 10.6c-.35-2.55-2.5-4.5-5-4.5-1.55 0-2.95.75-3.85 1.9-.2-.05-.4-.05-.6-.05-2.35 0-4.3 1.9-4.3 4.3s1.95 4.3 4.3 4.3H17c1.85 0 3.35-1.5 3.35-3.3 0-1.55-1.1-2.85-2.6-3.15z"/></svg>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 10.6c-.35-2.55-2.5-4.5-5-4.5-1.55 0-2.95.75-3.85 1.9-.2-.05-.4-.05-.6-.05-2.35 0-4.3 1.9-4.3 4.3s1.95 4.3 4.3 4.3H17c1.85 0 3.35-1.5 3.35-3.3 0-1.55-1.1-2.85-2.6-3.15z"/></svg>
               </div>
               <span class="contact-card__num">03</span>
             </div>
@@ -391,7 +394,7 @@
             <div class="contact-card__bottom">
               <strong class="contact-card__val">@noiiser</strong>
               <span class="contact-arrow">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
               </span>
             </div>
           </a>
@@ -407,7 +410,7 @@
     <div class="site-footer__container">
       
       <div class="site-footer__brand">
-        <img src="logo-mark.svg" alt="NO!SER" class="site-footer__logo" />
+        <img src="logo-mark.svg" alt="NO!SER" class="site-footer__logo" width="36" height="36" />
         <div>
           <span class="site-footer__title">NO!SER</span>
           <span class="site-footer__sub">MÜZİK PRODÜKTÖRÜ &amp; LİSANS PORTALI</span>
@@ -424,13 +427,13 @@
       <!-- Social Icons in Strict Order: Instagram, Email, SoundCloud -->
       <div class="site-footer__socials">
         <a href="https://instagram.com/prodbynoiser" target="_blank" rel="noopener" aria-label="Instagram">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"/></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"/></svg>
         </a>
         <a href="mailto:qnoiser@gmail.com" aria-label="E-posta">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
         </a>
         <a href="https://soundcloud.com/noiiser" target="_blank" rel="noopener" aria-label="SoundCloud">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 10.6c-.35-2.55-2.5-4.5-5-4.5-1.55 0-2.95.75-3.85 1.9-.2-.05-.4-.05-.6-.05-2.35 0-4.3 1.9-4.3 4.3s1.95 4.3 4.3 4.3H17c1.85 0 3.35-1.5 3.35-3.3 0-1.55-1.1-2.85-2.6-3.15z"/></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 10.6c-.35-2.55-2.5-4.5-5-4.5-1.55 0-2.95.75-3.85 1.9-.2-.05-.4-.05-.6-.05-2.35 0-4.3 1.9-4.3 4.3s1.95 4.3 4.3 4.3H17c1.85 0 3.35-1.5 3.35-3.3 0-1.55-1.1-2.85-2.6-3.15z"/></svg>
         </a>
       </div>
 
@@ -449,7 +452,7 @@
         <div class="site-modal__actions">
           <a id="site-pdf-download-link" href="#" class="btn btn--gold btn--sm" download>İndir (PDF)</a>
           <button type="button" class="site-modal__close-btn" onclick="closeSitePdfModal()" aria-label="Kapat">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
           </button>
         </div>
       </div>
@@ -459,6 +462,6 @@
     </div>
   </div>
 
-  <script src="script.js"></script>
+  <script src="script.js?v=20260905v3"></script>
 </body>
 </html>
