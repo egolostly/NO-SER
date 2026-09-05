@@ -15,8 +15,11 @@ const translations = {
     "hero.ctaVerify": "Lisans Kodunu Doğrula",
     "hero.ctaContact": "İletişime Geç",
     "hero.stat1": "Yasal Güvence",
+    "hero.stat1Sub": "Ticari & Dijital Yayın Hakları",
     "hero.stat2": "Resmi PDF Sözleşme",
+    "hero.stat2Sub": "İmzalı Orijinal Belge",
     "hero.stat3": "Canlı Doğrulama",
+    "hero.stat3Sub": "Anında Veritabanı Teyidi",
 
     "license.tag": "LİSANS DOĞRULAMA MERKEZİ",
     "license.title": "Satın Aldığınız Lisansı Doğrulayın",
@@ -52,6 +55,8 @@ const translations = {
     "contact.emailCopied": "Kopyalandı!",
     "contact.card3.text": "Tüm prodüksiyonlar, beat yayınları ve remiks arşivi.",
 
+    "theme.btnBw": "S/B TEMA",
+    "theme.btnBrand": "RENKLİ TEMA",
     "footer.rights": "Tüm hakları saklıdır"
   },
   en: {
@@ -65,8 +70,11 @@ const translations = {
     "hero.ctaVerify": "Verify License Code",
     "hero.ctaContact": "Get in Touch",
     "hero.stat1": "Legal Security",
+    "hero.stat1Sub": "Commercial & Digital Rights",
     "hero.stat2": "Official PDF Contract",
+    "hero.stat2Sub": "Signed Original Agreement",
     "hero.stat3": "Live Verification",
+    "hero.stat3Sub": "Instant Server Authentication",
 
     "license.tag": "LICENSE VERIFICATION HUB",
     "license.title": "Verify Your Production License",
@@ -102,6 +110,8 @@ const translations = {
     "contact.emailCopied": "Copied!",
     "contact.card3.text": "Full catalog of releases, instrumental beat tapes, and production archives.",
 
+    "theme.btnBw": "B&W THEME",
+    "theme.btnBrand": "BRAND THEME",
     "footer.rights": "All rights reserved"
   }
 };
@@ -132,12 +142,53 @@ function setLanguage(language) {
     button.setAttribute("aria-pressed", String(isActive));
   });
 
+  updateThemeToggleText();
   localStorage.setItem("noiser-language", language);
 }
 
 document.querySelectorAll(".lang-btn").forEach((button) => {
   button.addEventListener("click", () => setLanguage(button.dataset.lang));
 });
+
+// ================= THEME SWITCHER (SIYAH BEYAZ & MARKA TEMASI) =================
+const themeToggleBtn = document.getElementById("theme-toggle-btn");
+const themeToggleText = document.getElementById("theme-toggle-text");
+
+function getActiveTheme() {
+  return localStorage.getItem("noiser-theme") || "brand";
+}
+
+function updateThemeToggleText() {
+  if (!themeToggleText) return;
+  const currentTheme = getActiveTheme();
+  if (currentTheme === "bw") {
+    themeToggleText.textContent = translations[currentLanguage]["theme.btnBrand"] || "RENKLİ TEMA";
+  } else {
+    themeToggleText.textContent = translations[currentLanguage]["theme.btnBw"] || "S/B TEMA";
+  }
+}
+
+function applyTheme(theme) {
+  document.documentElement.setAttribute("data-theme", theme);
+  if (theme === "bw") {
+    document.body.classList.add("theme-bw");
+  } else {
+    document.body.classList.remove("theme-bw");
+  }
+  localStorage.setItem("noiser-theme", theme);
+  updateThemeToggleText();
+}
+
+if (themeToggleBtn) {
+  themeToggleBtn.addEventListener("click", () => {
+    const currentTheme = getActiveTheme();
+    const newTheme = currentTheme === "bw" ? "brand" : "bw";
+    applyTheme(newTheme);
+  });
+}
+
+// Initialize Theme
+applyTheme(getActiveTheme());
 
 // Initialize Language
 const savedLang = localStorage.getItem("noiser-language") || (navigator.language.startsWith("tr") ? "tr" : "en");
@@ -159,16 +210,6 @@ document.querySelectorAll('a[href^="#"]:not([href="#"])').forEach((link) => {
     history.replaceState(null, "", location.pathname + location.search);
   });
 });
-
-// Brand Logo Click Scroll to Top
-const brandLogo = document.querySelector(".brand");
-if (brandLogo) {
-  brandLogo.addEventListener("click", (event) => {
-    event.preventDefault();
-    window.scrollTo({ top: 0, behavior: "smooth" });
-    history.replaceState(null, "", location.pathname + location.search);
-  });
-}
 
 // Mobile Menu
 if (menuButton && siteNav) {
@@ -477,17 +518,114 @@ function closeSitePdfModal() {
 
 window.closeSitePdfModal = closeSitePdfModal;
 
-window.addEventListener("keydown", (e) => {
-  if (e.key === "Escape") closeSitePdfModal();
-});
+// ================= SECRET ADMIN MODAL & HIDDEN TRIGGERS =================
+const secretAdminModal = document.getElementById("secret-admin-modal");
+const secretAuthForm = document.getElementById("secret-auth-form");
+const secretPasskeyInput = document.getElementById("secret-passkey-input");
+const secretAuthError = document.getElementById("secret-auth-error");
+const brandLogoBtn = document.getElementById("brand-logo-btn");
 
-// Shortcut: Ctrl + Shift + A to open Admin Panel
+function openSecretAdminModal() {
+  if (!secretAdminModal) {
+    window.location.href = "/admin";
+    return;
+  }
+  if (secretAuthError) secretAuthError.style.display = "none";
+  if (secretPasskeyInput) secretPasskeyInput.value = "";
+  secretAdminModal.classList.add("is-open");
+  setTimeout(() => {
+    if (secretPasskeyInput) secretPasskeyInput.focus();
+  }, 100);
+}
+
+function closeSecretAdminModal() {
+  if (!secretAdminModal) return;
+  secretAdminModal.classList.remove("is-open");
+}
+window.closeSecretAdminModal = closeSecretAdminModal;
+
+// Secret Gesture: 3 rapid clicks on the logo
+let logoClickCount = 0;
+let logoClickTimer = null;
+
+if (brandLogoBtn) {
+  brandLogoBtn.addEventListener("click", (e) => {
+    logoClickCount++;
+    if (logoClickCount === 1) {
+      logoClickTimer = setTimeout(() => {
+        logoClickCount = 0;
+        // Standard single click behavior: scroll to top
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        history.replaceState(null, "", location.pathname + location.search);
+      }, 400);
+    } else if (logoClickCount >= 3) {
+      clearTimeout(logoClickTimer);
+      logoClickCount = 0;
+      e.preventDefault();
+      e.stopPropagation();
+      openSecretAdminModal();
+    }
+  });
+
+  // Long press trigger (1.5 seconds)
+  let longPressTimer = null;
+  brandLogoBtn.addEventListener("mousedown", () => {
+    longPressTimer = setTimeout(openSecretAdminModal, 1500);
+  });
+  brandLogoBtn.addEventListener("mouseup", () => clearTimeout(longPressTimer));
+  brandLogoBtn.addEventListener("mouseleave", () => clearTimeout(longPressTimer));
+  brandLogoBtn.addEventListener("touchstart", () => {
+    longPressTimer = setTimeout(openSecretAdminModal, 1500);
+  }, { passive: true });
+  brandLogoBtn.addEventListener("touchend", () => clearTimeout(longPressTimer));
+}
+
+// Keyboard Shortcut: Ctrl + Shift + A or Ctrl + Shift + N
 window.addEventListener("keydown", (e) => {
-  if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === "A" || e.key === "a")) {
+  if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === "A" || e.key === "a" || e.key === "N" || e.key === "n")) {
     e.preventDefault();
-    window.open("/admin", "_blank");
+    openSecretAdminModal();
+  }
+  if (e.key === "Escape") {
+    closeSitePdfModal();
+    closeSecretAdminModal();
   }
 });
+
+// Secret Form Submit
+if (secretAuthForm) {
+  secretAuthForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const passkey = (secretPasskeyInput && secretPasskeyInput.value.trim()) || "";
+    if (!passkey) return;
+
+    try {
+      const res = await fetch("/api/auth/gatekeeper", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ passkey })
+      });
+      const data = await res.json();
+
+      if (data.success && data.token) {
+        localStorage.setItem("noiser_admin_token", data.token);
+        sessionStorage.setItem("noiser_admin_token", data.token);
+        closeSecretAdminModal();
+        window.location.href = "/admin";
+      } else {
+        if (secretAuthError) {
+          secretAuthError.textContent = "Geçersiz Güvenlik Anahtarı!";
+          secretAuthError.style.display = "block";
+        }
+      }
+    } catch (err) {
+      if (secretAuthError) {
+        secretAuthError.textContent = "Sunucuya bağlanılamadı.";
+        secretAuthError.style.display = "block";
+      }
+    }
+  });
+}
 
 // Check URL query parameters on load (?code=NS-2026-XXXX)
 function checkUrlForLicenseQuery() {

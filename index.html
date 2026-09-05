@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="tr" data-theme="brand">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -13,7 +13,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css?v=20260905v3" />
+  <link rel="stylesheet" href="style.css?v=20260905v4" />
 </head>
 <body>
 
@@ -24,7 +24,8 @@
   <header class="site-header" id="top">
     <div class="site-header__container">
       
-      <a class="brand" href="#top" aria-label="NO!SER Ana Sayfa">
+      <!-- Brand Logo (Secret Trigger: Triple click or long press to open secret admin) -->
+      <a class="brand" href="#top" id="brand-logo-btn" aria-label="NO!SER Ana Sayfa">
         <img src="logo-mark.svg" alt="NO!SER Logo" class="brand__logo" width="40" height="40" />
         <div class="brand__text">
           <span class="brand__name">NO!SER</span>
@@ -32,11 +33,18 @@
         </div>
       </a>
 
-      <!-- Navigation Links -->
+      <!-- Navigation Links & Theme / Language Controls -->
       <nav class="site-nav" id="site-nav" aria-label="Ana Menü">
         <a href="#license" class="site-nav__link" data-i18n="nav.license">Lisans Doğrulama</a>
         <a href="#contact" class="site-nav__link" data-i18n="nav.contact">İletişim</a>
         
+        <!-- Black & White / Brand Theme Switcher -->
+        <button type="button" id="theme-toggle-btn" class="theme-toggle-btn" aria-label="Temayı Değiştir" title="Siyah-Beyaz / Renkli Tema Değiştir">
+          <span class="theme-toggle-indicator"></span>
+          <span id="theme-toggle-text">S/B TEMA</span>
+        </button>
+
+        <!-- Language Switcher -->
         <div class="lang-switch" role="group" aria-label="Dil Seçimi">
           <button type="button" data-lang="tr" class="lang-btn is-active">TR</button>
           <span class="lang-sep">|</span>
@@ -101,7 +109,7 @@
                 </div>
                 <div class="highlight-item__text">
                   <strong data-i18n="hero.stat1">Yasal Güvence</strong>
-                  <span>Ticari &amp; Dijital Yayın Hakları</span>
+                  <span data-i18n="hero.stat1Sub">Ticari &amp; Dijital Yayın Hakları</span>
                 </div>
               </div>
 
@@ -111,7 +119,7 @@
                 </div>
                 <div class="highlight-item__text">
                   <strong data-i18n="hero.stat2">Resmi PDF Sözleşme</strong>
-                  <span>İmzalı Orijinal Belge</span>
+                  <span data-i18n="hero.stat2Sub">İmzalı Orijinal Belge</span>
                 </div>
               </div>
 
@@ -121,7 +129,7 @@
                 </div>
                 <div class="highlight-item__text">
                   <strong data-i18n="hero.stat3">Canlı Doğrulama</strong>
-                  <span>Anında Veritabanı Teyidi</span>
+                  <span data-i18n="hero.stat3Sub">Anında Veritabanı Teyidi</span>
                 </div>
               </div>
             </div>
@@ -405,7 +413,7 @@
     </section>
   </main>
 
-  <!-- ================= FOOTER ================= -->
+  <!-- ================= FOOTER (COMPLETELY DISGUISED - NO ADMIN LINK) ================= -->
   <footer class="site-footer">
     <div class="site-footer__container">
       
@@ -421,7 +429,6 @@
         <p class="site-footer__copy">
           &copy; <span id="year"></span> NO!SER · <span data-i18n="footer.rights">Tüm hakları saklıdır</span>
         </p>
-        <a href="/admin" class="site-footer__admin-link" target="_blank">Yönetim Paneli</a>
       </div>
 
       <!-- Social Icons in Strict Order: Instagram, Email, SoundCloud -->
@@ -462,6 +469,35 @@
     </div>
   </div>
 
-  <script src="script.js?v=20260905v3"></script>
+  <!-- ================= SECRET ADMIN ACCESS MODAL (TRIGGERED VIA LOGO 3-CLICKS OR CTRL+SHIFT+A) ================= -->
+  <div id="secret-admin-modal" class="site-modal" aria-hidden="true">
+    <div class="site-modal__backdrop" onclick="closeSecretAdminModal()"></div>
+    <div class="site-modal__window secret-auth-dialog">
+      <div class="site-modal__header">
+        <div class="secret-header-wrap">
+          <span class="secret-shield-dot"></span>
+          <h3 class="site-modal__title">YÖNETİCİ DOĞRULAMA</h3>
+        </div>
+        <button type="button" class="site-modal__close-btn" onclick="closeSecretAdminModal()" aria-label="Kapat">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="secret-auth-body">
+        <p class="secret-auth-prompt">Yönetici Paneline erişmek için Master Güvenlik Anahtarınızı girin:</p>
+        <form id="secret-auth-form" autocomplete="off">
+          <div id="secret-auth-error" class="secret-auth-alert" style="display: none;"></div>
+          <div class="secret-input-wrap">
+            <input type="password" id="secret-passkey-input" placeholder="Master Passkey (NOISER2026)" required autofocus />
+          </div>
+          <div class="secret-actions">
+            <button type="button" class="btn btn--navy-outline btn--sm" onclick="closeSecretAdminModal()">İptal</button>
+            <button type="submit" class="btn btn--gold btn--sm">Giriş Yap &amp; Paneli Aç</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js?v=20260905v4"></script>
 </body>
 </html>

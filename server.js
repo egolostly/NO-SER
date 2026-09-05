@@ -771,11 +771,13 @@ app.post('/api/admin/import', authMiddleware, (req, res) => {
   }
 });
 
-// Serve static admin files
+// Serve static admin files under disguised and secret routes
 app.use('/admin', express.static(path.join(__dirname, 'admin')));
+app.use('/portal', express.static(path.join(__dirname, 'admin')));
+app.use('/secret-vault', express.static(path.join(__dirname, 'admin')));
 
-// Admin route fallback
-app.get(/^\/admin/, (req, res) => {
+// Admin route fallback for secret routes
+app.get(/^\/(admin|portal|secret-vault)/, (req, res) => {
   res.sendFile(path.join(__dirname, 'admin', 'index.html'));
 });
 
