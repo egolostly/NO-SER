@@ -16,6 +16,18 @@ const resDownloadBtn = document.getElementById("res-download-btn");
 const resPreviewBtn = document.getElementById("res-preview-btn");
 const btnCopyCode = document.getElementById("btn-copy-code");
 
+// Back to Top Button
+const btnBackToTop = document.getElementById("btn-back-to-top");
+if (btnBackToTop) {
+  btnBackToTop.addEventListener("click", (e) => {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    if (history.replaceState) {
+      history.replaceState(null, null, " ");
+    }
+  });
+}
+
 // Modal Elements
 const sitePdfModal = document.getElementById("site-pdf-modal");
 const sitePdfIframe = document.getElementById("site-pdf-iframe");
@@ -148,16 +160,6 @@ if (verifyForm) {
     }
   });
 }
-
-// Quick Sample Autofill & Verify
-window.fillAndVerify = function(code) {
-  if (licenseCodeInput) {
-    licenseCodeInput.value = code;
-    const verifySection = document.getElementById("verify");
-    if (verifySection) verifySection.scrollIntoView({ behavior: "smooth" });
-    executeVerification(code);
-  }
-};
 
 // Copy Code Button
 if (btnCopyCode) {

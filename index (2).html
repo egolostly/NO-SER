@@ -13,15 +13,15 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Space+Grotesk:wght@500;600;700;800&family=Syne:wght@700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css?v=20260906v11" />
+  <link rel="stylesheet" href="style.css?v=20260906v12" />
 </head>
-<body>
+<body id="top">
 
   <!-- TOP PROGRESS LINE -->
   <div id="scroll-progress-bar" class="scroll-progress-bar" aria-hidden="true"></div>
 
   <!-- SITE HEADER -->
-  <header class="site-header" id="top">
+  <header class="site-header">
     <div class="site-header__inner">
       
       <!-- Brand Logotype: NO!SER. -->
@@ -30,7 +30,7 @@
         <span class="brand__tag">PRODUCER</span>
       </a>
 
-      <!-- Clean Minimal Public Navigation (Zero Admin Traces) -->
+      <!-- Clean Minimal Public Navigation -->
       <nav class="site-nav" id="site-nav" aria-label="Main Navigation">
         <a href="#about" class="site-nav__link">SPECS</a>
         <a href="#verify" class="site-nav__link">VERIFY</a>
@@ -66,23 +66,33 @@
           </a>
         </div>
 
-        <!-- Technical Specs Strip -->
-        <div class="hero-specs-strip">
-          <div class="hero-spec-item">
-            <span class="hero-spec-item__label">SYSTEM</span>
-            <span class="hero-spec-item__val">NO!SER ENGINE v2.6</span>
-          </div>
-          <div class="hero-spec-item">
-            <span class="hero-spec-item__label">SOUND PROFILE</span>
-            <span class="hero-spec-item__val">INDUSTRIAL / DARK TRAP</span>
-          </div>
-          <div class="hero-spec-item">
-            <span class="hero-spec-item__label">CERTIFICATION</span>
-            <span class="hero-spec-item__val">SHA-256 VERIFIED</span>
-          </div>
-          <div class="hero-spec-item">
-            <span class="hero-spec-item__label">LOCATION</span>
-            <span class="hero-spec-item__val">ISTANBUL / WORLDWIDE</span>
+        <!-- Continuous Flowing Producer Ticker -->
+        <div class="hero-ticker-wrap" aria-hidden="true">
+          <div class="hero-ticker-track">
+            <span class="hero-ticker-item">PRODUCER</span>
+            <span class="hero-ticker-dot">·</span>
+            <span class="hero-ticker-item">BEATMAKER</span>
+            <span class="hero-ticker-dot">·</span>
+            <span class="hero-ticker-item">SOUND DESIGN</span>
+            <span class="hero-ticker-dot">·</span>
+            <span class="hero-ticker-item">AUDITORY ARCHITECTURE</span>
+            <span class="hero-ticker-dot">·</span>
+            <span class="hero-ticker-item">MIX &amp; MASTER</span>
+            <span class="hero-ticker-dot">·</span>
+            <span class="hero-ticker-item">NO!SER</span>
+            <span class="hero-ticker-dot">·</span>
+            <span class="hero-ticker-item">PRODUCER</span>
+            <span class="hero-ticker-dot">·</span>
+            <span class="hero-ticker-item">BEATMAKER</span>
+            <span class="hero-ticker-dot">·</span>
+            <span class="hero-ticker-item">SOUND DESIGN</span>
+            <span class="hero-ticker-dot">·</span>
+            <span class="hero-ticker-item">AUDITORY ARCHITECTURE</span>
+            <span class="hero-ticker-dot">·</span>
+            <span class="hero-ticker-item">MIX &amp; MASTER</span>
+            <span class="hero-ticker-dot">·</span>
+            <span class="hero-ticker-item">NO!SER</span>
+            <span class="hero-ticker-dot">·</span>
           </div>
         </div>
 
@@ -185,17 +195,6 @@
               VERIFY
             </button>
           </form>
-
-          <!-- Quick Test Demo Code Chips -->
-          <div class="demo-code-bar">
-            <span class="demo-code-bar__label">SAMPLE RECORDS:</span>
-            <button type="button" class="demo-code-pill" onclick="fillAndVerify('NS-2026-9999')">
-              NS-2026-9999 (EXCLUSIVE)
-            </button>
-            <button type="button" class="demo-code-pill" onclick="fillAndVerify('NS-2026-8842')">
-              NS-2026-8842 (LEASE)
-            </button>
-          </div>
 
           <!-- Status Indicator Area -->
           <div id="verify-state" class="terminal-status" style="display: none;"></div>
@@ -336,12 +335,12 @@
           </div>
         </div>
 
-        <!-- Pure Text Links -->
+        <!-- Pure Text Links & Working Top Button -->
         <div class="footer-socials">
           <a href="https://instagram.com/prodbynoiser" target="_blank" rel="noopener" class="footer-link">[INSTAGRAM]</a>
           <a href="mailto:qnoiser@gmail.com" class="footer-link">[EMAIL]</a>
           <a href="https://soundcloud.com/noiiser" target="_blank" rel="noopener" class="footer-link">[SOUNDCLOUD]</a>
-          <a href="#top" class="footer-link footer-link--top">[TOP ↑]</a>
+          <a href="#top" id="btn-back-to-top" class="footer-link footer-link--top">[TOP ↑]</a>
         </div>
 
         <div class="footer-copy">
@@ -369,6 +368,6 @@
     </div>
   </div>
 
-  <script src="script.js?v=20260906v11"></script>
+  <script src="script.js?v=20260906v12"></script>
 </body>
 </html>

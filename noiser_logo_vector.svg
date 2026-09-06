@@ -1,96 +1,13 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" width="100%" height="100%">
-  <defs>
-    <style>
-      @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@700;800&amp;family=Syne:wght@900&amp;display=swap');
-      .bg { fill: #0a0a0a; }
-      .grid-line { stroke: #1a1a1a; stroke-width: 1.5; }
-      .accent-box { fill: #00FF66; }
-      .white-shape { fill: #f5f5f5; }
-      .accent-stroke { stroke: #00FF66; stroke-width: 4; fill: none; }
-      .dim-stroke { stroke: #333333; stroke-width: 2; fill: none; }
-      .logo-title { font-family: 'Syne', sans-serif; font-size: 88px; font-weight: 900; fill: #f5f5f5; letter-spacing: 4px; }
-      .logo-dot { fill: #00FF66; }
-      .sub-text { font-family: 'JetBrains Mono', monospace; font-size: 18px; font-weight: 700; fill: #888888; letter-spacing: 8px; }
-      .coord-text { font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 700; fill: #444444; letter-spacing: 2px; }
-    </style>
-  </defs>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="100%" height="100%">
+  <!-- Pure Deep Black Background -->
+  <rect width="800" height="800" fill="#0a0a0a" />
 
-  <!-- Background Canvas -->
-  <rect width="1000" height="1000" class="bg" />
-
-  <!-- Subtle Blueprint Architectural Grid -->
-  <line x1="100" y1="100" x2="900" y2="100" class="grid-line" />
-  <line x1="100" y1="900" x2="900" y2="900" class="grid-line" />
-  <line x1="100" y1="100" x2="100" y2="900" class="grid-line" />
-  <line x1="900" y1="100" x2="900" y2="900" class="grid-line" />
-  <line x1="500" y1="100" x2="500" y2="900" class="grid-line" stroke-dasharray="8 8" />
-  <line x1="100" y1="500" x2="900" y2="500" class="grid-line" stroke-dasharray="8 8" />
-
-  <!-- Corner Brackets (Brutalist Technical Framing) -->
-  <path d="M 80 120 L 80 80 L 120 80" class="accent-stroke" />
-  <path d="M 920 120 L 920 80 L 880 80" class="accent-stroke" />
-  <path d="M 80 880 L 80 920 L 120 920" class="accent-stroke" />
-  <path d="M 920 880 L 920 920 L 880 920" class="accent-stroke" />
-
-  <!-- Technical Coordinates -->
-  <text x="120" y="130" class="coord-text">SYS_ID // 0x26_NOISER</text>
-  <text x="730" y="130" class="coord-text">SPEC // AUDITORY_ARCH</text>
-  <text x="120" y="880" class="coord-text">LOC // 41.0082° N, 28.9784° E</text>
-  <text x="770" y="880" class="coord-text">FREQ // 20HZ - 20KHZ</text>
-
-  <!-- CENTRAL AUDITORY ARCHITECTURE EMBLEM -->
-  <!-- Geometric Monogram: N / Industrial Frequency Spires + Exclamation Blade -->
-  <g transform="translate(250, 200)">
+  <!-- Minimalist N! Producer Mark -->
+  <g transform="translate(400, 430)" text-anchor="middle">
+    <!-- Letter N in Pure White -->
+    <text x="-40" y="0" font-family="'Space Grotesk', 'Syne', -apple-system, sans-serif" font-size="280" font-weight="900" fill="#f5f5f5" letter-spacing="-5">N</text>
     
-    <!-- Outer Bounding Technical Box -->
-    <rect x="0" y="0" width="500" height="420" fill="none" stroke="#222222" stroke-width="2" />
-    
-    <!-- Spire 1 (Left Pillar) -->
-    <rect x="50" y="60" width="48" height="300" class="white-shape" />
-    <rect x="50" y="320" width="48" height="40" class="accent-box" />
-
-    <!-- Diagonal Industrial Truss (Letter N Angle) -->
-    <polygon points="100,60 148,60 350,360 302,360" class="white-shape" />
-
-    <!-- Spire 2 (Middle Right Column) -->
-    <rect x="302" y="60" width="48" height="300" class="white-shape" />
-    <rect x="302" y="60" width="48" height="40" class="accent-box" />
-
-    <!-- Soundwave Slices / Resonance Ribs -->
-    <rect x="180" y="110" width="30" height="8" class="accent-box" />
-    <rect x="170" y="130" width="50" height="8" class="white-shape" />
-    <rect x="160" y="150" width="70" height="8" class="white-shape" />
-    <rect x="175" y="170" width="40" height="8" class="accent-box" />
-
-    <!-- Exclamation Mark Blade (!) - Brutalist Signature -->
-    <g transform="translate(390, 60)">
-      <!-- Blade bar -->
-      <polygon points="0,0 36,0 28,210 8,210" class="accent-box" />
-      <!-- Square dot -->
-      <rect x="4" y="240" width="28" height="28" class="white-shape" />
-    </g>
-
-    <!-- Center Crosshairs -->
-    <circle cx="250" cy="210" r="160" class="dim-stroke" stroke-dasharray="4 6" />
-    <line x1="230" y1="210" x2="270" y2="210" stroke="#00FF66" stroke-width="2" />
-    <line x1="250" y1="190" x2="250" y2="230" stroke="#00FF66" stroke-width="2" />
-
+    <!-- Exclamation Mark ! in Neon Acid Green -->
+    <text x="140" y="0" font-family="'Space Grotesk', 'Syne', -apple-system, sans-serif" font-size="280" font-weight="900" fill="#00FF66" letter-spacing="0">!</text>
   </g>
-
-  <!-- LOGO WORDMARK & SUBTITLE -->
-  <g transform="translate(500, 720)" text-anchor="middle">
-    <!-- Logotype: NO!SER. -->
-    <text x="0" y="0" class="logo-title">
-      NO!SER<tspan class="logo-dot">.</tspan>
-    </text>
-
-    <!-- Accent Underline Rule -->
-    <line x1="-220" y1="24" x2="220" y2="24" stroke="#00FF66" stroke-width="4" />
-
-    <!-- Subtitle: AUDITORY ARCHITECTURE -->
-    <text x="4" y="68" class="sub-text">
-      AUDITORY ARCHITECTURE
-    </text>
-  </g>
-
 </svg>

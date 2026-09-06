@@ -235,26 +235,6 @@ a {
   color: var(--accent-green);
 }
 
-.nav-admin-link {
-  display: inline-flex;
-  align-items: center;
-  padding: 6px 12px;
-  border: 1px solid var(--border-mid);
-  background-color: var(--bg-surface);
-  color: var(--text-ash);
-  font-family: var(--font-mono);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  transition: all var(--trans-fast);
-}
-
-.nav-admin-link:hover {
-  border-color: var(--accent-green);
-  color: var(--accent-green);
-}
-
 /* ================= HERO SECTION ================= */
 .hero {
   min-height: 75vh;
@@ -262,7 +242,7 @@ a {
   align-items: center;
   justify-content: center;
   border-bottom: 1px solid var(--border-dim);
-  padding: 80px 24px 90px;
+  padding: 85px 24px 90px;
   position: relative;
 }
 
@@ -315,45 +295,55 @@ a {
   gap: 14px;
   flex-wrap: wrap;
   justify-content: center;
-  margin-bottom: 48px;
+  margin-bottom: 40px;
 }
 
-/* Hero Specs Strip */
-.hero-specs-strip {
+/* Continuous Flowing Ticker (Flowing smoothly to the right) */
+.hero-ticker-wrap {
   width: 100%;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  border: 1px solid var(--border-mid);
+  max-width: 960px;
+  margin-top: 10px;
+  overflow: hidden;
+  border-top: 1px solid var(--border-dim);
+  border-bottom: 1px solid var(--border-dim);
   background-color: var(--bg-surface);
-  text-align: left;
+  padding: 14px 0;
+  user-select: none;
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
 }
 
-.hero-spec-item {
-  padding: 14px 18px;
-  border-right: 1px solid var(--border-dim);
+.hero-ticker-track {
   display: flex;
-  flex-direction: column;
-  gap: 4px;
+  align-items: center;
+  gap: 18px;
+  white-space: nowrap;
+  width: max-content;
+  animation: tickerFlowRight 22s linear infinite;
 }
 
-.hero-spec-item:last-child {
-  border-right: none;
+@keyframes tickerFlowRight {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
 }
 
-.hero-spec-item__label {
+.hero-ticker-item {
   font-family: var(--font-mono);
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  color: var(--text-muted);
-}
-
-.hero-spec-item__val {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.04em;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
   color: var(--text-white);
+  text-transform: uppercase;
+}
+
+.hero-ticker-dot {
+  color: var(--accent-green);
+  font-weight: 900;
+  font-size: 14px;
 }
 
 /* ================= ARCHITECTURAL PILLARS SECTION ================= */
@@ -561,41 +551,6 @@ a {
   padding: 14px 28px;
   font-size: 13px;
   font-weight: 800;
-}
-
-/* Demo code chip bar */
-.demo-code-bar {
-  margin-top: 14px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex-wrap: wrap;
-  font-family: var(--font-mono);
-  font-size: 11px;
-}
-
-.demo-code-bar__label {
-  color: var(--text-muted);
-  font-weight: 700;
-  letter-spacing: 0.06em;
-}
-
-.demo-code-pill {
-  background: transparent;
-  border: 1px dashed var(--border-bright);
-  color: var(--accent-green);
-  font-family: var(--font-mono);
-  font-size: 10px;
-  font-weight: 700;
-  padding: 3px 8px;
-  cursor: pointer;
-  transition: all var(--trans-fast);
-}
-
-.demo-code-pill:hover {
-  background-color: var(--accent-green-dim);
-  border-color: var(--accent-green);
-  border-style: solid;
 }
 
 /* Terminal Feedback / State */
@@ -883,6 +838,7 @@ a {
 
 .footer-link--top {
   color: var(--text-white);
+  cursor: pointer;
 }
 
 .footer-copy {
@@ -983,12 +939,6 @@ a {
 
 /* ================= RESPONSIVE ================= */
 @media (max-width: 960px) {
-  .hero-specs-strip {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  .hero-spec-item:nth-child(2) {
-    border-right: none;
-  }
   .pillars-grid {
     grid-template-columns: 1fr;
   }
@@ -999,17 +949,7 @@ a {
     padding: 0 16px;
   }
   .hero {
-    padding: 60px 16px 80px;
-  }
-  .hero-specs-strip {
-    grid-template-columns: 1fr;
-  }
-  .hero-spec-item {
-    border-right: none;
-    border-bottom: 1px solid var(--border-dim);
-  }
-  .hero-spec-item:last-child {
-    border-bottom: none;
+    padding: 60px 16px 75px;
   }
   .section--pillars {
     padding: 60px 16px 80px;
