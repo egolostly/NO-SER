@@ -13,11 +13,11 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Space+Grotesk:wght@500;600;700;800&family=Syne:wght@700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css?v=20260906v7" />
+  <link rel="stylesheet" href="style.css?v=20260906v8" />
 </head>
 <body>
 
-  <!-- TOP SCANNER LINE -->
+  <!-- TOP SCANNER PROGRESS LINE -->
   <div id="scroll-progress-bar" class="scroll-progress-bar" aria-hidden="true"></div>
 
   <!-- SITE HEADER -->
@@ -25,19 +25,16 @@
     <div class="site-header__inner">
       
       <!-- Brand Logotype: NO!SER. -->
-      <a class="brand" href="#top" aria-label="NO!SER Home">
+      <a class="brand" href="#top" id="brand-logo-btn" aria-label="NO!SER Home">
         <span class="brand__logotype">NO!SER<span class="brand__dot">.</span></span>
-        <span class="brand__tag">SYS 2026</span>
+        <span class="brand__tag">PRODUCER</span>
       </a>
 
-      <!-- Navigation Links -->
+      <!-- Navigation Links (Clean Minimalist — No // or programmer clutter) -->
       <nav class="site-nav" id="site-nav" aria-label="Main Navigation">
-        <a href="#verify" class="site-nav__link">// verify</a>
-        <a href="#contact" class="site-nav__link">// contact</a>
-        <div class="site-nav__status" title="System Operational">
-          <span class="status-dot"></span>
-          <span>ONLINE</span>
-        </div>
+        <a href="#verify" class="site-nav__link">VERIFY LICENSE</a>
+        <a href="#contact" class="site-nav__link">CONTACT</a>
+        <a href="#verify" class="nav-cta-btn">VERIFY</a>
       </nav>
 
     </div>
@@ -49,7 +46,7 @@
       <div class="hero__inner">
         
         <div class="hero__tagline">
-          PROD. BY NO!SER // AUDITORY ARCHITECTURE
+          PROD. BY NO!SER · AUDITORY ARCHITECTURE
         </div>
 
         <h1 class="hero__title" id="hero-title">
@@ -57,28 +54,28 @@
         </h1>
 
         <p class="hero__subtitle">
-          Custom sound design &amp; industrial production workspace. Cryptographically verified beat registry and contract repository.
+          Custom sound design, industrial production workspace, and verified official license registry.
         </p>
 
         <div class="hero__actions">
           <a href="#verify" class="btn btn--primary">
-            [ // VERIFY LICENSE ]
+            VERIFY LICENSE
           </a>
           <a href="#contact" class="btn btn--outline">
-            [ // CONTACT ]
+            GET IN TOUCH
           </a>
         </div>
 
       </div>
     </section>
 
-    <!-- ================= LICENSE VERIFICATION HUB (CORE FEATURE) ================= -->
+    <!-- ================= LICENSE VERIFICATION HUB ================= -->
     <section class="section--verify" id="verify" aria-labelledby="verify-heading">
       <div class="verify-container">
 
         <div class="terminal-header">
           <div class="terminal-title">
-            <span class="terminal-badge">//</span> SYSTEM: NO!SER_LICENSE_REGISTRY_LEDGER
+            <span class="terminal-badge">REGISTRY</span> NO!SER LICENSE VERIFICATION
           </div>
           <div class="terminal-badge">
             SHA-256 SECURE
@@ -88,12 +85,11 @@
         <div class="terminal-box">
           <form id="verify-form" class="terminal-form" novalidate>
             <div class="terminal-input-wrapper">
-              <span class="terminal-prompt-icon">&gt;</span>
               <input 
                 type="text" 
                 id="license-code-input" 
                 class="terminal-input" 
-                placeholder="ENTER_LICENSE_CODE_OR_HASH (e.g. NS-2026-8842)" 
+                placeholder="Enter License Code (e.g. NS-2026-8842)" 
                 autocomplete="off" 
                 spellcheck="false" 
                 maxlength="50"
@@ -101,7 +97,7 @@
               />
             </div>
             <button type="submit" id="verify-submit-btn" class="btn btn--primary terminal-submit-btn">
-              [ VERIFY ]
+              VERIFY
             </button>
           </form>
 
@@ -112,33 +108,33 @@
           <div id="cert-result" class="terminal-result" style="display: none;">
             
             <div class="result-head">
-              <span id="res-status-badge" class="result-badge">VALID // REGISTERED</span>
-              <span id="res-timestamp" class="result-timestamp">LEDGER: OK</span>
+              <span id="res-status-badge" class="result-badge">VALID &amp; REGISTERED</span>
+              <span id="res-timestamp" class="result-timestamp">OFFICIAL RECORD</span>
             </div>
 
             <div class="result-grid">
               <div class="result-row">
-                <span class="result-label">[BEAT / TRACK]</span>
+                <span class="result-label">BEAT / TRACK</span>
                 <span id="res-track-title" class="result-val">VERTICA</span>
               </div>
               <div class="result-row">
-                <span class="result-label">[LICENSEE]</span>
+                <span class="result-label">LICENSEE</span>
                 <span id="res-customer-name" class="result-val">Client Name</span>
               </div>
               <div class="result-row">
-                <span class="result-label">[TYPE / SCOPE]</span>
+                <span class="result-label">LICENSE TIER</span>
                 <span id="res-license-type" class="result-val">Official License</span>
               </div>
               <div class="result-row">
-                <span class="result-label">[ISSUE DATE]</span>
+                <span class="result-label">ISSUE DATE</span>
                 <span id="res-issue-date" class="result-val">2026-09-06</span>
               </div>
               <div class="result-row">
-                <span class="result-label">[LICENSE CODE]</span>
+                <span class="result-label">LICENSE CODE</span>
                 <span id="res-code" class="result-val result-val--green mono-text">NS-0000-0000</span>
               </div>
               <div class="result-row">
-                <span class="result-label">[PRODUCER]</span>
+                <span class="result-label">PRODUCER</span>
                 <span class="result-val">PROD. BY NO!SER</span>
               </div>
             </div>
@@ -146,13 +142,13 @@
             <!-- Action Buttons: Direct Download PDF & Preview -->
             <div class="result-actions">
               <a id="res-download-btn" href="#" class="btn btn--primary" download>
-                [ DOWNLOAD PDF LICENSE ]
+                DOWNLOAD PDF LICENSE
               </a>
               <button type="button" id="res-preview-btn" class="btn btn--outline">
-                [ PREVIEW CONTRACT ]
+                PREVIEW CONTRACT
               </button>
               <button type="button" id="btn-copy-code" class="btn btn--outline">
-                [ COPY CODE ]
+                COPY CODE
               </button>
             </div>
 
@@ -163,19 +159,92 @@
       </div>
     </section>
 
-    <!-- ================= FOOTER & CONTACT ================= -->
-    <footer class="site-footer" id="contact">
+    <!-- ================= CONTACT SECTION (DEDICATED INTERACTIVE HUB) ================= -->
+    <section class="section--contact" id="contact" aria-labelledby="contact-heading">
+      <div class="contact-container">
+        
+        <div class="contact-header">
+          <span class="contact-tag">COMMUNICATION</span>
+          <h2 class="contact-title" id="contact-heading">CONTACT &amp; COLLABORATION</h2>
+          <p class="contact-lead">
+            For custom beat production, exclusive buyouts, mixing/mastering, or commercial sync inquiries:
+          </p>
+        </div>
+
+        <!-- Strict Order: 1. Instagram, 2. Email, 3. SoundCloud -->
+        <div class="contact-grid">
+
+          <!-- 1. INSTAGRAM (@prodbynoiser) -->
+          <div class="contact-card">
+            <div class="contact-card__top">
+              <span class="contact-card__num">01</span>
+              <span class="contact-card__tag">DIRECT MESSAGE</span>
+            </div>
+            <h3 class="contact-card__title">INSTAGRAM</h3>
+            <p class="contact-card__desc">Studio sessions, beat previews, announcements, and direct inquiries.</p>
+            <div class="contact-card__bottom">
+              <span class="contact-card__val">@prodbynoiser</span>
+              <a href="https://instagram.com/prodbynoiser" target="_blank" rel="noopener" class="btn btn--primary btn--sm">
+                OPEN INSTAGRAM
+              </a>
+            </div>
+          </div>
+
+          <!-- 2. EMAIL (qnoiser@gmail.com) -->
+          <div class="contact-card">
+            <div class="contact-card__top">
+              <span class="contact-card__num">02</span>
+              <span class="contact-card__tag">OFFICIAL INQUIRIES</span>
+            </div>
+            <h3 class="contact-card__title">EMAIL</h3>
+            <p class="contact-card__desc">Licensing agreements, custom projects, business inquiries, and contracts.</p>
+            <div class="contact-card__bottom">
+              <span class="contact-card__val">qnoiser@gmail.com</span>
+              <div class="contact-btn-group">
+                <a href="mailto:qnoiser@gmail.com" class="btn btn--primary btn--sm">
+                  SEND EMAIL
+                </a>
+                <button type="button" id="btn-copy-email" class="btn btn--outline btn--sm" data-email="qnoiser@gmail.com">
+                  <span id="copy-email-text">COPY EMAIL</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3. SOUNDCLOUD (@noiiser) -->
+          <div class="contact-card">
+            <div class="contact-card__top">
+              <span class="contact-card__num">03</span>
+              <span class="contact-card__tag">DISCOGRAPHY</span>
+            </div>
+            <h3 class="contact-card__title">SOUNDCLOUD</h3>
+            <p class="contact-card__desc">Full catalog of beat tapes, instrumental releases, and sound archives.</p>
+            <div class="contact-card__bottom">
+              <span class="contact-card__val">@noiiser</span>
+              <a href="https://soundcloud.com/noiiser" target="_blank" rel="noopener" class="btn btn--primary btn--sm">
+                OPEN SOUNDCLOUD
+              </a>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================= FOOTER ================= -->
+    <footer class="site-footer">
       <div class="site-footer__inner">
         
         <div class="footer-brand">
-          NO!SER.
+          NO!SER<span class="brand__dot">.</span>
         </div>
 
-        <!-- Social Connections: Strictly Pure Text Links: [SOUNDCLOUD], [INSTAGRAM], [MAIL] -->
+        <!-- Social Connections: Strictly Pure Text Links: [INSTAGRAM], [EMAIL], [SOUNDCLOUD] -->
         <div class="footer-socials">
-          <a href="https://soundcloud.com/noiiser" target="_blank" rel="noopener" class="footer-link">[SOUNDCLOUD]</a>
           <a href="https://instagram.com/prodbynoiser" target="_blank" rel="noopener" class="footer-link">[INSTAGRAM]</a>
-          <a href="mailto:qnoiser@gmail.com" class="footer-link">[MAIL]</a>
+          <a href="mailto:qnoiser@gmail.com" class="footer-link">[EMAIL]</a>
+          <a href="https://soundcloud.com/noiiser" target="_blank" rel="noopener" class="footer-link">[SOUNDCLOUD]</a>
         </div>
 
         <div class="footer-copy">
@@ -191,10 +260,10 @@
     <div class="site-modal__backdrop" onclick="closeSitePdfModal()"></div>
     <div class="site-modal__window">
       <div class="site-modal__header">
-        <div id="site-pdf-title" class="site-modal__title">NO!SER // PDF CONTRACT PREVIEW</div>
+        <div id="site-pdf-title" class="site-modal__title">NO!SER CONTRACT PREVIEW</div>
         <div class="site-modal__actions">
-          <a id="site-pdf-download-link" href="#" class="btn btn--primary btn--sm" download>[ DOWNLOAD PDF ]</a>
-          <button type="button" class="site-modal__close-btn" onclick="closeSitePdfModal()" aria-label="Close">[ CLOSE ]</button>
+          <a id="site-pdf-download-link" href="#" class="btn btn--primary btn--sm" download>DOWNLOAD PDF</a>
+          <button type="button" class="site-modal__close-btn" onclick="closeSitePdfModal()" aria-label="Close">CLOSE</button>
         </div>
       </div>
       <div class="site-modal__body">
@@ -203,6 +272,6 @@
     </div>
   </div>
 
-  <script src="script.js?v=20260906v7"></script>
+  <script src="script.js?v=20260906v8"></script>
 </body>
 </html>

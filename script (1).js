@@ -142,15 +142,23 @@ if (verifyForm) {
 if (btnCopyCode) {
   btnCopyCode.addEventListener("click", () => {
     if (!currentVerifiedLicense) return;
-    copyToClipboard(currentVerifiedLicense.code, btnCopyCode);
+    copyToClipboard(currentVerifiedLicense.code, btnCopyCode, "[ COPIED! ]");
   });
 }
 
-function copyToClipboard(text, btnElement) {
-  const originalText = btnElement.textContent;
+// Copy Email Function
+window.copyEmail = function(btnElement) {
+  const email = "qnoiser@gmail.com";
+  copyToClipboard(email, btnElement, "[ COPIED EMAIL! ]");
+};
+
+function copyToClipboard(text, btnElement, feedbackText = "[ COPIED! ]") {
+  const originalText = btnElement ? btnElement.textContent : "";
   const onCopied = () => {
-    btnElement.textContent = "[ COPIED! ]";
-    setTimeout(() => { btnElement.textContent = originalText; }, 1800);
+    if (btnElement) {
+      btnElement.textContent = feedbackText;
+      setTimeout(() => { btnElement.textContent = originalText; }, 1800);
+    }
   };
 
   if (navigator.clipboard && navigator.clipboard.writeText) {
