@@ -25,7 +25,7 @@ app.use(cookieParser());
 app.use(express.json({ limit: '25mb' }));
 app.use(express.urlencoded({ extended: true, limit: '25mb' }));
 
-// Security Middleware & HTTP Hardening
+// Security Headers Hardening
 app.use((req, res, next) => {
   res.setHeader('X-Content-Type-Options', 'nosniff');
   res.setHeader('X-Frame-Options', 'SAMEORIGIN');
@@ -50,7 +50,7 @@ function checkAuthRateLimit(req, res, next) {
     const remainingSec = Math.ceil((record.lockedUntil - now) / 1000);
     return res.status(429).json({
       success: false,
-      message: `Too many failed authentication attempts. Please retry in ${remainingSec} seconds.`
+      message: `Rate limit exceeded. Try again in ${remainingSec} seconds.`
     });
   }
 
@@ -63,7 +63,7 @@ function recordFailedAuth(ip) {
   record.count += 1;
 
   if (record.count >= 6) {
-    record.lockedUntil = now + 15 * 60 * 1000; // 15 minutes lockout
+    record.lockedUntil = now + 15 * 60 * 1000; // 15-minute lock
   }
 
   failedAuthAttempts.set(ip, record);
@@ -73,7 +73,7 @@ function recordSuccessfulAuth(ip) {
   failedAuthAttempts.delete(ip);
 }
 
-// PDF Magic Byte Validator (ensures uploaded file is genuine %PDF)
+// PDF Magic Byte Validator
 function validatePdfMagicBytes(filePath) {
   try {
     const fd = fs.openSync(filePath, 'r');
@@ -162,7 +162,6 @@ function getAdminConfig() {
     console.error('Error reading admin config:', err);
   }
   
-  // Default admin configuration
   const { hash, salt } = hashPassword('admin123');
   const defaultAdmin = {
     username: 'admin',
@@ -197,9 +196,9 @@ function isValidAdminToken(token) {
   const masterKey = (admin.masterPasskey || 'EgoLost.6565').trim();
 
   // 1. Direct match with master passkey
-  if (token === masterKey) return true;
+  if (token.trim() === masterKey) return true;
 
-  // 2. Match with deterministic token
+  // 2. Match with deterministic HMAC token
   const expectedToken = crypto.createHmac('sha256', ADMIN_SECRET).update(`${admin.username || 'admin'}-noiser-session`).digest('hex');
   if (token === expectedToken) return true;
 
@@ -210,33 +209,6 @@ function isValidAdminToken(token) {
   }
 
   return false;
-}
-
-function authMiddleware(req, res, next) {
-  const authHeader = req.headers.authorization;
-  const customHeader = req.headers['x-admin-token'] || req.headers['x-master-passkey'];
-  const cookieToken = req.cookies && req.cookies.noiser_admin_token;
-  let token = null;
-
-  if (authHeader && authHeader.startsWith('Bearer ')) {
-    token = authHeader.substring(7);
-  } else if (customHeader) {
-    token = customHeader;
-  } else if (cookieToken) {
-    token = cookieToken;
-  }
-
-  if (!token) {
-    return res.status(401).json({ success: false, message: 'Authentication required. Please log into admin panel.' });
-  }
-
-  if (!isValidAdminToken(token)) {
-    return res.status(401).json({ success: false, message: 'Session expired or invalid token. Please log in again.' });
-  }
-
-  const admin = getAdminConfig();
-  req.adminUser = admin.username || 'admin';
-  next();
 }
 
 // Format bytes helper
@@ -289,9 +261,239 @@ function initializeSeedData() {
 }
 initializeSeedData();
 
+// ================= GENERIC 404 CLOAKING HTML =================
+function getGeneric404Html() {
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 Not Found</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #0a0a0a;
+      color: #888888;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      text-align: center;
+    }
+    .wrap { max-width: 440px; padding: 24px; }
+    h1 { font-size: 64px; color: #f5f5f5; margin: 0 0 12px; font-weight: 800; letter-spacing: -0.03em; }
+    p { font-size: 14px; margin: 0 0 24px; line-height: 1.6; }
+    a {
+      display: inline-block;
+      color: #f5f5f5;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 12px;
+      border: 1px solid #333333;
+      background: #121212;
+      padding: 10px 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    a:hover { border-color: #00FF66; color: #00FF66; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>404</h1>
+    <p>The requested URL was not found on this server.</p>
+    <a href="/">Return to Home</a>
+  </div>
+</body>
+</html>`;
+}
+
+// Honeypot Protection: Automated bot scanner jail
+const HONEYPOT_PATHS = [
+  '/wp-admin', '/wp-login.php', '/phpmyadmin', '/pma', '/administrator',
+  '/admin.php', '/login.php', '/cpanel', '/.env', '/config.php', '/web.config',
+  '/.git/config', '/xmlrpc.php', '/setup.php'
+];
+
+app.use((req, res, next) => {
+  const reqPath = req.path.toLowerCase();
+  if (HONEYPOT_PATHS.some(hp => reqPath === hp || reqPath.startsWith(hp + '/'))) {
+    const clientIp = req.ip || req.connection.remoteAddress || 'unknown-ip';
+    recordFailedAuth(clientIp);
+    recordFailedAuth(clientIp);
+    recordFailedAuth(clientIp);
+    recordFailedAuth(clientIp);
+    recordFailedAuth(clientIp);
+    recordFailedAuth(clientIp); // 6 strikes = immediate IP lockout
+    return res.status(404).send(getGeneric404Html());
+  }
+  next();
+});
+
+// ================= STEALTH ADMIN GATEKEEPER MIDDLEWARE =================
+// Anyone requesting /admin without authorization gets a strict 404 Not Found!
+// Authorized entry is unlocked ONLY by passing ?key=EgoLost.6565 (or cookie/header)
+function stealthAdminAuth(req, res, next) {
+  // Check 1: Key passed via URL Query Parameter
+  const queryKey = req.query.key || req.query.passkey || req.query.secret || req.query.vault || req.query.token;
+  if (queryKey && isValidAdminToken(queryKey)) {
+    const admin = getAdminConfig();
+    const deterministicToken = crypto.createHmac('sha256', ADMIN_SECRET).update(`${admin.username || 'admin'}-noiser-session`).digest('hex');
+    activeSessions.set(deterministicToken, {
+      username: admin.username,
+      expiresAt: Date.now() + 30 * 24 * 60 * 60 * 1000
+    });
+    res.cookie('noiser_admin_token', deterministicToken, {
+      httpOnly: false,
+      secure: false,
+      sameSite: 'lax',
+      maxAge: 30 * 24 * 60 * 60 * 1000
+    });
+    req.adminUser = admin.username || 'admin';
+    return next();
+  }
+
+  // Check 2: Header Authorization / Custom Header / Cookie
+  const authHeader = req.headers.authorization;
+  const customHeader = req.headers['x-admin-token'] || req.headers['x-master-passkey'];
+  const cookieToken = req.cookies && req.cookies.noiser_admin_token;
+  let token = null;
+
+  if (authHeader && authHeader.startsWith('Bearer ')) {
+    token = authHeader.substring(7);
+  } else if (customHeader) {
+    token = customHeader;
+  } else if (cookieToken) {
+    token = cookieToken;
+  }
+
+  if (token && isValidAdminToken(token)) {
+    const admin = getAdminConfig();
+    req.adminUser = admin.username || 'admin';
+    return next();
+  }
+
+  // Unauthorized: Return strict 404 Not Found so external users and crawlers see NO trace of an admin panel
+  if (req.path.startsWith('/api/')) {
+    return res.status(404).json({ success: false, message: 'Not Found' });
+  }
+  return res.status(404).send(getGeneric404Html());
+}
+
 // ================= API ROUTES =================
 
-// Direct Passkey / Gatekeeper Login
+// Public License Verification Endpoint
+app.get('/api/licenses/verify/:code', (req, res) => {
+  try {
+    const reqCode = (req.params.code || '').trim().toUpperCase();
+    if (!reqCode) {
+      return res.status(400).json({ success: false, message: 'License code is required.' });
+    }
+
+    const licenses = readLicenses();
+    const found = licenses.find(l => l.code.toUpperCase() === reqCode);
+
+    if (!found) {
+      return res.status(404).json({
+        success: false,
+        message: `License code '${reqCode}' not found in registry.`
+      });
+    }
+
+    const hasPdf = Boolean(found.pdfStoredFilename && fs.existsSync(path.join(UPLOADS_DIR, found.pdfStoredFilename)));
+
+    return res.json({
+      success: true,
+      license: {
+        code: found.code,
+        customerName: found.customerName || 'Official Licensee',
+        customerEmailMasked: maskEmail(found.customerEmail) || 'Masked / Protected',
+        trackTitle: found.trackTitle || 'Prod. by NO!SER',
+        licenseType: found.licenseType || 'Official License',
+        issueDate: found.issueDate || new Date().toISOString().split('T')[0],
+        status: found.status || 'active',
+        hasPdf,
+        pdfSizeFormatted: formatBytes(found.pdfFileSize || 0),
+        downloadUrl: `/api/licenses/download/${encodeURIComponent(found.code)}`,
+        previewUrl: `/api/licenses/preview/${encodeURIComponent(found.code)}`
+      }
+    });
+  } catch (err) {
+    console.error('Verify error:', err);
+    return res.status(500).json({ success: false, message: 'Registry lookup failed.' });
+  }
+});
+
+// Public Download Endpoint
+app.get('/api/licenses/download/:code', (req, res) => {
+  try {
+    const reqCode = (req.params.code || '').trim().toUpperCase();
+    const licenses = readLicenses();
+    const found = licenses.find(l => l.code.toUpperCase() === reqCode);
+
+    if (!found || !found.pdfStoredFilename) {
+      return res.status(404).send('License PDF document not found.');
+    }
+
+    const filePath = path.join(UPLOADS_DIR, found.pdfStoredFilename);
+    if (!fs.existsSync(filePath)) {
+      return res.status(404).send('PDF file does not exist on storage server.');
+    }
+
+    found.downloadCount = (found.downloadCount || 0) + 1;
+    found.lastDownloadedAt = new Date().toISOString();
+    saveLicenses(licenses);
+
+    const downloadName = found.pdfOriginalName || `NOISER_License_${found.code}.pdf`;
+    res.setHeader('Content-Type', 'application/pdf');
+    res.setHeader('Content-Disposition', `attachment; filename="${encodeURIComponent(downloadName)}"`);
+    return res.sendFile(filePath);
+  } catch (err) {
+    console.error('Download error:', err);
+    return res.status(500).send('Unable to download license PDF.');
+  }
+});
+
+// Public Preview Endpoint
+app.get('/api/licenses/preview/:code', (req, res) => {
+  try {
+    const reqCode = (req.params.code || '').trim().toUpperCase();
+    const licenses = readLicenses();
+    const found = licenses.find(l => l.code.toUpperCase() === reqCode);
+
+    if (!found || !found.pdfStoredFilename) {
+      return res.status(404).send('License document not found.');
+    }
+
+    const filePath = path.join(UPLOADS_DIR, found.pdfStoredFilename);
+    if (!fs.existsSync(filePath)) {
+      return res.status(404).send('PDF file not available for preview.');
+    }
+
+    res.setHeader('Content-Type', 'application/pdf');
+    res.setHeader('Content-Disposition', 'inline');
+    return res.sendFile(filePath);
+  } catch (err) {
+    console.error('Preview error:', err);
+    return res.status(500).send('Unable to load preview.');
+  }
+});
+
+// Download full project zip directly
+app.get('/download-zip', (req, res) => {
+  const zipPath = path.join(__dirname, 'NOISER_Website_Complete.zip');
+  if (fs.existsSync(zipPath)) {
+    res.setHeader('Content-Type', 'application/zip');
+    res.setHeader('Content-Disposition', 'attachment; filename="NOISER_Website_Complete.zip"');
+    return res.sendFile(zipPath);
+  }
+  res.status(404).send('ZIP file not found.');
+});
+
+// ================= PROTECTED AUTH APIS =================
+
+// Direct Passkey Authentication Endpoint
 app.post('/api/auth/gatekeeper', checkAuthRateLimit, (req, res) => {
   const { passkey } = req.body;
   const ip = req.ip || req.connection.remoteAddress || 'unknown-ip';
@@ -329,14 +531,14 @@ app.post('/api/auth/gatekeeper', checkAuthRateLimit, (req, res) => {
   });
 });
 
-// Admin Username / Password Login
+// Admin Login
 app.post('/api/auth/login', checkAuthRateLimit, (req, res) => {
   const { username, password } = req.body;
   const ip = req.ip || req.connection.remoteAddress || 'unknown-ip';
 
   if (!username || !password) {
     recordFailedAuth(ip);
-    return res.status(400).json({ success: false, message: 'Username and password/passkey required.' });
+    return res.status(400).json({ success: false, message: 'Credentials required.' });
   }
 
   const admin = getAdminConfig();
@@ -403,7 +605,7 @@ app.post('/api/auth/logout', (req, res) => {
   res.json({ success: true, message: 'Logged out successfully.' });
 });
 
-app.post('/api/auth/change-password', authMiddleware, (req, res) => {
+app.post('/api/auth/change-password', stealthAdminAuth, (req, res) => {
   const { currentPassword, newUsername, newPassword, newMasterPasskey } = req.body;
   const admin = getAdminConfig();
 
@@ -437,107 +639,10 @@ app.post('/api/auth/change-password', authMiddleware, (req, res) => {
   return res.json({ success: true, message: 'Security credentials updated successfully.' });
 });
 
-// --- Public License Verification Endpoint ---
-app.get('/api/licenses/verify/:code', (req, res) => {
-  try {
-    const reqCode = (req.params.code || '').trim().toUpperCase();
-    if (!reqCode) {
-      return res.status(400).json({ success: false, message: 'License code is required.' });
-    }
-
-    const licenses = readLicenses();
-    const found = licenses.find(l => l.code.toUpperCase() === reqCode);
-
-    if (!found) {
-      return res.status(404).json({
-        success: false,
-        message: `License code '${reqCode}' not found in registry.`
-      });
-    }
-
-    const hasPdf = Boolean(found.pdfStoredFilename && fs.existsSync(path.join(UPLOADS_DIR, found.pdfStoredFilename)));
-
-    return res.json({
-      success: true,
-      license: {
-        code: found.code,
-        customerName: found.customerName || 'Official Licensee',
-        customerEmailMasked: maskEmail(found.customerEmail) || 'Masked / Protected',
-        trackTitle: found.trackTitle || 'Prod. by NO!SER',
-        licenseType: found.licenseType || 'Official License',
-        issueDate: found.issueDate || new Date().toISOString().split('T')[0],
-        status: found.status || 'active',
-        hasPdf,
-        pdfSizeFormatted: formatBytes(found.pdfFileSize || 0),
-        downloadUrl: `/api/licenses/download/${encodeURIComponent(found.code)}`,
-        previewUrl: `/api/licenses/preview/${encodeURIComponent(found.code)}`
-      }
-    });
-  } catch (err) {
-    console.error('Verify error:', err);
-    return res.status(500).json({ success: false, message: 'Registry lookup failed.' });
-  }
-});
-
-// --- Public Download Endpoint ---
-app.get('/api/licenses/download/:code', (req, res) => {
-  try {
-    const reqCode = (req.params.code || '').trim().toUpperCase();
-    const licenses = readLicenses();
-    const found = licenses.find(l => l.code.toUpperCase() === reqCode);
-
-    if (!found || !found.pdfStoredFilename) {
-      return res.status(404).send('License PDF document not found.');
-    }
-
-    const filePath = path.join(UPLOADS_DIR, found.pdfStoredFilename);
-    if (!fs.existsSync(filePath)) {
-      return res.status(404).send('PDF file does not exist on storage server.');
-    }
-
-    found.downloadCount = (found.downloadCount || 0) + 1;
-    found.lastDownloadedAt = new Date().toISOString();
-    saveLicenses(licenses);
-
-    const downloadName = found.pdfOriginalName || `NOISER_License_${found.code}.pdf`;
-    res.setHeader('Content-Type', 'application/pdf');
-    res.setHeader('Content-Disposition', `attachment; filename="${encodeURIComponent(downloadName)}"`);
-    return res.sendFile(filePath);
-  } catch (err) {
-    console.error('Download error:', err);
-    return res.status(500).send('Unable to download license PDF.');
-  }
-});
-
-// --- Public Preview Endpoint ---
-app.get('/api/licenses/preview/:code', (req, res) => {
-  try {
-    const reqCode = (req.params.code || '').trim().toUpperCase();
-    const licenses = readLicenses();
-    const found = licenses.find(l => l.code.toUpperCase() === reqCode);
-
-    if (!found || !found.pdfStoredFilename) {
-      return res.status(404).send('License document not found.');
-    }
-
-    const filePath = path.join(UPLOADS_DIR, found.pdfStoredFilename);
-    if (!fs.existsSync(filePath)) {
-      return res.status(404).send('PDF file not available for preview.');
-    }
-
-    res.setHeader('Content-Type', 'application/pdf');
-    res.setHeader('Content-Disposition', 'inline');
-    return res.sendFile(filePath);
-  } catch (err) {
-    console.error('Preview error:', err);
-    return res.status(500).send('Unable to load preview.');
-  }
-});
-
-// --- Admin License Management APIs ---
+// ================= STEALTH ADMIN APIS =================
 
 // Get all licenses
-app.get('/api/admin/licenses', authMiddleware, (req, res) => {
+app.get('/api/admin/licenses', stealthAdminAuth, (req, res) => {
   try {
     const licenses = readLicenses();
     const formatted = licenses.map(item => ({
@@ -554,7 +659,7 @@ app.get('/api/admin/licenses', authMiddleware, (req, res) => {
 });
 
 // Create new license
-app.post('/api/admin/licenses', authMiddleware, upload.single('pdfFile'), (req, res) => {
+app.post('/api/admin/licenses', stealthAdminAuth, upload.single('pdfFile'), (req, res) => {
   try {
     const {
       code,
@@ -655,7 +760,7 @@ app.post('/api/admin/licenses', authMiddleware, upload.single('pdfFile'), (req, 
 });
 
 // Update license
-app.put('/api/admin/licenses/:id', authMiddleware, upload.single('pdfFile'), (req, res) => {
+app.put('/api/admin/licenses/:id', stealthAdminAuth, upload.single('pdfFile'), (req, res) => {
   try {
     const licenseId = req.params.id;
     const {
@@ -746,7 +851,7 @@ app.put('/api/admin/licenses/:id', authMiddleware, upload.single('pdfFile'), (re
 });
 
 // Delete license
-app.delete('/api/admin/licenses/:id', authMiddleware, (req, res) => {
+app.delete('/api/admin/licenses/:id', stealthAdminAuth, (req, res) => {
   try {
     const licenseId = req.params.id;
     const licenses = readLicenses();
@@ -773,7 +878,7 @@ app.delete('/api/admin/licenses/:id', authMiddleware, (req, res) => {
 });
 
 // Admin Dashboard Stats
-app.get('/api/admin/stats', authMiddleware, (req, res) => {
+app.get('/api/admin/stats', stealthAdminAuth, (req, res) => {
   const licenses = readLicenses();
   const total = licenses.length;
   const active = licenses.filter(l => l.status === 'active').length;
@@ -818,26 +923,15 @@ app.get('/api/admin/stats', authMiddleware, (req, res) => {
 });
 
 // Export licenses backup
-app.get('/api/admin/export', authMiddleware, (req, res) => {
+app.get('/api/admin/export', stealthAdminAuth, (req, res) => {
   const licenses = readLicenses();
   res.setHeader('Content-Type', 'application/json');
   res.setHeader('Content-Disposition', `attachment; filename="noiser_licenses_backup_${Date.now()}.json"`);
   res.send(JSON.stringify(licenses, null, 2));
 });
 
-// Download full project zip directly
-app.get('/download-zip', (req, res) => {
-  const zipPath = path.join(__dirname, 'NOISER_Website_Complete.zip');
-  if (fs.existsSync(zipPath)) {
-    res.setHeader('Content-Type', 'application/zip');
-    res.setHeader('Content-Disposition', 'attachment; filename="NOISER_Website_Complete.zip"');
-    return res.sendFile(zipPath);
-  }
-  res.status(404).send('ZIP file not found.');
-});
-
 // Import licenses backup
-app.post('/api/admin/import', authMiddleware, (req, res) => {
+app.post('/api/admin/import', stealthAdminAuth, (req, res) => {
   try {
     const importedData = req.body;
     if (!Array.isArray(importedData)) {
@@ -863,35 +957,23 @@ app.post('/api/admin/import', authMiddleware, (req, res) => {
   }
 });
 
-// Admin Static Route Handler
-// If query parameter contains key, automatically authenticate
-app.use('/admin', (req, res, next) => {
-  const queryKey = req.query.key || req.query.passkey || req.query.secret || req.query.access || req.query.vault || req.query.token;
-  if (queryKey && isValidAdminToken(queryKey)) {
-    const admin = getAdminConfig();
-    const deterministicToken = crypto.createHmac('sha256', ADMIN_SECRET).update(`${admin.username || 'admin'}-noiser-session`).digest('hex');
-    activeSessions.set(deterministicToken, {
-      username: admin.username,
-      expiresAt: Date.now() + 30 * 24 * 60 * 60 * 1000
-    });
-    res.cookie('noiser_admin_token', deterministicToken, {
-      httpOnly: false,
-      secure: false,
-      sameSite: 'lax',
-      maxAge: 30 * 24 * 60 * 60 * 1000
-    });
-  }
-  next();
-}, express.static(path.join(__dirname, 'admin')));
+// ================= STEALTH ADMIN STATIC FILES & ROUTE =================
+// Only accessible if passed stealthAdminAuth (returns 404 otherwise)
+app.use('/admin', stealthAdminAuth, express.static(path.join(__dirname, 'admin')));
 
-// Serve root static files
+// Admin route fallback
+app.get('/admin', stealthAdminAuth, (req, res) => {
+  res.sendFile(path.join(__dirname, 'admin', 'index.html'));
+});
+
+// Serve root static files (excluding /admin)
 app.use(express.static(__dirname));
 
-// General SPA fallback for other routes
+// General Fallback Route
 app.use((req, res, next) => {
   if (req.method === 'GET' && !req.path.startsWith('/api')) {
     if (req.path.startsWith('/admin')) {
-      return res.sendFile(path.join(__dirname, 'admin', 'index.html'));
+      return res.status(404).send(getGeneric404Html());
     }
     const indexPath = path.join(__dirname, 'index.html');
     if (fs.existsSync(indexPath)) {
@@ -899,10 +981,11 @@ app.use((req, res, next) => {
     }
     return res.sendFile(path.join(__dirname, 'index (2).html'));
   }
-  res.status(404).send('Not Found');
+  res.status(404).send(getGeneric404Html());
 });
 
 // Start server
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`NO!SER Production Server running on http://0.0.0.0:${PORT}`);
+  console.log(`Stealth Security: Admin portal disguised behind 404. Unlock via ?key=YOUR_PASSKEY`);
 });
