@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -13,11 +13,11 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Space+Grotesk:wght@500;600;700;800&family=Syne:wght@700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css?v=20260906v8" />
+  <link rel="stylesheet" href="style.css?v=20260906v9" />
 </head>
 <body>
 
-  <!-- TOP SCANNER PROGRESS LINE -->
+  <!-- TOP PROGRESS LINE -->
   <div id="scroll-progress-bar" class="scroll-progress-bar" aria-hidden="true"></div>
 
   <!-- SITE HEADER -->
@@ -30,11 +30,11 @@
         <span class="brand__tag">PRODUCER</span>
       </a>
 
-      <!-- Navigation Links (Clean Minimalist — No // or programmer clutter) -->
+      <!-- Clean Minimal Navigation -->
       <nav class="site-nav" id="site-nav" aria-label="Main Navigation">
-        <a href="#verify" class="site-nav__link">VERIFY LICENSE</a>
+        <a href="#verify" class="site-nav__link">VERIFY</a>
         <a href="#contact" class="site-nav__link">CONTACT</a>
-        <a href="#verify" class="nav-cta-btn">VERIFY</a>
+        <a href="/admin" class="nav-admin-link">ADMIN</a>
       </nav>
 
     </div>
@@ -54,7 +54,7 @@
         </h1>
 
         <p class="hero__subtitle">
-          Custom sound design, industrial production workspace, and verified official license registry.
+          Bespoke sound design, industrial heavy production, and verified digital license registry.
         </p>
 
         <div class="hero__actions">
@@ -62,7 +62,7 @@
             VERIFY LICENSE
           </a>
           <a href="#contact" class="btn btn--outline">
-            GET IN TOUCH
+            CONTACT PRODUCER
           </a>
         </div>
 
@@ -75,10 +75,11 @@
 
         <div class="terminal-header">
           <div class="terminal-title">
-            <span class="terminal-badge">REGISTRY</span> NO!SER LICENSE VERIFICATION
+            <span class="terminal-badge">REGISTRY</span>
+            <span>NO!SER LICENSE VERIFICATION</span>
           </div>
-          <div class="terminal-badge">
-            SHA-256 SECURE
+          <div class="terminal-badge terminal-badge--dim">
+            SHA-256 SECURED
           </div>
         </div>
 
@@ -89,7 +90,7 @@
                 type="text" 
                 id="license-code-input" 
                 class="terminal-input" 
-                placeholder="Enter License Code (e.g. NS-2026-8842)" 
+                placeholder="Enter License Code (e.g. NS-2026-9999)" 
                 autocomplete="off" 
                 spellcheck="false" 
                 maxlength="50"
@@ -100,6 +101,14 @@
               VERIFY
             </button>
           </form>
+
+          <!-- Quick Test Demo Code Chip -->
+          <div class="demo-code-bar">
+            <span class="demo-code-bar__label">SAMPLE RECORD:</span>
+            <button type="button" class="demo-code-pill" id="demo-code-btn" onclick="fillAndVerify('NS-2026-9999')">
+              NS-2026-9999
+            </button>
+          </div>
 
           <!-- Status Indicator Area -->
           <div id="verify-state" class="terminal-status" style="display: none;"></div>
@@ -114,16 +123,16 @@
 
             <div class="result-grid">
               <div class="result-row">
-                <span class="result-label">BEAT / TRACK</span>
-                <span id="res-track-title" class="result-val">VERTICA</span>
+                <span class="result-label">TRACK / BEAT</span>
+                <span id="res-track-title" class="result-val">STRIKER (EXCLUSIVE)</span>
               </div>
               <div class="result-row">
                 <span class="result-label">LICENSEE</span>
-                <span id="res-customer-name" class="result-val">Client Name</span>
+                <span id="res-customer-name" class="result-val">Marcus Vance</span>
               </div>
               <div class="result-row">
                 <span class="result-label">LICENSE TIER</span>
-                <span id="res-license-type" class="result-val">Official License</span>
+                <span id="res-license-type" class="result-val">Exclusive Agreement</span>
               </div>
               <div class="result-row">
                 <span class="result-label">ISSUE DATE</span>
@@ -131,7 +140,7 @@
               </div>
               <div class="result-row">
                 <span class="result-label">LICENSE CODE</span>
-                <span id="res-code" class="result-val result-val--green mono-text">NS-0000-0000</span>
+                <span id="res-code" class="result-val result-val--green mono-text">NS-2026-9999</span>
               </div>
               <div class="result-row">
                 <span class="result-label">PRODUCER</span>
@@ -159,31 +168,31 @@
       </div>
     </section>
 
-    <!-- ================= CONTACT SECTION (DEDICATED INTERACTIVE HUB) ================= -->
+    <!-- ================= CONTACT SECTION (ULTRA-MINIMALIST INDUSTRIAL DESIGN) ================= -->
     <section class="section--contact" id="contact" aria-labelledby="contact-heading">
       <div class="contact-container">
         
         <div class="contact-header">
-          <span class="contact-tag">COMMUNICATION</span>
-          <h2 class="contact-title" id="contact-heading">CONTACT &amp; COLLABORATION</h2>
+          <span class="contact-tag">DIRECT CHANNELS</span>
+          <h2 class="contact-title" id="contact-heading">CONTACT &amp; INQUIRIES</h2>
           <p class="contact-lead">
-            For custom beat production, exclusive buyouts, mixing/mastering, or commercial sync inquiries:
+            For custom audio production, exclusive acquisitions, sync licensing, and collaborations.
           </p>
         </div>
 
         <!-- Strict Order: 1. Instagram, 2. Email, 3. SoundCloud -->
-        <div class="contact-grid">
+        <div class="contact-minimal-list">
 
           <!-- 1. INSTAGRAM (@prodbynoiser) -->
-          <div class="contact-card">
-            <div class="contact-card__top">
-              <span class="contact-card__num">01</span>
-              <span class="contact-card__tag">DIRECT MESSAGE</span>
+          <div class="contact-item">
+            <div class="contact-item__meta">
+              <span class="contact-item__num">01</span>
+              <div>
+                <h3 class="contact-item__title">INSTAGRAM</h3>
+                <span class="contact-item__val">@prodbynoiser</span>
+              </div>
             </div>
-            <h3 class="contact-card__title">INSTAGRAM</h3>
-            <p class="contact-card__desc">Studio sessions, beat previews, announcements, and direct inquiries.</p>
-            <div class="contact-card__bottom">
-              <span class="contact-card__val">@prodbynoiser</span>
+            <div class="contact-item__action">
               <a href="https://instagram.com/prodbynoiser" target="_blank" rel="noopener" class="btn btn--primary btn--sm">
                 OPEN INSTAGRAM
               </a>
@@ -191,36 +200,34 @@
           </div>
 
           <!-- 2. EMAIL (qnoiser@gmail.com) -->
-          <div class="contact-card">
-            <div class="contact-card__top">
-              <span class="contact-card__num">02</span>
-              <span class="contact-card__tag">OFFICIAL INQUIRIES</span>
-            </div>
-            <h3 class="contact-card__title">EMAIL</h3>
-            <p class="contact-card__desc">Licensing agreements, custom projects, business inquiries, and contracts.</p>
-            <div class="contact-card__bottom">
-              <span class="contact-card__val">qnoiser@gmail.com</span>
-              <div class="contact-btn-group">
-                <a href="mailto:qnoiser@gmail.com" class="btn btn--primary btn--sm">
-                  SEND EMAIL
-                </a>
-                <button type="button" id="btn-copy-email" class="btn btn--outline btn--sm" data-email="qnoiser@gmail.com">
-                  <span id="copy-email-text">COPY EMAIL</span>
-                </button>
+          <div class="contact-item">
+            <div class="contact-item__meta">
+              <span class="contact-item__num">02</span>
+              <div>
+                <h3 class="contact-item__title">EMAIL</h3>
+                <span class="contact-item__val">qnoiser@gmail.com</span>
               </div>
+            </div>
+            <div class="contact-item__action contact-item__action--group">
+              <a href="mailto:qnoiser@gmail.com" class="btn btn--primary btn--sm">
+                SEND EMAIL
+              </a>
+              <button type="button" class="btn btn--outline btn--sm" onclick="copyEmail(this)">
+                COPY EMAIL
+              </button>
             </div>
           </div>
 
           <!-- 3. SOUNDCLOUD (@noiiser) -->
-          <div class="contact-card">
-            <div class="contact-card__top">
-              <span class="contact-card__num">03</span>
-              <span class="contact-card__tag">DISCOGRAPHY</span>
+          <div class="contact-item">
+            <div class="contact-item__meta">
+              <span class="contact-item__num">03</span>
+              <div>
+                <h3 class="contact-item__title">SOUNDCLOUD</h3>
+                <span class="contact-item__val">@noiiser</span>
+              </div>
             </div>
-            <h3 class="contact-card__title">SOUNDCLOUD</h3>
-            <p class="contact-card__desc">Full catalog of beat tapes, instrumental releases, and sound archives.</p>
-            <div class="contact-card__bottom">
-              <span class="contact-card__val">@noiiser</span>
+            <div class="contact-item__action">
               <a href="https://soundcloud.com/noiiser" target="_blank" rel="noopener" class="btn btn--primary btn--sm">
                 OPEN SOUNDCLOUD
               </a>
@@ -240,7 +247,7 @@
           NO!SER<span class="brand__dot">.</span>
         </div>
 
-        <!-- Social Connections: Strictly Pure Text Links: [INSTAGRAM], [EMAIL], [SOUNDCLOUD] -->
+        <!-- Pure Text Links -->
         <div class="footer-socials">
           <a href="https://instagram.com/prodbynoiser" target="_blank" rel="noopener" class="footer-link">[INSTAGRAM]</a>
           <a href="mailto:qnoiser@gmail.com" class="footer-link">[EMAIL]</a>
@@ -248,7 +255,7 @@
         </div>
 
         <div class="footer-copy">
-          &copy; <span id="year">2026</span> NO!SER. All rights reserved.
+          &copy; <span id="year">2026</span> NO!SER. ALL RIGHTS RESERVED.
         </div>
 
       </div>
@@ -260,7 +267,7 @@
     <div class="site-modal__backdrop" onclick="closeSitePdfModal()"></div>
     <div class="site-modal__window">
       <div class="site-modal__header">
-        <div id="site-pdf-title" class="site-modal__title">NO!SER CONTRACT PREVIEW</div>
+        <div id="site-pdf-title" class="site-modal__title">NO!SER // CONTRACT PREVIEW</div>
         <div class="site-modal__actions">
           <a id="site-pdf-download-link" href="#" class="btn btn--primary btn--sm" download>DOWNLOAD PDF</a>
           <button type="button" class="site-modal__close-btn" onclick="closeSitePdfModal()" aria-label="Close">CLOSE</button>
@@ -272,6 +279,6 @@
     </div>
   </div>
 
-  <script src="script.js?v=20260906v8"></script>
+  <script src="script.js?v=20260906v9"></script>
 </body>
 </html>

@@ -1,4 +1,4 @@
-// NO!SER Admin Dashboard Script - Rock Solid Auth & Live Integration
+// NO!SER Admin Dashboard Script - Rock Solid Auth & Live Integration (English Only)
 
 let currentAdminUser = null;
 let allLicensesCache = [];
@@ -98,7 +98,6 @@ async function adminFetch(url, options = {}) {
   const response = await fetch(url, mergedOptions);
 
   if (response.status === 401) {
-    console.warn('Oturum süresi dolmuş veya geçersiz token.');
     clearStoredToken();
     showAuthView();
   }
@@ -220,7 +219,7 @@ if (authForm) {
       if (gateData.success && gateData.token) {
         setStoredToken(gateData.token);
         currentAdminUser = gateData.user;
-        showToast('Master anahtar doğrulandı. Panele giriş yapıldı!', 'success');
+        showToast('Master passkey verified. Access granted.', 'success');
         showDashboardView();
         loadDashboardData();
         return;
@@ -238,18 +237,18 @@ if (authForm) {
       if (loginData.success && loginData.token) {
         setStoredToken(loginData.token);
         currentAdminUser = loginData.user;
-        showToast('Giriş başarılı!', 'success');
+        showToast('Authentication successful.', 'success');
         showDashboardView();
         loadDashboardData();
       } else {
         if (authError) {
-          authError.textContent = 'Geçersiz Master Anahtar veya Şifre! Lütfen kontrol ediniz.';
+          authError.textContent = 'Invalid Master Passkey or Password. Please try again.';
           authError.style.display = 'block';
         }
       }
     } catch (err) {
       if (authError) {
-        authError.textContent = 'Sunucuya bağlanılamadı. Lütfen tekrar deneyin.';
+        authError.textContent = 'Unable to connect to registry server.';
         authError.style.display = 'block';
       }
     }
@@ -264,7 +263,7 @@ if (btnLogout) {
     } catch (err) {}
     clearStoredToken();
     currentAdminUser = null;
-    showToast('Oturum kapatıldı.', 'info');
+    showToast('Session terminated.', 'info');
     showAuthView();
   });
 }
@@ -343,7 +342,7 @@ function renderAllLicensesTable() {
   });
 
   if (filtered.length === 0) {
-    allLicensesTbody.innerHTML = '<tr><td colspan="8" class="table-empty">Kayıtlı lisans bulunamadı.</td></tr>';
+    allLicensesTbody.innerHTML = '<tr><td colspan="8" class="table-empty">No licenses found in registry.</td></tr>';
     return;
   }
 
@@ -351,32 +350,32 @@ function renderAllLicensesTable() {
     <tr>
       <td>
         <span class="table-code">${escapeHtml(lic.code)}</span>
-        <button type="button" class="btn-copy-code" onclick="copyText('${lic.code}', 'Lisans kodu kopyalandı!')" title="Kodu Kopyala">
+        <button type="button" class="btn-copy-code" onclick="copyText('${lic.code}', 'Code copied to clipboard!')" title="Copy Code">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
         </button>
       </td>
+      <td><strong>${escapeHtml(lic.trackTitle || '-')}</strong></td>
       <td>
         <div class="client-info">
           <span class="client-name">${escapeHtml(lic.customerName || '-')}</span>
           <span class="client-email">${escapeHtml(lic.customerEmail || '-')}</span>
         </div>
       </td>
-      <td><strong>${escapeHtml(lic.trackTitle || '-')}</strong></td>
       <td>
         ${lic.hasPdf 
           ? `<span class="pdf-badge" title="${lic.pdfOriginalName || ''}"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg> ${lic.pdfSizeFormatted || 'PDF'}</span>` 
-          : '<span style="color: #94a3b8;">PDF Yok</span>'}
+          : '<span style="color: #666666;">No PDF</span>'}
       </td>
       <td><strong>${lic.downloadCount || 0}</strong></td>
       <td>${escapeHtml(lic.issueDate || '-')}</td>
-      <td><span class="status-badge status-badge--${lic.status || 'active'}">${lic.status === 'active' ? 'Aktif' : lic.status === 'expired' ? 'Süresi Doldu' : 'Askıda'}</span></td>
+      <td><span class="status-badge status-badge--${lic.status || 'active'}">${lic.status === 'active' ? 'Active' : lic.status === 'expired' ? 'Expired' : 'Suspended'}</span></td>
       <td style="text-align: right;">
         <div class="action-buttons">
-          ${lic.hasPdf ? `<button type="button" class="action-btn" onclick="openPdfPreview('${lic.code}')" title="PDF Önizle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>` : ''}
-          ${lic.hasPdf ? `<a href="/api/licenses/download/${encodeURIComponent(lic.code)}" class="action-btn" title="PDF İndir" download><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a>` : ''}
-          <button type="button" class="action-btn" onclick="openPublicVerifyLink('${lic.code}')" title="Sorgulama Sayfasında Gör"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></button>
-          <button type="button" class="action-btn" onclick="openEditModalById('${lic.id}')" title="Düzenle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
-          <button type="button" class="action-btn action-btn--delete" onclick="openDeleteModal('${lic.id}', '${lic.code}')" title="Sil"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>
+          ${lic.hasPdf ? `<button type="button" class="action-btn" onclick="openPdfPreview('${lic.code}')" title="Preview PDF"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>` : ''}
+          ${lic.hasPdf ? `<a href="/api/licenses/download/${encodeURIComponent(lic.code)}" class="action-btn" title="Download PDF" download><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a>` : ''}
+          <button type="button" class="action-btn" onclick="openPublicVerifyLink('${lic.code}')" title="Verify on Public View"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></button>
+          <button type="button" class="action-btn" onclick="openEditModalById('${lic.id}')" title="Edit Record"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+          <button type="button" class="action-btn action-btn--delete" onclick="openDeleteModal('${lic.id}', '${lic.code}')" title="Delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>
         </div>
       </td>
     </tr>
@@ -387,7 +386,7 @@ if (licenseFilterSearch) licenseFilterSearch.addEventListener('input', renderAll
 if (btnRefreshLicenses) {
   btnRefreshLicenses.addEventListener('click', async () => {
     await loadDashboardData();
-    showToast('Veriler güncellendi.', 'info');
+    showToast('Registry data updated.', 'info');
   });
 }
 
@@ -422,7 +421,7 @@ if (addPdfInput && pdfDropzone) {
 function handleFileSelect(file) {
   if (!file) return;
   if (!file.name.toLowerCase().endsWith('.pdf') && file.type !== 'application/pdf') {
-    showToast('Lütfen sadece PDF formatında dosya yükleyin.', 'error');
+    showToast('Please select a valid PDF file.', 'error');
     if (addPdfInput) addPdfInput.value = '';
     return;
   }
@@ -453,7 +452,7 @@ function resetAddForm() {
 }
 window.resetAddForm = resetAddForm;
 
-// ================= CREATE LICENSE (LIVE AUTOMATIC INTEGRATION) =================
+// ================= CREATE LICENSE =================
 if (addLicenseForm) {
   addLicenseForm.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -469,15 +468,15 @@ if (addLicenseForm) {
       const data = await res.json();
 
       if (data.success) {
-        showToast('Lisans ve PDF başarıyla yüklendi ve anında yayına alındı!', 'success');
+        showToast('License and PDF registered successfully.', 'success');
         resetAddForm();
         await loadDashboardData();
         switchTab('licenses-list');
       } else {
-        showToast(data.message || 'Lisans eklenemedi.', 'error');
+        showToast(data.message || 'Failed to create license.', 'error');
       }
     } catch (err) {
-      showToast('Sunucu hatası oluştu.', 'error');
+      showToast('Server connection error.', 'error');
     } finally {
       if (btnSubmit) btnSubmit.disabled = false;
     }
@@ -499,9 +498,9 @@ function openEditModalById(licenseId) {
   const editPdfInfo = document.getElementById('edit-current-pdf-info');
   if (editPdfInfo) {
     if (lic.hasPdf) {
-      editPdfInfo.textContent = `Mevcut Dosya: ${lic.pdfOriginalName || 'license.pdf'} (${lic.pdfSizeFormatted || ''}).`;
+      editPdfInfo.textContent = `Current File: ${lic.pdfOriginalName || 'license.pdf'} (${lic.pdfSizeFormatted || ''}).`;
     } else {
-      editPdfInfo.textContent = 'Mevcut bir PDF belgesi yüklenmemiş.';
+      editPdfInfo.textContent = 'No PDF file currently uploaded.';
     }
   }
 
@@ -528,14 +527,14 @@ if (editLicenseForm) {
       const data = await res.json();
 
       if (data.success) {
-        showToast('Lisans güncellendi!', 'success');
+        showToast('License updated successfully.', 'success');
         closeEditModal();
         await loadDashboardData();
       } else {
-        showToast(data.message || 'Güncelleme başarısız.', 'error');
+        showToast(data.message || 'Update failed.', 'error');
       }
     } catch (err) {
-      showToast('Sunucu hatası.', 'error');
+      showToast('Server connection error.', 'error');
     }
   });
 }
@@ -564,14 +563,14 @@ if (btnConfirmDelete) {
       const data = await res.json();
 
       if (data.success) {
-        showToast('Lisans ve PDF silindi.', 'success');
+        showToast('License record deleted.', 'success');
         closeDeleteModal();
         await loadDashboardData();
       } else {
-        showToast(data.message || 'Silme başarısız.', 'error');
+        showToast(data.message || 'Delete failed.', 'error');
       }
     } catch (err) {
-      showToast('Sunucu hatası.', 'error');
+      showToast('Server connection error.', 'error');
     }
   });
 }
@@ -579,7 +578,7 @@ if (btnConfirmDelete) {
 // ================= PDF PREVIEW =================
 function openPdfPreview(code) {
   if (!previewModal) return;
-  if (previewModalTitle) previewModalTitle.textContent = `${code} — PDF Belgesi`;
+  if (previewModalTitle) previewModalTitle.textContent = `${code} — PDF Document`;
   if (previewModalIframe) previewModalIframe.src = `/api/licenses/preview/${encodeURIComponent(code)}`;
   if (previewModalDownloadBtn) previewModalDownloadBtn.href = `/api/licenses/download/${encodeURIComponent(code)}`;
   previewModal.classList.add('is-open');
@@ -601,7 +600,7 @@ if (btnQuickSearch && quickSearchInput) {
 
     if (quickSearchResult) {
       quickSearchResult.style.display = 'block';
-      quickSearchResult.innerHTML = 'Sorgulanıyor...';
+      quickSearchResult.innerHTML = 'Querying registry...';
     }
 
     try {
@@ -612,22 +611,22 @@ if (btnQuickSearch && quickSearchInput) {
         const lic = data.license;
         quickSearchResult.innerHTML = `
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-            <strong style="color: var(--navy); font-family: var(--mono); font-size: 15px;">${escapeHtml(lic.code)}</strong>
-            <span class="status-badge status-badge--${lic.status}">${lic.status === 'active' ? 'Aktif' : lic.status}</span>
+            <strong style="color: var(--accent-green); font-family: var(--font-mono); font-size: 14px;">${escapeHtml(lic.code)}</strong>
+            <span class="status-badge status-badge--${lic.status}">${lic.status === 'active' ? 'Active' : lic.status}</span>
           </div>
-          <p><strong>Müşteri:</strong> ${escapeHtml(lic.customerName || '-')} (${escapeHtml(lic.customerEmailMasked || '-')})</p>
-          <p><strong>Parça:</strong> ${escapeHtml(lic.trackTitle || '-')}</p>
-          <div style="margin-top: 10px; display: flex; gap: 8px;">
-            ${lic.hasPdf ? `<button type="button" class="btn btn--gold btn--xs" onclick="openPdfPreview('${lic.code}')">PDF Gör</button>` : ''}
-            ${lic.hasPdf ? `<a href="/api/licenses/download/${encodeURIComponent(lic.code)}" class="btn btn--outline btn--xs" download>İndir</a>` : ''}
-            <button type="button" class="btn btn--outline btn--xs" onclick="openPublicVerifyLink('${lic.code}')">Sitede Doğrula</button>
+          <p><strong>Licensee:</strong> ${escapeHtml(lic.customerName || '-')} (${escapeHtml(lic.customerEmailMasked || '-')})</p>
+          <p><strong>Track:</strong> ${escapeHtml(lic.trackTitle || '-')}</p>
+          <div style="margin-top: 10px; display: flex; gap: 8px; flex-wrap: wrap;">
+            ${lic.hasPdf ? `<button type="button" class="btn btn--outline btn--xs" onclick="openPdfPreview('${lic.code}')">Preview PDF</button>` : ''}
+            ${lic.hasPdf ? `<a href="/api/licenses/download/${encodeURIComponent(lic.code)}" class="btn btn--primary btn--xs" download>Download</a>` : ''}
+            <button type="button" class="btn btn--outline btn--xs" onclick="openPublicVerifyLink('${lic.code}')">Verify on Public Site</button>
           </div>
         `;
       } else {
-        quickSearchResult.innerHTML = `<span style="color: #ef4444;">'${escapeHtml(query)}' koduna ait lisans bulunamadı.</span>`;
+        quickSearchResult.innerHTML = `<span style="color: #FF2247;">No license record found for '${escapeHtml(query)}'.</span>`;
       }
     } catch (err) {
-      quickSearchResult.innerHTML = '<span style="color: #ef4444;">Sorgulama hatası oluştu.</span>';
+      quickSearchResult.innerHTML = '<span style="color: #FF2247;">Error querying ledger.</span>';
     }
   };
 
@@ -637,7 +636,7 @@ if (btnQuickSearch && quickSearchInput) {
   });
 }
 
-function copyText(text, successMessage = 'Kopyalandı!') {
+function copyText(text, successMessage = 'Copied to clipboard!') {
   if (navigator.clipboard && navigator.clipboard.writeText) {
     navigator.clipboard.writeText(text).then(() => showToast(successMessage, 'success'));
   } else {
@@ -655,7 +654,7 @@ function copyText(text, successMessage = 'Kopyalandı!') {
 window.copyText = copyText;
 
 function openPublicVerifyLink(code) {
-  window.open(`/?code=${encodeURIComponent(code)}#license`, '_blank');
+  window.open(`/?code=${encodeURIComponent(code)}#verify`, '_blank');
 }
 window.openPublicVerifyLink = openPublicVerifyLink;
 
@@ -685,13 +684,13 @@ if (changePasswordForm) {
       const data = await res.json();
 
       if (data.success) {
-        showToast('Güvenlik bilgileri güncellendi.', 'success');
+        showToast('Credentials updated successfully.', 'success');
         changePasswordForm.reset();
       } else {
-        showToast(data.message || 'Güncelleme başarısız.', 'error');
+        showToast(data.message || 'Update failed.', 'error');
       }
     } catch (err) {
-      showToast('Sunucu hatası.', 'error');
+      showToast('Server connection error.', 'error');
     }
   });
 }
@@ -714,13 +713,13 @@ if (importBackupFile) {
       const data = await res.json();
 
       if (data.success) {
-        showToast('Yedek başarıyla yüklendi!', 'success');
+        showToast('Backup imported successfully.', 'success');
         await loadDashboardData();
       } else {
-        showToast(data.message || 'Geri yükleme başarısız.', 'error');
+        showToast(data.message || 'Import failed.', 'error');
       }
     } catch (err) {
-      showToast('JSON dosyası okunamadı.', 'error');
+      showToast('Invalid JSON backup file.', 'error');
     } finally {
       importBackupFile.value = '';
     }

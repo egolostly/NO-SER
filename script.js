@@ -27,7 +27,7 @@ const scrollProgressBar = document.getElementById("scroll-progress-bar");
 
 let currentVerifiedLicense = null;
 
-// Dynamic Scroll Scanner
+// Dynamic Scroll Progress
 function updateScrollProgress() {
   if (!scrollProgressBar) return;
   const scrollTop = window.scrollY || document.documentElement.scrollTop;
@@ -46,12 +46,12 @@ function showVerifyState(type, message) {
     verifyState.className = "terminal-status terminal-status--loading";
     verifyState.innerHTML = `
       <div class="terminal-spinner"></div>
-      <span>&gt; QUERYING_LEDGER: "${escapeHtml(message)}"...</span>
+      <span>QUERYING REGISTRY LEDGER: "${escapeHtml(message)}"...</span>
     `;
   } else if (type === "error") {
     verifyState.className = "terminal-status terminal-status--error";
     verifyState.innerHTML = `
-      <span>[ERROR] // ${escapeHtml(message)}</span>
+      <span>[ERROR] ${escapeHtml(message)}</span>
     `;
   }
 }
@@ -60,7 +60,7 @@ function hideVerifyState() {
   if (verifyState) verifyState.style.display = "none";
 }
 
-// Verification Core
+// Verification Core Engine
 async function executeVerification(code) {
   if (!code || !code.trim()) return;
   const cleanCode = code.trim().toUpperCase();
@@ -86,11 +86,11 @@ async function executeVerification(code) {
 
       if (resStatusBadge) {
         if (lic.status === "active") {
-          resStatusBadge.textContent = "VALID // REGISTERED";
+          resStatusBadge.textContent = "VALID & REGISTERED";
           resStatusBadge.style.color = "#0a0a0a";
           resStatusBadge.style.backgroundColor = "#00FF66";
         } else if (lic.status === "expired") {
-          resStatusBadge.textContent = "EXPIRED // INACTIVE";
+          resStatusBadge.textContent = "EXPIRED & INACTIVE";
           resStatusBadge.style.color = "#ffffff";
           resStatusBadge.style.backgroundColor = "#FF2247";
         } else {
@@ -121,10 +121,10 @@ async function executeVerification(code) {
       if (certResult) certResult.style.display = "block";
     } else {
       currentVerifiedLicense = null;
-      showVerifyState("error", data.message || `LICENSE_NOT_FOUND: Code '${cleanCode}' does not exist in registry.`);
+      showVerifyState("error", data.message || `LICENSE NOT FOUND: '${cleanCode}' does not exist in registry.`);
     }
   } catch (err) {
-    showVerifyState("error", "CONNECTION_FAILED: Unable to query registry server.");
+    showVerifyState("error", "CONNECTION ERROR: Unable to query registry server.");
   }
 }
 
@@ -138,21 +138,29 @@ if (verifyForm) {
   });
 }
 
+// Quick Sample Autofill & Verify
+window.fillAndVerify = function(code) {
+  if (licenseCodeInput) {
+    licenseCodeInput.value = code;
+    executeVerification(code);
+  }
+};
+
 // Copy Code Button
 if (btnCopyCode) {
   btnCopyCode.addEventListener("click", () => {
     if (!currentVerifiedLicense) return;
-    copyToClipboard(currentVerifiedLicense.code, btnCopyCode, "[ COPIED! ]");
+    copyToClipboard(currentVerifiedLicense.code, btnCopyCode, "COPIED CODE");
   });
 }
 
 // Copy Email Function
 window.copyEmail = function(btnElement) {
   const email = "qnoiser@gmail.com";
-  copyToClipboard(email, btnElement, "[ COPIED EMAIL! ]");
+  copyToClipboard(email, btnElement, "COPIED EMAIL");
 };
 
-function copyToClipboard(text, btnElement, feedbackText = "[ COPIED! ]") {
+function copyToClipboard(text, btnElement, feedbackText = "COPIED") {
   const originalText = btnElement ? btnElement.textContent : "";
   const onCopied = () => {
     if (btnElement) {

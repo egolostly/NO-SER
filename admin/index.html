@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>NO!SER // ADMIN LEDGER CONTROL</title>
+  <title>NO!SER — Admin Registry Control</title>
   <link rel="icon" type="image/svg+xml" href="/logo-mark.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Space+Grotesk:wght@500;600;700;800&family=Syne:wght@700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/admin/admin.css?v=20260906v7" />
+  <link rel="stylesheet" href="/admin/admin.css?v=20260906v8" />
 </head>
 <body>
 
@@ -20,31 +20,31 @@
     <div class="auth-card">
       <div class="auth-brand">
         <h1 class="auth-title">NO!SER<span class="brand__dot">.</span></h1>
-        <p class="auth-subtitle">// ADMIN LEDGER GATEWAY</p>
+        <p class="auth-subtitle">ADMIN LEDGER GATEWAY</p>
       </div>
 
       <div class="auth-notice">
-        <span>SECURITY_KEY // MASTER PASSKEY REQUIRED</span>
+        <span>SECURITY KEY // MASTER PASSKEY REQUIRED</span>
       </div>
 
       <form id="auth-form" class="auth-form" autocomplete="off">
         <div id="auth-error" class="auth-alert" style="display: none;"></div>
 
         <div class="form-group">
-          <label for="auth-key">[ ENTER MASTER PASSKEY / PASSWORD ]</label>
+          <label for="auth-key">ENTER MASTER PASSKEY / PASSWORD</label>
           <div class="terminal-input-wrap">
             <span class="prompt-char">&gt;</span>
-            <input type="password" id="auth-key" required placeholder="PASSKEY" autocomplete="current-password" autofocus />
+            <input type="password" id="auth-key" required placeholder="PASSKEY (e.g. EgoLost.6565)" autocomplete="current-password" autofocus />
           </div>
         </div>
 
         <button type="submit" id="auth-submit-btn" class="btn btn--primary btn--block">
-          [ AUTHENTICATE &amp; ACCESS ]
+          AUTHENTICATE &amp; ACCESS
         </button>
       </form>
 
       <div class="auth-footer">
-        <a href="/">[ &lt; RETURN TO PUBLIC VIEW ]</a>
+        <a href="/">&lt; RETURN TO PUBLIC SITE</a>
       </div>
     </div>
   </div>
@@ -57,40 +57,40 @@
       <div class="admin-header__brand">
         <a href="/admin" class="admin-logo-link">
           <span class="brand__logotype">NO!SER<span class="brand__dot">.</span></span>
-          <span class="admin-badge">CONTROL // ADMIN</span>
+          <span class="admin-badge">ADMIN CONTROL</span>
         </a>
       </div>
 
       <nav class="admin-nav" role="tablist">
         <button type="button" class="admin-nav__btn is-active" data-tab="add-license" role="tab">
-          [ + NEW LICENSE ]
+          + NEW LICENSE
         </button>
         <button type="button" class="admin-nav__btn" data-tab="licenses-list" role="tab">
-          [ REGISTRY LIST <span id="badge-total-count" class="tab-badge">0</span> ]
+          REGISTRY LIST <span id="badge-total-count" class="tab-badge">0</span>
         </button>
         <button type="button" class="admin-nav__btn" data-tab="overview" role="tab">
-          [ METRICS ]
+          METRICS
         </button>
         <button type="button" class="admin-nav__btn" data-tab="settings" role="tab">
-          [ SECURITY ]
+          SECURITY
         </button>
       </nav>
 
       <div class="admin-header__actions">
-        <a href="/" target="_blank" class="btn btn--outline btn--sm">[ PUBLIC VIEW ]</a>
-        <button type="button" id="btn-logout" class="btn btn--outline btn--sm">[ LOGOUT ]</button>
+        <a href="/" target="_blank" class="btn btn--outline btn--sm">PUBLIC SITE</a>
+        <button type="button" id="btn-logout" class="btn btn--outline btn--sm">LOGOUT</button>
       </div>
     </header>
 
     <!-- MAIN CONTENT AREA -->
     <main class="admin-main">
 
-      <!-- TAB 1: YENİ LİSANS VE PDF EKLE (FAST & ADVANCED) -->
+      <!-- TAB 1: NEW LICENSE & PDF UPLOAD -->
       <section id="tab-add-license" class="admin-tab is-active">
         <div class="panel-card panel-card--form">
           <div class="panel-card__header">
-            <h2 class="panel-card__title">// REGISTER NEW LICENSE &amp; PDF AGREEMENT</h2>
-            <span class="panel-card__status-live">SYS: LIVE_SYNC</span>
+            <h2 class="panel-card__title">REGISTER NEW LICENSE &amp; PDF CONTRACT</h2>
+            <span class="panel-card__status-live">SYS: LIVE SYNC</span>
           </div>
           <div class="panel-card__body">
             
@@ -99,21 +99,21 @@
               <!-- Beat Title & Client Name -->
               <div class="form-row form-row--2">
                 <div class="form-group">
-                  <label for="add-track-title">[ BEAT / PROJECT NAME ] <span class="required">*</span></label>
-                  <input type="text" id="add-track-title" name="trackTitle" required placeholder="e.g. VERTICA" class="form-input" />
+                  <label for="add-track-title">BEAT / TRACK TITLE <span class="required">*</span></label>
+                  <input type="text" id="add-track-title" name="trackTitle" required placeholder="e.g. STRIKER" class="form-input" />
                 </div>
                 <div class="form-group">
-                  <label for="add-customer-name">[ LICENSEE / CLIENT NAME ] <span class="required">*</span></label>
-                  <input type="text" id="add-customer-name" name="customerName" required placeholder="e.g. John Doe / Artist" class="form-input" />
+                  <label for="add-customer-name">LICENSEE / CLIENT NAME <span class="required">*</span></label>
+                  <input type="text" id="add-customer-name" name="customerName" required placeholder="e.g. Marcus Vance" class="form-input" />
                 </div>
               </div>
 
               <!-- Unique License Code with Auto Generator -->
               <div class="form-group">
                 <div class="label-with-action">
-                  <label for="add-code">[ UNIQUE LICENSE CODE / SHA-256 ] <span class="required">*</span></label>
+                  <label for="add-code">UNIQUE LICENSE CODE / SHA-256 <span class="required">*</span></label>
                   <button type="button" id="btn-generate-code" class="btn-text-link">
-                    [ AUTO GENERATE CODE ]
+                    AUTO GENERATE CODE
                   </button>
                 </div>
                 <input type="text" id="add-code" name="code" required placeholder="NS-2026-XXXX" class="form-input code-input" />
@@ -121,19 +121,19 @@
 
               <!-- PDF Upload Dropzone -->
               <div class="form-group">
-                <label>[ LICENSE AGREEMENT (PDF FILE) ] <span class="required">*</span></label>
+                <label>LICENSE CONTRACT (PDF DOCUMENT) <span class="required">*</span></label>
                 <div id="pdf-dropzone" class="pdf-dropzone">
                   <input type="file" id="add-pdf-file" name="pdfFile" accept=".pdf,application/pdf" class="pdf-file-input" required />
                   <div class="pdf-dropzone__content">
                     <p class="pdf-dropzone__title">&gt; DRAG &amp; DROP PDF FILE OR <strong>CLICK TO BROWSE</strong></p>
-                    <p class="pdf-dropzone__hint">FORMAT: .PDF (MAX 50MB)</p>
+                    <p class="pdf-dropzone__hint">FORMAT: .PDF (UP TO 50MB)</p>
                   </div>
                   <div id="dropzone-file-info" class="dropzone-file-info" style="display: none;">
                     <div class="file-info-details">
                       <strong id="dropzone-filename">document.pdf</strong>
                       <span id="dropzone-filesize">0 KB</span>
                     </div>
-                    <button type="button" id="btn-remove-selected-file" class="btn-icon-danger" title="Remove">[ REMOVE ]</button>
+                    <button type="button" id="btn-remove-selected-file" class="btn-icon-danger" title="Remove">REMOVE</button>
                   </div>
                 </div>
               </div>
@@ -141,35 +141,35 @@
               <!-- Optional Details -->
               <details class="advanced-details-box">
                 <summary class="advanced-details-summary">
-                  [ + OPTIONAL METADATA: EMAIL, TIER, DATE ]
+                  + OPTIONAL METADATA (EMAIL, TIER, DATE, NOTES)
                 </summary>
                 
                 <div class="advanced-details-content">
                   <div class="form-row form-row--2">
                     <div class="form-group">
-                      <label for="add-customer-email">[ CLIENT EMAIL ]</label>
+                      <label for="add-customer-email">CLIENT EMAIL</label>
                       <input type="email" id="add-customer-email" name="customerEmail" placeholder="client@example.com" class="form-input" />
                     </div>
                     <div class="form-group">
-                      <label for="add-license-type">[ LICENSE TIER ]</label>
+                      <label for="add-license-type">LICENSE TIER</label>
                       <select id="add-license-type" name="licenseType" class="form-select">
-                        <option value="Official License" selected>Official License</option>
-                        <option value="Exclusive Agreement">Exclusive Agreement</option>
+                        <option value="Exclusive Agreement" selected>Exclusive Agreement</option>
                         <option value="Unlimited Lease">Unlimited Lease</option>
                         <option value="Premium Lease">Premium Lease</option>
                         <option value="Standard Lease">Standard Lease</option>
+                        <option value="Official License">Official License</option>
                       </select>
                     </div>
                   </div>
 
                   <div class="form-row form-row--2">
                     <div class="form-group">
-                      <label for="add-issue-date">[ ISSUE DATE ]</label>
+                      <label for="add-issue-date">ISSUE DATE</label>
                       <input type="date" id="add-issue-date" name="issueDate" class="form-input" />
                     </div>
                     <div class="form-group">
-                      <label for="add-notes">[ INTERNAL NOTE ]</label>
-                      <input type="text" id="add-notes" name="notes" placeholder="Order / Reference ID" class="form-input" />
+                      <label for="add-notes">INTERNAL NOTES</label>
+                      <input type="text" id="add-notes" name="notes" placeholder="Order ID or contract notes" class="form-input" />
                     </div>
                   </div>
                 </div>
@@ -177,9 +177,9 @@
 
               <!-- Actions -->
               <div class="form-actions">
-                <button type="button" class="btn btn--outline" onclick="resetAddForm()">[ RESET ]</button>
+                <button type="button" class="btn btn--outline" onclick="resetAddForm()">RESET</button>
                 <button type="submit" id="btn-submit-add-license" class="btn btn--primary">
-                  [ COMMIT LICENSE &amp; PDF TO LEDGER ]
+                  COMMIT LICENSE &amp; PDF TO LEDGER
                 </button>
               </div>
 
@@ -188,22 +188,22 @@
         </div>
       </section>
 
-      <!-- TAB 2: KAYITLI LİSANSLAR LİSTESİ (REGISTRY LIST) -->
+      <!-- TAB 2: REGISTERED LICENSES LIST -->
       <section id="tab-licenses-list" class="admin-tab">
         <div class="panel-card panel-card--full">
           
           <div class="panel-card__header panel-card__header--stackable">
             <div>
-              <h2 class="panel-card__title">// REGISTERED LICENSES REGISTRY</h2>
+              <h2 class="panel-card__title">REGISTERED LICENSES REGISTRY</h2>
             </div>
 
             <div class="table-controls">
               <div class="table-search">
-                <input type="text" id="license-filter-search" placeholder="&gt; SEARCH CODE OR NAME..." />
+                <input type="text" id="license-filter-search" placeholder="&gt; SEARCH BY CODE OR NAME..." />
               </div>
 
               <button type="button" id="btn-refresh-licenses" class="btn btn--outline btn--sm" title="Refresh">
-                [ REFRESH ]
+                REFRESH
               </button>
             </div>
           </div>
@@ -214,9 +214,9 @@
                 <thead>
                   <tr>
                     <th>LICENSE CODE</th>
-                    <th>BEAT / TRACK</th>
+                    <th>TRACK / BEAT</th>
                     <th>LICENSEE</th>
-                    <th>PDF FILE</th>
+                    <th>PDF DOCUMENT</th>
                     <th>DOWNLOADS</th>
                     <th>DATE</th>
                     <th>STATUS</th>
@@ -262,12 +262,12 @@
         <!-- Quick Terminal Search -->
         <div class="panel-card">
           <div class="panel-card__header">
-            <h2 class="panel-card__title">// QUICK QUERY TERMINAL</h2>
+            <h2 class="panel-card__title">QUICK QUERY TERMINAL</h2>
           </div>
           <div class="panel-card__body">
             <div class="quick-lookup-box">
-              <input type="text" id="quick-search-input" placeholder="&gt; ENTER LICENSE CODE (e.g. NS-2026-8842)" />
-              <button type="button" id="btn-quick-search" class="btn btn--primary">[ QUERY ]</button>
+              <input type="text" id="quick-search-input" placeholder="&gt; ENTER LICENSE CODE (e.g. NS-2026-9999)" />
+              <button type="button" id="btn-quick-search" class="btn btn--primary">QUERY</button>
             </div>
             <div id="quick-search-result" class="quick-search-result" style="display: none;"></div>
           </div>
@@ -280,45 +280,45 @@
           
           <div class="panel-card">
             <div class="panel-card__header">
-              <h2 class="panel-card__title">// SECURITY CREDENTIALS</h2>
+              <h2 class="panel-card__title">SECURITY CREDENTIALS</h2>
             </div>
             <div class="panel-card__body">
               <form id="change-password-form" class="settings-form" autocomplete="off">
                 <div class="form-group">
-                  <label for="settings-current-password">[ CURRENT PASSWORD / PASSKEY ] <span class="required">*</span></label>
+                  <label for="settings-current-password">CURRENT PASSWORD / PASSKEY <span class="required">*</span></label>
                   <input type="password" id="settings-current-password" required placeholder="Current Passkey" class="form-input" />
                 </div>
 
                 <div class="form-group">
-                  <label for="settings-new-master-passkey">[ NEW MASTER PASSKEY ]</label>
+                  <label for="settings-new-master-passkey">NEW MASTER PASSKEY</label>
                   <input type="text" id="settings-new-master-passkey" placeholder="New Master Key (e.g. EgoLost.6565)" class="form-input" />
                 </div>
 
                 <div class="form-group">
-                  <label for="settings-new-password">[ NEW ADMIN PASSWORD ]</label>
+                  <label for="settings-new-password">NEW ADMIN PASSWORD</label>
                   <input type="password" id="settings-new-password" placeholder="Min 6 characters" class="form-input" />
                 </div>
 
-                <button type="submit" class="btn btn--primary">[ UPDATE CREDENTIALS ]</button>
+                <button type="submit" class="btn btn--primary">UPDATE CREDENTIALS</button>
               </form>
             </div>
           </div>
 
           <div class="panel-card">
             <div class="panel-card__header">
-              <h2 class="panel-card__title">// DATABASE BACKUP &amp; RESTORE</h2>
+              <h2 class="panel-card__title">DATABASE BACKUP &amp; RESTORE</h2>
             </div>
             <div class="panel-card__body">
               <p class="panel-card__desc">EXPORT OR IMPORT COMPLETE JSON DATABASE LEDGER.</p>
               
               <div class="backup-actions">
                 <a href="/api/admin/export" class="btn btn--outline btn--block" download>
-                  [ EXPORT JSON BACKUP ]
+                  EXPORT JSON BACKUP
                 </a>
 
                 <div class="restore-box">
                   <label for="import-backup-file" class="btn btn--outline btn--block">
-                    [ IMPORT JSON BACKUP (.JSON) ]
+                    IMPORT JSON BACKUP (.JSON)
                   </label>
                   <input type="file" id="import-backup-file" accept=".json" style="display: none;" />
                 </div>
@@ -337,31 +337,31 @@
     <div class="modal__overlay" onclick="closeEditModal()"></div>
     <div class="modal__dialog">
       <div class="modal__header">
-        <h3 class="modal__title">// EDIT LICENSE RECORD</h3>
+        <h3 class="modal__title">EDIT LICENSE RECORD</h3>
         <button type="button" class="modal__close" onclick="closeEditModal()">[ X ]</button>
       </div>
       <form id="edit-license-form" class="modal__body" enctype="multipart/form-data">
         <input type="hidden" id="edit-id" name="id" />
 
         <div class="form-group">
-          <label for="edit-code">[ LICENSE CODE ] <span class="required">*</span></label>
+          <label for="edit-code">LICENSE CODE <span class="required">*</span></label>
           <input type="text" id="edit-code" name="code" required class="form-input code-input" />
         </div>
 
         <div class="form-row form-row--2">
           <div class="form-group">
-            <label for="edit-track-title">[ BEAT / TRACK ]</label>
+            <label for="edit-track-title">BEAT / TRACK TITLE</label>
             <input type="text" id="edit-track-title" name="trackTitle" class="form-input" />
           </div>
           <div class="form-group">
-            <label for="edit-customer-name">[ LICENSEE NAME ]</label>
+            <label for="edit-customer-name">LICENSEE NAME</label>
             <input type="text" id="edit-customer-name" name="customerName" class="form-input" />
           </div>
         </div>
 
         <div class="form-row form-row--2">
           <div class="form-group">
-            <label for="edit-status">[ STATUS ]</label>
+            <label for="edit-status">STATUS</label>
             <select id="edit-status" name="status" class="form-select">
               <option value="active">Active</option>
               <option value="expired">Expired</option>
@@ -369,20 +369,20 @@
             </select>
           </div>
           <div class="form-group">
-            <label for="edit-customer-email">[ EMAIL ]</label>
+            <label for="edit-customer-email">CLIENT EMAIL</label>
             <input type="email" id="edit-customer-email" name="customerEmail" class="form-input" />
           </div>
         </div>
 
         <div class="form-group">
-          <label>[ REPLACE PDF (OPTIONAL) ]</label>
+          <label>REPLACE PDF (OPTIONAL)</label>
           <input type="file" id="edit-pdf-file" name="pdfFile" accept=".pdf,application/pdf" class="form-input" />
-          <span id="edit-current-pdf-info" class="form-help">Current file preserved if empty.</span>
+          <span id="edit-current-pdf-info" class="form-help">Current file preserved if left empty.</span>
         </div>
 
         <div class="modal__footer">
-          <button type="button" class="btn btn--outline" onclick="closeEditModal()">[ CANCEL ]</button>
-          <button type="submit" class="btn btn--primary">[ SAVE CHANGES ]</button>
+          <button type="button" class="btn btn--outline" onclick="closeEditModal()">CANCEL</button>
+          <button type="submit" class="btn btn--primary">SAVE CHANGES</button>
         </div>
       </form>
     </div>
@@ -393,9 +393,9 @@
     <div class="modal__overlay" onclick="closePreviewModal()"></div>
     <div class="modal__dialog modal__dialog--lg">
       <div class="modal__header">
-        <h3 id="preview-modal-title" class="modal__title">// PDF AGREEMENT PREVIEW</h3>
+        <h3 id="preview-modal-title" class="modal__title">PDF AGREEMENT PREVIEW</h3>
         <div class="modal__header-actions">
-          <a id="preview-modal-download-btn" href="#" class="btn btn--primary btn--xs" download>[ DOWNLOAD ]</a>
+          <a id="preview-modal-download-btn" href="#" class="btn btn--primary btn--xs" download>DOWNLOAD</a>
           <button type="button" class="modal__close" onclick="closePreviewModal()">[ X ]</button>
         </div>
       </div>
@@ -410,7 +410,7 @@
     <div class="modal__overlay" onclick="closeDeleteModal()"></div>
     <div class="modal__dialog modal__dialog--sm">
       <div class="modal__header">
-        <h3 class="modal__title" style="color: #FF2247;">// DELETE LICENSE RECORD</h3>
+        <h3 class="modal__title" style="color: #FF2247;">DELETE LICENSE RECORD</h3>
         <button type="button" class="modal__close" onclick="closeDeleteModal()">[ X ]</button>
       </div>
       <div class="modal__body">
@@ -418,12 +418,12 @@
         <p class="delete-warning">THIS ACTION CANNOT BE UNDONE.</p>
       </div>
       <div class="modal__footer">
-        <button type="button" class="btn btn--outline" onclick="closeDeleteModal()">[ CANCEL ]</button>
-        <button type="button" id="btn-confirm-delete" class="btn btn--danger">[ DELETE RECORD ]</button>
+        <button type="button" class="btn btn--outline" onclick="closeDeleteModal()">CANCEL</button>
+        <button type="button" id="btn-confirm-delete" class="btn btn--danger">DELETE RECORD</button>
       </div>
     </div>
   </div>
 
-  <script src="/admin/admin.js?v=20260906v7"></script>
+  <script src="/admin/admin.js?v=20260906v8"></script>
 </body>
 </html>
