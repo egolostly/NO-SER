@@ -1,4 +1,4 @@
-// NO!SER Official Production & License Verification Portal Script — Ultra-Premium Edition
+// NO!SER Official Production & License Verification Portal Script — 2-Color Architecture
 
 const menuButton = document.querySelector(".menu-button");
 const siteNav = document.querySelector(".site-nav");
@@ -6,7 +6,6 @@ const siteNav = document.querySelector(".site-nav");
 const translations = {
   tr: {
     "nav.license": "Lisans Doğrulama",
-    "nav.tiers": "Lisans Paketleri",
     "nav.specs": "Stüdyo Mimarisi",
     "nav.faq": "SSS",
     "nav.contact": "İletişim",
@@ -46,30 +45,6 @@ const translations = {
     "cert.previewBtn": "Belgeyi Önizle",
     "cert.shareBtn": "Linki Kopyala",
 
-    "tiers.tag": "LİSANS MODELLERİ VE HAKLAR",
-    "tiers.title": "Şeffaf ve Yasal Güvenceli Lisans Paketleri",
-    "tiers.desc": "İhtiyacınıza uygun lisans modelini belirleyin; tüm lisanslar resmi PDF sözleşmesi ve anlık tescil kodu ile teslim edilir.",
-    "tiers.popBadge": "EN ÇOK TERCİH EDİLEN",
-    "tiers.contactBtn": "Talep Gönder",
-    "tiers.t1Title": "Standart WAV Lisansı",
-    "tiers.t1Desc": "Bağımsız sanatçılar, single yayınları ve temel dijital dağıtım için idealdir.",
-    "tiers.t1f1": "24-Bit Yüksek Kalite Master WAV + MP3",
-    "tiers.t1f2": "100.000 Spotify / Apple Music Stream Hakkı",
-    "tiers.t1f3": "1 Ticari Müzik Videosu Yayın İzni",
-    "tiers.t1f4": "Resmi PDF Lisans Sözleşmesi & Doğrulama Kodu",
-    "tiers.t2Title": "Premium Trackout Lisansı",
-    "tiers.t2Desc": "Ayrıştırılmış kanal kanalları (stems) ile profesyonel stüdyo miksajı ve geniş dağıtım.",
-    "tiers.t2f1": "Tüm Track Stems (Davul, Bas, Melodiler, FX)",
-    "tiers.t2f2": "500.000 Dijital Stream & Radyo Yayın Hakkı",
-    "tiers.t2f3": "Sınırsız Ticari Müzik Videosu",
-    "tiers.t2f4": "Öncelikli Sync & Reklam Lisanslama İzni",
-    "tiers.t3Title": "Exclusive (Tam Mülkiyet)",
-    "tiers.t3Desc": "Eserin tüm telif ve kullanım haklarını üzerinize alıp beat'i katalogdan tamamen kaldıran tam yetki.",
-    "tiers.t3f1": "%100 Münhasır Fikri ve Ticari Mülkiyet",
-    "tiers.t3f2": "Sınırsız Stream, TV, Radyo & Konser Geliri",
-    "tiers.t3f3": "Beat Katalogdan Kalıcı Olarak Kaldırılır",
-    "tiers.t3f4": "Islak / E-İmzalı Noter Geçerli Özel Sözleşme",
-
     "specs.tag": "STÜDYO MİMARİSİ",
     "specs.title": "Teknik ve Akustik Standartlar",
     "specs.desc": "Uluslararası endüstri standartlarında miks, analog renklendirme ve her platform için optimize edilmiş mastering mimarisi.",
@@ -88,7 +63,7 @@ const translations = {
     "faq.q1": "Lisans doğrulama sistemi nasıl çalışır ve PDF sözleşme nasıl indirilir?",
     "faq.a1": "Satın alım sonrasında tarafınıza iletilen benzersiz lisans kodunu (Örn: NS-2026-8842) sayfanın yukarısındaki arama kutusuna yazarak saniyeler içinde doğrulatabilir, lisans kapsamını görebilir ve resmi PDF sözleşmenizi doğrudan indirebilirsiniz.",
     "faq.q2": "Satın aldığım beat ile Spotify, Apple Music ve YouTube'da para kazanabilir miyim?",
-    "faq.a2": "Evet. Aldığınız lisans paketinin akış sınırları dahilinde (Standart: 100k, Premium: 500k, Exclusive: Sınırsız) tüm dijital mağazalardan ve müzik videolarınızdan ticari gelir elde edebilirsiniz. Lisans belgeniz tüm dağıtımcılarda geçerlidir.",
+    "faq.a2": "Evet. Satın aldığınız lisans sözleşmeniz dahilinde tüm dijital platformlardan ve müzik videolarınızdan ticari gelir elde edebilirsiniz. Lisans belgeniz tüm dağıtımcılarda geçerlidir.",
     "faq.q3": "Exclusive (Özel) Lisans ile Kiralama (Lease) arasındaki fark nedir?",
     "faq.a3": "Kiralama modellerinde beat belirli stream limitleriyle birden fazla sanatçıya lisanslanabilir. Exclusive lisans satın aldığınızda ise beat hemen satıştan kaldırılır; eserin tam mülkiyeti ve sınırsız ticari hakları sadece size ait olur.",
     "faq.q4": "Özel beat siparişi, miks/mastering veya feat iş birliği nasıl başlatılır?",
@@ -108,13 +83,10 @@ const translations = {
     "contact.openInsta": "Instagram'ı Aç",
     "contact.openSoundcloud": "SoundCloud'ı Aç",
 
-    "theme.dark": "Siyah",
-    "theme.light": "Beyaz",
     "footer.rights": "Tüm hakları saklıdır"
   },
   en: {
     "nav.license": "License Verification",
-    "nav.tiers": "License Tiers",
     "nav.specs": "Studio Specs",
     "nav.faq": "FAQ",
     "nav.contact": "Contact",
@@ -154,30 +126,6 @@ const translations = {
     "cert.previewBtn": "Preview Document",
     "cert.shareBtn": "Copy Link",
 
-    "tiers.tag": "LICENSING TIERS & RIGHTS",
-    "tiers.title": "Transparent & Legally Protected Licensing",
-    "tiers.desc": "Choose the optimal tier for your release; all licenses come with an official PDF contract and instant verification code.",
-    "tiers.popBadge": "MOST POPULAR",
-    "tiers.contactBtn": "Inquire Now",
-    "tiers.t1Title": "Standard WAV Lease",
-    "tiers.t1Desc": "Ideal for independent artists, single releases, and foundational streaming distribution.",
-    "tiers.t1f1": "24-Bit Lossless Master WAV + MP3",
-    "tiers.t1f2": "100,000 Spotify / Apple Music Streams",
-    "tiers.t1f3": "1 Commercial Music Video",
-    "tiers.t1f4": "Official PDF Agreement & Verification Code",
-    "tiers.t2Title": "Premium Trackout Lease",
-    "tiers.t2Desc": "Includes individual multitrack stems for studio-grade mixing and wider commercial distribution.",
-    "tiers.t2f1": "Full Multitrack Stems (Drums, Bass, Melodies, FX)",
-    "tiers.t2f2": "500,000 Digital Streams & Radio Airplay",
-    "tiers.t2f3": "Unlimited Commercial Music Videos",
-    "tiers.t2f4": "Priority Sync & Commercial Clearance",
-    "tiers.t3Title": "Exclusive Rights (Full Buyout)",
-    "tiers.t3Desc": "Complete intellectual & commercial ownership; the beat is permanently removed from the public catalog.",
-    "tiers.t3f1": "100% Exclusive Intellectual & Commercial Rights",
-    "tiers.t3f2": "Unlimited Streaming, Radio, TV & Live Performance Revenue",
-    "tiers.t3f3": "Beat is Permanently Removed from Catalog",
-    "tiers.t3f4": "Signed Notarized Official Exclusive Agreement",
-
     "specs.tag": "STUDIO ARCHITECTURE",
     "specs.title": "Acoustic & Technical Standards",
     "specs.desc": "Industry-standard precision mixing, analog color saturation, and platform-optimized true peak mastering.",
@@ -196,7 +144,7 @@ const translations = {
     "faq.q1": "How does the verification system work and how do I get my PDF contract?",
     "faq.a1": "Simply enter your unique license code (e.g., NS-2026-8842) in the search box above to verify rights instantly and download your signed official PDF agreement directly.",
     "faq.q2": "Can I monetize my song on Spotify, Apple Music, and YouTube?",
-    "faq.a2": "Yes. Within the streaming limits of your purchased tier (Standard: 100k, Premium: 500k, Exclusive: Unlimited), you can collect 100% of your royalties on all platforms.",
+    "faq.a2": "Yes. Within your license contract terms, you can collect 100% of your royalties on all digital platforms and music videos.",
     "faq.q3": "What is the difference between an Exclusive Buyout and a Lease?",
     "faq.a3": "A Lease grants non-exclusive rights within stream limits. An Exclusive buyout transfers full commercial ownership to you and permanently removes the beat from sale.",
     "faq.q4": "How do I initiate a custom beat order, mixing project, or feature collaboration?",
@@ -216,8 +164,6 @@ const translations = {
     "contact.openInsta": "Open Instagram",
     "contact.openSoundcloud": "Open SoundCloud",
 
-    "theme.dark": "Dark",
-    "theme.light": "Light",
     "footer.rights": "All rights reserved"
   }
 };
@@ -254,42 +200,6 @@ function setLanguage(language) {
 document.querySelectorAll(".lang-btn").forEach((button) => {
   button.addEventListener("click", () => setLanguage(button.dataset.lang));
 });
-
-// ================= THEME SWITCHER (SIYAH TEMA & BEYAZ TEMA) =================
-const themeSwitchBtns = document.querySelectorAll("[data-theme-val]");
-
-function getActiveTheme() {
-  return localStorage.getItem("noiser-theme") || "dark";
-}
-
-function applyTheme(theme) {
-  const selectedTheme = (theme === "light") ? "light" : "dark";
-  document.documentElement.setAttribute("data-theme", selectedTheme);
-  if (selectedTheme === "light") {
-    document.body.classList.remove("theme-dark");
-    document.body.classList.add("theme-light");
-  } else {
-    document.body.classList.remove("theme-light");
-    document.body.classList.add("theme-dark");
-  }
-  localStorage.setItem("noiser-theme", selectedTheme);
-
-  // Update button active state
-  themeSwitchBtns.forEach(btn => {
-    const isActive = btn.dataset.themeVal === selectedTheme;
-    btn.classList.toggle("is-active", isActive);
-    btn.setAttribute("aria-pressed", String(isActive));
-  });
-}
-
-themeSwitchBtns.forEach(btn => {
-  btn.addEventListener("click", () => {
-    applyTheme(btn.dataset.themeVal);
-  });
-});
-
-// Initialize Theme
-applyTheme(getActiveTheme());
 
 // Initialize Language
 const savedLang = localStorage.getItem("noiser-language") || (navigator.language.startsWith("tr") ? "tr" : "en");
@@ -395,13 +305,13 @@ function animateVuMeters() {
     segments.forEach((seg, idx) => {
       if (idx < activeCount) {
         seg.style.opacity = "1";
-        seg.style.transform = "scaleY(" + (0.7 + Math.random() * 0.6) + ")";
+        seg.style.transform = "scaleY(" + (0.6 + Math.random() * 0.7) + ")";
       } else {
         seg.style.opacity = "0.2";
-        seg.style.transform = "scaleY(0.5)";
+        seg.style.transform = "scaleY(0.4)";
       }
     });
-  }, 180);
+  }, 160);
 }
 
 animateVuMeters();
@@ -441,9 +351,9 @@ if (btnCopyEmail && copyEmailText) {
 
     const feedback = () => {
       copyEmailText.textContent = copiedLabel;
-      btnCopyEmail.style.borderColor = "var(--navy)";
-      btnCopyEmail.style.background = "var(--navy)";
-      btnCopyEmail.style.color = "#FFFFFF";
+      btnCopyEmail.style.borderColor = "var(--c-gold)";
+      btnCopyEmail.style.background = "var(--c-gold)";
+      btnCopyEmail.style.color = "var(--c-navy-deep)";
       setTimeout(() => {
         copyEmailText.textContent = originalText;
         btnCopyEmail.style.borderColor = "";
@@ -554,15 +464,9 @@ async function executeLicenseVerification(licenseCode) {
         } else if (lic.status === "expired") {
           resStatusBadge.textContent = currentLanguage === "tr" ? "SÜRESİ DOLDU" : "EXPIRED";
           resStatusBadge.className = "cert-valid-badge";
-          resStatusBadge.style.color = "#F87171";
-          resStatusBadge.style.borderColor = "rgba(239, 68, 68, 0.4)";
-          resStatusBadge.style.background = "rgba(239, 68, 68, 0.15)";
         } else {
           resStatusBadge.textContent = currentLanguage === "tr" ? "ASKIDA" : "SUSPENDED";
           resStatusBadge.className = "cert-valid-badge";
-          resStatusBadge.style.color = "#FBBF24";
-          resStatusBadge.style.borderColor = "rgba(245, 158, 11, 0.4)";
-          resStatusBadge.style.background = "rgba(245, 158, 11, 0.15)";
         }
       }
 
