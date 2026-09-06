@@ -1,7 +1,8 @@
 /* ==========================================================================
    NO!SER ADMIN DASHBOARD
-   STRICT 2-COLOR DESIGN SYSTEM: NAVY (#0F508C) & GOLD (#C29810)
-   ZERO GRADIENTS · NO 3RD COLOR · SOLID MINIMALIST ARCHITECTURE
+   STRICT BRAND IDENTITY: NAVY (#0F508C), GOLD (#C29810) & WHITE (#FFFFFF)
+   ZERO GRADIENTS · SOLID MINIMALIST ARCHITECTURE
+   UPPER TEXT: WHITE (#FFFFFF) / SUBTEXT: GOLD (#C29810)
    ========================================================================== */
 
 :root {
@@ -13,17 +14,22 @@
   --gold: #C29810;
   --gold-hover: #DBAD16;
   --gold-dark: #A37E0A;
-  --gold-tint: rgba(194, 152, 16, 0.12);
+  --gold-tint: rgba(194, 152, 16, 0.14);
   --gold-border: rgba(194, 152, 16, 0.45);
+
+  --white: #FFFFFF;
+  --white-dim: #E2E8F0;
+  --white-muted: #94A3B8;
 
   --bg-page: #072542;
   --bg-card: #0A3761;
   --bg-subtle: #0D4477;
-  --bg-input: #072542;
+  --bg-input: #051C33;
   
-  --text-main: #C29810;
-  --text-body: #E8CF7C;
-  --text-muted: #BFA55A;
+  --text-main: #FFFFFF;
+  --text-sub: #C29810;
+  --text-body: #E2E8F0;
+  --text-muted: #94A3B8;
   
   --border-color: rgba(194, 152, 16, 0.35);
   --border-gold: #C29810;
@@ -67,7 +73,7 @@ a {
   transition: color 0.15s ease;
 }
 a:hover {
-  color: var(--gold-hover);
+  color: var(--white);
 }
 
 /* ================= BUTTONS ================= */
@@ -110,7 +116,7 @@ a:hover {
 
 .btn--navy {
   background-color: var(--navy-surface);
-  color: var(--gold);
+  color: var(--white);
   border-color: var(--gold);
 }
 .btn--navy:hover {
@@ -121,7 +127,7 @@ a:hover {
 
 .btn--outline {
   background-color: transparent;
-  color: var(--gold);
+  color: var(--white);
   border-color: var(--gold);
 }
 .btn--outline:hover {
@@ -131,7 +137,7 @@ a:hover {
 
 .btn--secondary {
   background-color: var(--navy-surface);
-  color: var(--gold);
+  color: var(--white);
   border-color: var(--gold-border);
 }
 .btn--secondary:hover {
@@ -141,7 +147,7 @@ a:hover {
 
 .btn--danger {
   background-color: var(--navy-deep);
-  color: var(--gold);
+  color: var(--white);
   border-color: var(--gold);
 }
 .btn--danger:hover {
@@ -183,7 +189,7 @@ a:hover {
   padding: 0;
 }
 .btn-text-link:hover {
-  color: var(--gold-hover);
+  color: var(--white);
   text-decoration: underline;
 }
 
@@ -249,12 +255,12 @@ a:hover {
   font-size: 30px;
   font-weight: 900;
   letter-spacing: 0.05em;
-  color: var(--gold);
+  color: var(--white);
 }
 
 .auth-subtitle {
   font-size: 11px;
-  color: var(--text-body);
+  color: var(--gold);
   text-transform: uppercase;
   letter-spacing: 0.14em;
   font-weight: 800;
@@ -269,7 +275,7 @@ a:hover {
   margin-bottom: 20px;
   font-size: 12px;
   line-height: 1.45;
-  color: var(--text-body);
+  color: var(--white-dim);
   text-align: center;
 }
 
@@ -285,7 +291,7 @@ a:hover {
   font-size: 12px;
   background-color: var(--navy-deep);
   border: 1.5px solid var(--gold);
-  color: var(--gold);
+  color: var(--white);
   display: flex;
   align-items: center;
   gap: 8px;
@@ -341,7 +347,7 @@ a:hover {
   background-color: var(--navy-deep);
   border: 1.5px solid var(--gold-border);
   border-radius: var(--radius-sm);
-  color: var(--gold);
+  color: var(--white);
   font-family: var(--sans);
   font-size: 13px;
   transition: border-color 0.15s ease;
@@ -357,12 +363,12 @@ a:hover {
 }
 .form-select option {
   background-color: var(--navy-deep);
-  color: var(--gold);
+  color: var(--white);
 }
 
 .form-help {
   font-size: 11px;
-  color: var(--text-muted);
+  color: var(--white-muted);
   margin-top: 2px;
 }
 
@@ -370,7 +376,7 @@ a:hover {
   font-family: var(--mono);
   font-weight: 700;
   letter-spacing: 0.06em;
-  color: var(--gold);
+  color: var(--white);
 }
 
 .input-with-icon {
@@ -392,7 +398,7 @@ a:hover {
   background-color: var(--navy-deep);
   border: 1.5px solid var(--gold-border);
   border-radius: var(--radius-sm);
-  color: var(--gold);
+  color: var(--white);
   font-family: var(--sans);
   font-size: 13px;
   transition: border-color 0.15s;
@@ -426,7 +432,7 @@ a:hover {
   display: flex;
   align-items: center;
   gap: 12px;
-  color: var(--gold);
+  color: var(--white);
 }
 
 .admin-header__logo {
@@ -446,7 +452,7 @@ a:hover {
   font-size: 22px;
   font-weight: 900;
   letter-spacing: 0.05em;
-  color: var(--gold);
+  color: var(--white);
 }
 
 .admin-header__badge {
@@ -467,7 +473,7 @@ a:hover {
 .admin-nav__btn {
   background: transparent;
   border: 1px solid transparent;
-  color: var(--text-body);
+  color: var(--white-dim);
   font-family: var(--sans);
   font-size: 12px;
   font-weight: 800;
@@ -484,7 +490,7 @@ a:hover {
   height: 15px;
 }
 .admin-nav__btn:hover {
-  color: var(--gold);
+  color: var(--white);
   background-color: var(--navy-surface);
 }
 .admin-nav__btn.is-active {
@@ -574,7 +580,7 @@ a:hover {
   font-size: 10px;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: var(--text-muted);
+  color: var(--gold);
   font-weight: 800;
 }
 
@@ -582,7 +588,7 @@ a:hover {
   font-family: var(--display);
   font-size: 28px;
   font-weight: 900;
-  color: var(--gold);
+  color: var(--white);
   line-height: 1.1;
   margin-top: 2px;
 }
@@ -620,7 +626,7 @@ a:hover {
   font-size: 20px;
   font-weight: 800;
   letter-spacing: 0.04em;
-  color: var(--gold);
+  color: var(--white);
   display: flex;
   align-items: center;
   gap: 10px;
@@ -643,7 +649,7 @@ a:hover {
 
 .panel-card__desc {
   font-size: 12px;
-  color: var(--text-body);
+  color: var(--white-dim);
   margin-top: 2px;
 }
 
@@ -662,7 +668,7 @@ a:hover {
   padding: 12px 16px;
   font-size: 12px;
   line-height: 1.5;
-  color: var(--text-body);
+  color: var(--white-dim);
   margin-bottom: 18px;
 }
 .info-callout strong {
@@ -728,7 +734,7 @@ a:hover {
 
 .pdf-dropzone__title {
   font-size: 13px;
-  color: var(--text-body);
+  color: var(--white);
   margin-bottom: 4px;
 }
 .pdf-dropzone__title strong {
@@ -737,7 +743,7 @@ a:hover {
 
 .pdf-dropzone__hint {
   font-size: 11px;
-  color: var(--text-muted);
+  color: var(--white-muted);
 }
 
 .dropzone-file-info {
@@ -767,11 +773,11 @@ a:hover {
 }
 .file-info-details strong {
   font-size: 12px;
-  color: var(--gold);
+  color: var(--white);
 }
 .file-info-details span {
   font-size: 11px;
-  color: var(--text-body);
+  color: var(--gold);
 }
 
 /* Tables */
@@ -803,7 +809,7 @@ a:hover {
   padding: 12px 14px;
   border-bottom: 1px solid var(--gold-border);
   vertical-align: middle;
-  color: var(--text-body);
+  color: var(--white-dim);
 }
 
 .admin-table tbody tr:hover {
@@ -813,19 +819,19 @@ a:hover {
 .table-empty {
   text-align: center;
   padding: 32px 14px !important;
-  color: var(--text-muted);
+  color: var(--white-muted);
 }
 
 .table-code {
   font-family: var(--mono);
   font-weight: 700;
-  color: var(--gold);
+  color: var(--white);
 }
 
 .btn-copy-code {
   background: transparent;
   border: none;
-  color: var(--text-muted);
+  color: var(--gold);
   cursor: pointer;
   padding: 2px;
   border-radius: 3px;
@@ -834,7 +840,7 @@ a:hover {
   margin-left: 4px;
 }
 .btn-copy-code:hover {
-  color: var(--gold);
+  color: var(--white);
 }
 
 .client-info {
@@ -843,11 +849,11 @@ a:hover {
 }
 .client-name {
   font-weight: 700;
-  color: var(--gold);
+  color: var(--white);
 }
 .client-email {
   font-size: 11px;
-  color: var(--text-muted);
+  color: var(--gold);
 }
 
 .status-badge {
@@ -899,7 +905,7 @@ a:hover {
   background-color: var(--navy-deep);
   border: 1.5px solid var(--gold-border);
   border-radius: var(--radius-sm);
-  color: var(--gold);
+  color: var(--white);
   min-width: 200px;
 }
 .table-search input:focus {
@@ -997,7 +1003,7 @@ a:hover {
   font-family: var(--display);
   font-size: 20px;
   font-weight: 900;
-  color: var(--gold);
+  color: var(--white);
 }
 
 .modal__header-actions {
@@ -1070,7 +1076,7 @@ a:hover {
   background-color: var(--navy-deep);
   border: 1.5px solid var(--gold-border);
   border-radius: var(--radius-sm);
-  color: var(--gold);
+  color: var(--white);
   font-size: 13px;
 }
 .quick-lookup-box input:focus {
@@ -1113,7 +1119,7 @@ a:hover {
   align-items: center;
   gap: 8px;
   animation: slideToast 0.2s ease forwards;
-  color: var(--gold);
+  color: var(--white);
 }
 
 .toast svg {

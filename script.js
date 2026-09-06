@@ -1,4 +1,4 @@
-// NO!SER Official Production & License Verification Portal Script — 2-Color Architecture
+// NO!SER Official Production & License Verification Portal Script — 2-Color Architecture & Vinyl Engine
 
 const menuButton = document.querySelector(".menu-button");
 const siteNav = document.querySelector(".site-nav");
@@ -280,6 +280,88 @@ function updateScrollState() {
 window.addEventListener("scroll", updateScrollState, { passive: true });
 updateScrollState();
 
+// ================= INTERACTIVE VINYL RECORD ENGINE =================
+const vinylEl = document.getElementById("hero-vinyl") || document.querySelector(".hero__vinyl");
+if (vinylEl) {
+  const DEFAULT_SPIN = 36; // deg/sec
+  const MAX_SPIN = 280;
+  let rotation = 0;
+  let spinSpeed = DEFAULT_SPIN;
+  let isDragging = false;
+  let lastAngle = 0;
+  let lastTime = null;
+
+  function angleFromEvent(evt) {
+    const rect = vinylEl.getBoundingClientRect();
+    const cx = rect.left + rect.width / 2;
+    const cy = rect.top + rect.height / 2;
+    const point = evt.touches ? evt.touches[0] : evt;
+    return Math.atan2(point.clientY - cy, point.clientX - cx) * (180 / Math.PI);
+  }
+
+  function onPointerDown(evt) {
+    isDragging = true;
+    lastAngle = angleFromEvent(evt);
+    vinylEl.classList.add("is-dragging");
+    if (evt.type === "touchstart") evt.preventDefault();
+  }
+
+  function onPointerMove(evt) {
+    if (!isDragging) return;
+    const angle = angleFromEvent(evt);
+    let delta = angle - lastAngle;
+    if (delta > 180) delta -= 360;
+    if (delta < -180) delta += 360;
+    rotation += delta;
+    lastAngle = angle;
+    vinylEl.style.transform = `rotate(${rotation}deg)`;
+    if (evt.type === "touchmove") evt.preventDefault();
+  }
+
+  function onPointerUp() {
+    if (!isDragging) return;
+    isDragging = false;
+    vinylEl.classList.remove("is-dragging");
+  }
+
+  function tick(time) {
+    if (lastTime === null) lastTime = time;
+    const dt = Math.min((time - lastTime) / 1000, 0.05);
+    lastTime = time;
+    if (!isDragging) {
+      rotation += spinSpeed * dt;
+      vinylEl.style.transform = `rotate(${rotation}deg)`;
+      spinSpeed += (DEFAULT_SPIN - spinSpeed) * Math.min(dt * 0.8, 1);
+    }
+    requestAnimationFrame(tick);
+  }
+
+  vinylEl.addEventListener("mousedown", onPointerDown);
+  vinylEl.addEventListener("touchstart", onPointerDown, { passive: false });
+  window.addEventListener("mousemove", (evt) => {
+    if (!isDragging) return;
+    const angle = angleFromEvent(evt);
+    let delta = angle - lastAngle;
+    if (delta > 180) delta -= 360;
+    if (delta < -180) delta += 360;
+    spinSpeed = Math.max(Math.min(delta * 60, MAX_SPIN), -MAX_SPIN);
+    onPointerMove(evt);
+  });
+  window.addEventListener("touchmove", (evt) => {
+    if (!isDragging) return;
+    const angle = angleFromEvent(evt);
+    let delta = angle - lastAngle;
+    if (delta > 180) delta -= 360;
+    if (delta < -180) delta += 360;
+    spinSpeed = Math.max(Math.min(delta * 60, MAX_SPIN), -MAX_SPIN);
+    onPointerMove(evt);
+  }, { passive: false });
+  window.addEventListener("mouseup", onPointerUp);
+  window.addEventListener("touchend", onPointerUp);
+
+  requestAnimationFrame(tick);
+}
+
 // ================= FAQ ACCORDION INTERACTION =================
 document.querySelectorAll(".faq-question").forEach((btn) => {
   btn.addEventListener("click", () => {
@@ -294,27 +376,6 @@ document.querySelectorAll(".faq-question").forEach((btn) => {
     item.classList.toggle("is-open", !isOpen);
   });
 });
-
-// ================= DYNAMIC VU METER SIMULATION =================
-function animateVuMeters() {
-  const segments = document.querySelectorAll(".vu-segment");
-  if (!segments.length) return;
-
-  setInterval(() => {
-    const activeCount = Math.floor(Math.random() * 4) + 3; // 3 to 7
-    segments.forEach((seg, idx) => {
-      if (idx < activeCount) {
-        seg.style.opacity = "1";
-        seg.style.transform = "scaleY(" + (0.6 + Math.random() * 0.7) + ")";
-      } else {
-        seg.style.opacity = "0.2";
-        seg.style.transform = "scaleY(0.4)";
-      }
-    });
-  }, 160);
-}
-
-animateVuMeters();
 
 // Reveal animations on scroll
 if ("IntersectionObserver" in window) {

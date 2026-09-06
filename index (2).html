@@ -13,7 +13,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css?v=20260906v5" />
+  <link rel="stylesheet" href="style.css?v=20260906v6" />
 </head>
 <body>
 
@@ -24,7 +24,7 @@
   <header class="site-header" id="top">
     <div class="site-header__container">
       
-      <!-- Brand Logo -->
+      <!-- Brand Logo: Upper text White, Subtitle Gold -->
       <a class="brand" href="#top" id="brand-logo-btn" aria-label="NO!SER Ana Sayfa">
         <img src="logo-mark.svg" alt="NO!SER Logo" class="brand__logo" width="36" height="36" />
         <div class="brand__text">
@@ -70,7 +70,7 @@
         
         <div class="hero__grid">
           
-          <!-- Left: Hero Text Content -->
+          <!-- Left: Hero Text Content (Upper Text White, Sub Text Gold) -->
           <div class="hero__content">
             <div class="hero__badge">
               <span class="badge-dot"></span>
@@ -97,7 +97,7 @@
               </a>
             </div>
 
-            <!-- Quick Trust Highlights -->
+            <!-- Quick Trust Highlights: Strong in White, Subtext in Gold -->
             <div class="hero__highlights">
               <div class="highlight-item">
                 <div class="highlight-item__icon">
@@ -131,53 +131,24 @@
             </div>
           </div>
 
-          <!-- Right: Official Producer Insignia Card -->
-          <div class="hero__card-wrap">
-            <div class="producer-emblem-card">
-              <div class="producer-emblem-card__top">
-                <span class="card-status-pill">
-                  <span class="status-live-dot"></span> RESMİ DOĞRULAMA AKTİF
-                </span>
-                <span class="card-region">IST / GLOBAL</span>
-              </div>
-
-              <div class="producer-emblem-card__brand">
-                <img src="logo-mark.svg" alt="NO!SER Mark" class="producer-emblem-logo" width="56" height="56" />
-                <h2 class="producer-emblem-title">NO!SER</h2>
-                <span class="producer-emblem-tag">OFFICIAL MUSIC PRODUCER HUB</span>
-                
-                <!-- Live Studio VU Level Meter Indicator -->
-                <div class="studio-meter-bar" aria-hidden="true">
-                  <span class="vu-segment"></span>
-                  <span class="vu-segment"></span>
-                  <span class="vu-segment"></span>
-                  <span class="vu-segment"></span>
-                  <span class="vu-segment"></span>
-                  <span class="vu-segment"></span>
-                  <span class="vu-segment"></span>
-                </div>
-              </div>
-
-              <div class="producer-emblem-card__specs">
-                <div class="spec-row">
-                  <span class="spec-label">HAK SAHİBİ:</span>
-                  <span class="spec-value">PROD. BY NO!SER</span>
-                </div>
-                <div class="spec-row">
-                  <span class="spec-label">LİSANS PROTOKOLÜ:</span>
-                  <span class="spec-value">SECURE REGISTRY 2026</span>
-                </div>
-                <div class="spec-row">
-                  <span class="spec-label">BELGE TÜRÜ:</span>
-                  <span class="spec-value">RESMİ PDF SÖZLEŞME</span>
-                </div>
-              </div>
-
-              <div class="producer-emblem-card__footer">
-                <a href="#license" class="card-action-link">
-                  <span>Lisans Sorgulama Konsolu</span>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                </a>
+          <!-- Right: Interactive Retro-Modern Vinyl Record Showcase -->
+          <div class="hero__visual" aria-hidden="true">
+            <div class="hero__vinyl" id="hero-vinyl">
+              <span class="hero__vinyl-groove hero__vinyl-groove--1"></span>
+              <span class="hero__vinyl-groove hero__vinyl-groove--2"></span>
+              <span class="hero__vinyl-groove hero__vinyl-groove--3"></span>
+              <span class="hero__vinyl-groove hero__vinyl-groove--4"></span>
+              <div class="hero__vinyl-label">
+                <svg class="hero__vinyl-label-ring" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                  <defs>
+                    <path id="labelCircle" d="M 50,50 m -37,0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0" />
+                  </defs>
+                  <text font-size="6" font-weight="900" letter-spacing="1.2" fill="#072542">
+                    <textPath href="#labelCircle" xlink:href="#labelCircle" startOffset="0%">NO!SER • NO!SER • NO!SER • NO!SER • NO!SER • NO!SER •</textPath>
+                  </text>
+                </svg>
+                <img src="logo-mark.svg" alt="NO!SER Center" class="hero__vinyl-center-logo" width="32" height="32" />
+                <span class="hero__vinyl-hole"></span>
               </div>
             </div>
           </div>
@@ -262,7 +233,7 @@
                 </div>
               </div>
 
-              <!-- Certificate Information Matrix -->
+              <!-- Certificate Information Matrix: Labels in Gold, Values in White -->
               <div class="cert-matrix">
                 <div class="cert-matrix__item">
                   <span class="cert-matrix__label" data-i18n="cert.code">LİSANS KODU</span>
@@ -471,7 +442,7 @@
         </div>
 
         <!-- 3 Master Channels in Strict Requested Order: 1. Instagram, 2. Email, 3. SoundCloud -->
-        <!-- All 3 channels share the exact same clean minimalist solid styling with Navy (#0F508C) & Gold (#C29810) -->
+        <!-- All 3 channels share the exact same clean minimalist solid styling with Navy (#0F508C), Gold (#C29810) & White (#FFFFFF) -->
         <div class="contact-grid">
 
           <!-- 1. Instagram (@prodbynoiser) -->
@@ -593,6 +564,6 @@
     </div>
   </div>
 
-  <script src="script.js?v=20260906v5"></script>
+  <script src="script.js?v=20260906v6"></script>
 </body>
 </html>
