@@ -37,6 +37,17 @@ function updateScrollProgress() {
 }
 window.addEventListener("scroll", updateScrollProgress, { passive: true });
 
+// Live Clock in Footer (UTC / Istanbul Time)
+function updateFooterClock() {
+  const clockEl = document.getElementById("footer-clock");
+  if (!clockEl) return;
+  const now = new Date();
+  const timeStr = now.toLocaleTimeString("en-GB", { timeZone: "Europe/Istanbul", hour12: false });
+  clockEl.textContent = `${timeStr} (UTC+3) // ISTANBUL`;
+}
+setInterval(updateFooterClock, 1000);
+updateFooterClock();
+
 // Status Message Render
 function showVerifyState(type, message) {
   if (!verifyState) return;
@@ -142,6 +153,8 @@ if (verifyForm) {
 window.fillAndVerify = function(code) {
   if (licenseCodeInput) {
     licenseCodeInput.value = code;
+    const verifySection = document.getElementById("verify");
+    if (verifySection) verifySection.scrollIntoView({ behavior: "smooth" });
     executeVerification(code);
   }
 };
@@ -153,12 +166,6 @@ if (btnCopyCode) {
     copyToClipboard(currentVerifiedLicense.code, btnCopyCode, "COPIED CODE");
   });
 }
-
-// Copy Email Function
-window.copyEmail = function(btnElement) {
-  const email = "qnoiser@gmail.com";
-  copyToClipboard(email, btnElement, "COPIED EMAIL");
-};
 
 function copyToClipboard(text, btnElement, feedbackText = "COPIED") {
   const originalText = btnElement ? btnElement.textContent : "";
