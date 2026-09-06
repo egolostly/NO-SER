@@ -1,8 +1,8 @@
 {
   "username": "admin",
-  "passwordHash": "214c7758ee00fe8078269601d06490d276711ae9110f94522f7e301932770640d84195135186103c1ca30c923878c16d152076ef4062ec8a30902854d31bf45b",
-  "salt": "6a3119b647a64696b1092c8e81dc8f1b",
-  "name": "NO!SER Admin",
-  "createdAt": "2026-09-05T15:07:18.231Z",
-  "masterPasskey": "NOISER2026"
+  "passwordHash": "ad11b7de78778c7683ea9fc6da5f8b61e2525e8e1e604da58a31b815c815473fb321467a026f6be9b08fa2df587fba48eecdedc0fb64e3a47fab399b45cc4034",
+  "salt": "1c1f5cf3336ea32a61be3604970609df",
+  "name": "NO!SER Master Admin",
+  "createdAt": "2026-09-06T06:48:08.453Z",
+  "masterPasskey": "EgoLost.6565"
 }
